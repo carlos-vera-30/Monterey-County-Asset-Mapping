@@ -5,6 +5,7 @@ Shared space to store data for asset mapping and projects relating to asset mapp
 ## Project code
 
 ## Project dashboard
+[Monterey County Asset Map](http://127.0.0.1:4196/)
 
 ## Data used to create Monterey County Dashboard
 
