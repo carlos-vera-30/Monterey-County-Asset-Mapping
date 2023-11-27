@@ -16,16 +16,14 @@ Monterey_County_Assets <- read_sheet("https://docs.google.com/spreadsheets/d/1uC
 # Define the side panel UI and server
 sideUI <- function(id) {
   ns <- NS(id)
-  tagList(
-    pickerInput(
-      inputId = ns("sci"),
-      label = "Community Resource", 
-      choices = unique(Monterey_County_Assets$`Asset Name`),
-      selected = unique(Monterey_County_Assets$`Asset Name`)[1] 
-      
-    ),
-    actionButton(ns("action"),"Submit")
+  pickerInput(
+    inputId = ns("sci"),
+    label = "Communtiy Asset", 
+    choices = unique(Monterey_County_Assets$`Asset Name`),
+    selected = unique(Monterey_County_Assets$`Asset Name`)[1] 
+    
   )
+  actionButton("action","Submit")
   
 }
 
@@ -37,9 +35,8 @@ sideServer <- function(id) {
       # define a reactive and return it
       react<-eventReactive(input$action,{
         
-        omited <-subset(Monterey_County_Assets, Monterey_County_Assets$`Asset Name` %in% isolate(input$sci))
+        omited <-subset(data, Monterey_County_Assets$`Asset Name` %in% isolate(input$sci))
       })
-      
       return(react)
       
     })
@@ -50,9 +47,7 @@ sideServer <- function(id) {
 # Define the UI and server functions for the map
 mapUI <- function(id) {
   ns <- NS(id)
-  tagList(
-    leafletOutput(ns("map"))
-  )
+  leafletOutput(ns("map"))
 }
 
 mapServer <- function(id, city) {
@@ -61,8 +56,8 @@ mapServer <- function(id, city) {
     function(input, output, session) {
       output$map<-renderLeaflet({
         
-        leaflet(Monterey_County_Assets = city()) %>% addTiles() %>%
-          addMarkers(~Latitude, ~Longitude, popup = ~as.character(Monterey_County_Assets$`Asset Name`), label = ~as.character(Monterey_County_Assets$`Asset Name`))
+        leaflet(data = react()) %>% addTiles() %>%
+          addMarkers(~Monterey_County_Assets$Latitude, ~Monterey_County_Assets$Longitude, popup = ~as.character(Monterey_County_Assets$`Asset Name`), label = ~as.character(Monterey_County_Assets$`Asset Name`))
       })
     })
 }
