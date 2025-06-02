@@ -15,5 +15,5 @@ Shared space to store data for asset mapping and projects relating to asset mapp
 
 [2022 Monterey County Community Health Needs Assessment](https://www.co.monterey.ca.us/home/showpublisheddocument/116036/638330566740070000)
 
-SUPORTING Documents
+Supporting Documents
 https://rstudio.github.io/leaflet/ 
