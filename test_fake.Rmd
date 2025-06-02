@@ -1,0 +1,980 @@
+---
+title: "Monterey County Asset Map"
+output: html_document
+---
+
+```{r}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+
+# Load required libraries
+# Load required libraries
+library(leaflet)
+library(DT)
+library(htmltools)
+library(htmlwidgets)
+library(dplyr)
+library(jsonlite)
+library(tidyverse)
+library(googlesheets4)
+library(tidygeocoder)
+
+# Define %||% operator
+`%||%` <- function(x, y) if (is.null(x)) y else x
+
+# Turn off authentication (anonymous access for public sheets)
+gs4_deauth()
+
+# Function to read data from a public Google Sheet
+read_asset_data <- function() {
+  tryCatch({
+    sheet_id <- "1FekJ3_fj5DZOy9XSgvnnW3dAmqPCNE6SNXEN0qN6Tbs"
+    sheet_name <- "By Category/ Por categoria"
+    
+    df <- read_sheet(sheet_id, sheet = sheet_name)
+    return(df)
+  }, error = function(e) {
+    message("Error reading sheet: ", e$message)
+    return(NULL)
+  })
+}
+
+# Load and process the data
+asset_data <- read_asset_data()
+
+# Check result
+if (!is.null(asset_data)) {
+  print("Data successfully loaded!")
+  print(head(asset_data))
+} else {
+  print("Failed to load data.")
+}
+
+# Load and process data
+asset_data <- read_asset_data()
+
+if (!is.null(asset_data)) {
+  # Your list of known categories
+  categories <- c(
+    "Adult Disability Resources", "Benefits", "Community Resources",
+    "Child Care/ Early Education", "Credit Bureaus/ Agencias de Informacion Crediticia",
+    "Crisis", "Child Development and Special Needs", "Emergency Shelters",
+    "Early Childhood Programs", "Education (Adult/Children)", "Education - School Districts",
+    "Employment", "Farmworker Assistance", "Grief and Loss", "Health - Physical Health",
+    "Health - Mental Health", "Home Visiting Programs", "Housing", "Immigration/Citizenship",
+    "Infant Resources", "Legal Assistance",
+    "Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)",
+    "Parenting Education", "Parent Support Groups", "Playgroups", "Recreation",
+    "Religious Services", "Seniors", "Substance use support/treatment/services",
+    "Children with Special Needs/Autism", "Teen Programs", "Transportation",
+    "Utility Assistance", "Veterans", "Victims of Crime Resources"
+  )
+  
+  # Process the data
+  colnames(asset_data)[1] <- "Raw"
+  asset_data <- asset_data %>%
+    filter(!if_all(everything(), ~ is.na(.) | . == ""))
+  
+  current_category <- NA
+  asset_data <- asset_data %>%
+    mutate(
+      Category = NA_character_,
+      Agency = NA_character_
+    )
+  
+  for (i in seq_len(nrow(asset_data))) {
+    raw_val <- asset_data$Raw[i]
+    
+    if (raw_val %in% categories) {
+      current_category <- raw_val
+    } else if (!is.na(current_category)) {
+      asset_data$Category[i] <- current_category
+      asset_data$Agency[i] <- raw_val
+    }
+  }
+  
+  cleaned_data <- asset_data %>%
+    filter(!is.na(Agency)) %>%
+    select(Category, Agency, everything(), -Raw)
+  
+  # Filter and geocode
+  cleaned_data <- cleaned_data %>% 
+    filter(!is.na(`Address/ Domicilio`) & `Address/ Domicilio` != "Online" & `Address/ Domicilio` != "online") %>%
+    filter(grepl("^[0-9]", `Address/ Domicilio`))
+  
+  Monterey_County_Assets <- cleaned_data %>%
+    rename(address = `Address/ Domicilio`) %>%
+    geocode(address = address, method = 'osm', lat = Latitude, long = Longitude) %>%
+    rename(
+      Asset_Name = Agency,
+      Asset_Category = Category
+    ) %>%
+    filter(!is.na(Latitude) & !is.na(Longitude))  # Only keep successfully geocoded entries
+  
+} else {
+  # Fallback to sample data if Google Sheets fails
+  Monterey_County_Assets <- data.frame(
+    Asset_Name = c("Monterey County Health Department"),
+    Asset_Category = c("Health - Physical Health"),
+    address = c("1200 Aguajito Rd, Monterey, CA 93940"),
+    Latitude = c(36.5877),
+    Longitude = c(-121.8580),
+    Phone = c("(831) 755-4500"),
+    Email = c("health@co.monterey.ca.us"),
+    Website = c("www.co.monterey.ca.us/health"),
+    stringsAsFactors = FALSE
+  )
+}
+
+# Define color mapping for categories (keep your existing category_colors)
+category_colors <- c(
+  "Adult Disability Resources" = "#1E88E5",
+  "Benefits" = "#4CAF50",
+  "Community Resources" = "#FF7043",
+  "Child Care/ Early Education" = "#8E24AA",
+  "Credit Bureaus/ Agencias de Informacion Crediticia" = "#E91E63",
+  "Crisis" = "#F44336",
+  "Child Development and Special Needs" = "#29B6F6",
+  "Emergency Shelters" = "#C62828",
+  "Early Childhood Programs" = "#42A5F5",
+  "Education (Adult/Children)" = "#2E7D32",
+  "Education - School Districts" = "#FDD835",
+  "Employment" = "#7B1FA2",
+  "Farmworker Assistance" = "#66BB6A",
+  "Grief and Loss" = "#3F51B5",
+  "Health - Physical Health" = "#E53935",
+  "Health - Mental Health" = "#FB8C00",
+  "Home Visiting Programs" = "#757575",
+  "Housing" = "#424242",
+  "Immigration/Citizenship" = "#FFD600",
+  "Infant Resources" = "#F8BBD0",
+  "Legal Assistance" = "#1976D2",
+  "Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)" = "#388E3C",
+  "Parenting Education" = "#81C784",
+  "Parent Support Groups" = "#64B5F6",
+  "Playgroups" = "#EF5350",
+  "Recreation" = "#81C784",
+  "Religious Services" = "#9C27B0",
+  "Seniors" = "#9E9E9E",
+  "Substance use support/treatment/services" = "#673AB7",
+  "Children with Special Needs/Autism" = "#4FC3F7",
+  "Teen Programs" = "#D4E157",
+  "Transportation" = "#26A69A",
+  "Utility Assistance" = "#2196F3",
+  "Veterans" = "#FF5722",
+  "Victims of Crime Resources" = "#FF9800"
+)
+
+# Function to get category color (used in R)
+get_category_color <- function(category) {
+  color <- category_colors[category]
+  if (is.na(color) || is.null(color)) {
+    return("#607D8B") # Default color
+  }
+  return(color)
+}
+
+# Add color column using the R function
+Monterey_County_Assets$color <- sapply(Monterey_County_Assets$Asset_Category, get_category_color)
+
+# Prepare data for JavaScript
+assets_json <- toJSON(Monterey_County_Assets, dataframe = "rows")
+categories <- sort(unique(Monterey_County_Assets$Asset_Category))
+category_colors_json <- toJSON(as.list(category_colors)) # Pass colors to JS
+```
+
+
+```{css}
+/* Custom CSS */
+.container-fluid {
+  padding: 0;
+}
+
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.header img {
+  max-height: 80px;
+  margin-bottom: 10px;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.control-group {
+  margin-bottom: 15px;
+}
+
+.btn {
+  margin: 5px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 2px solid white;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.results-container {
+  margin-top: 20px;
+}
+
+#map {
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  height: 600px; 
+}
+
+.address-search {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.address-search input {
+  flex: 2;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.distance-filter {
+  margin-top: 15px;
+  display: none;
+}
+
+.distance-filter select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.notification {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+  display: none;
+}
+
+.notification.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.notification.info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+@media (max-width: 768px) {
+  .address-search {
+    flex-direction: column;
+  }
+  
+  .address-search button {
+    margin-top: 5px;
+  }
+  
+  .container-fluid .row {
+    flex-direction: column;
+  }
+  
+  .col-md-4, .col-md-8 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+  
+  .sidebar {
+    margin-bottom: 20px;
+  }
+  
+  #map {
+    height: 400px !important; 
+  }
+  
+  .legend-item {
+    font-size: 11px;
+  }
+  
+  .btn {
+    font-size: 13px;
+    padding: 7px 14px;
+  }
+  .btn-sm {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+@media print {
+  body { font-size: 10pt; }
+  .sidebar, .header, footer, .btn, #notifications, .address-search, .distance-filter, #categoryFilter + div {
+    display: none !important;
+  }
+  
+  .col-md-8, .results-container, #resultsTable {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    float: none !important;
+  }
+  
+  #map {
+    height: auto !important;
+    border: 1px solid #ccc;
+  }
+  .leaflet-control-container { display: none !important; }
+
+  h1, h3, h4 { margin-top: 0.5em; margin-bottom: 0.2em; }
+}
+
+@media (prefers-contrast: high) {
+  .legend-color {
+    border: 3px solid Highlight;
+  }
+  .btn {
+    border: 2px solid ButtonText;
+    background-color: ButtonFace;
+    color: ButtonText;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a202c;
+    color: #e2e8f0;
+  }
+  .sidebar {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    border: 1px solid #4a5568;
+  }
+  .header {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+  }
+  .results-container, #resultsTable, .dataTables_wrapper {
+     color: #e2e8f0;
+  }
+  table.dataTable td, table.dataTable th {
+     color: #e2e8f0 !important;
+  }
+  .dataTables_length select, .dataTables_filter input {
+      background-color: #2d3748;
+      color: #e2e8f0;
+      border: 1px solid #4a5568;
+  }
+  .notification.info { background-color: #1e3a8a; color: #eff6ff; border-color: #3b82f6;}
+  .notification.success { background-color: #047857; color: #d1fae5; border-color: #34d399;}
+  .notification.error { background-color: #991b1b; color: #fee2e2; border-color: #f87171;}
+
+  a { color: #60a5fa; }
+  a:hover { color: #93c5fd; }
+}
+```
+
+<div class="header">
+<img src="https://www.co.monterey.ca.us/Home/ShowPublishedImage/2263/637165318035470000" alt="Monterey County Logo"/>
+<h1>Monterey County Asset Map</h1>
+<h3>Community Resources</h3>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+
+<div class="col-md-4">
+<div class="sidebar">
+<div class="control-group">
+<label><strong>Filter by Category:</strong></label>
+<select id="categoryFilter" multiple style="width: 100%; height: 150px;">
+</select>
+<div style="margin-top: 5px;">
+<button class="btn btn-secondary btn-sm" onclick="selectAllCategories()">Select All</button>
+<button class="btn btn-secondary btn-sm" onclick="clearAllCategories()">Clear All</button>
+</div>
+</div>
+
+<div class="control-group">
+  <label><strong>Search by Address:</strong></label>
+  <input type="text" id="searchAddress" placeholder="123 Main St, Salinas, CA" 
+         style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+  <small style="color: #666;">For best results, include city and state (e.g., Salinas, CA)</small>
+  <div class="address-search">
+    <button class="btn btn-primary" onclick="searchByAddress()">Search</button>
+    <button class="btn btn-info" onclick="getCurrentLocation()">Use Current Location</button>
+  </div>
+</div>
+
+<div class="distance-filter" id="distanceFilterDiv">
+  <label><strong>Show Resources Within:</strong></label>
+  <select id="distanceFilter" onchange="updateDistanceFilter()">
+    <option value="1">1 mile</option>
+    <option value="2">2 miles</option>
+    <option value="5" selected>5 miles</option>
+    <option value="10">10 miles</option>
+    <option value="999">All (from location)</option>
+  </select>
+</div>
+
+<div class="control-group">
+  <button class="btn btn-secondary" onclick="resetMap()" style="width: 100%;">Reset Map</button>
+</div>
+
+<div class="control-group">
+  <h4>Category Legend</h4>
+  <div id="legend">
+      <p style="font-style: italic; color: #666;">Select categories to see legend.</p>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="col-md-8">
+<div id="notifications"></div>
+
+```{r leaflet_map, fig.height=8}
+# Create the leaflet map
+leaflet(data = Monterey_County_Assets) %>%
+addTiles() %>%
+addProviderTiles("CartoDB.Positron", group = "Light Map") %>%
+addProviderTiles("Esri.WorldStreetMap", group = "Street Map") %>%
+addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
+addLayersControl(
+  baseGroups = c("Light Map", "Street Map", "Satellite"),
+  options = layersControlOptions(collapsed = FALSE)
+) %>%
+setView(lng = -121.6555, lat = 36.6777, zoom = 10) %>%
+addCircleMarkers(
+  lng = ~Longitude,
+  lat = ~Latitude,
+  popup = ~paste0(
+    "<strong>", htmltools::htmlEscape(Asset_Name), "</strong><br>",
+    "<em>", htmltools::htmlEscape(Asset_Category), "</em><br>",
+    "Address: ", htmltools::htmlEscape(address), "<br>",
+    ifelse(!is.na(Phone) & Phone != "", paste0("Phone: ", htmltools::htmlEscape(Phone), "<br>"), ""),
+    ifelse(!is.na(Email) & Email != "", paste0("Email: ", htmltools::htmlEscape(Email), "<br>"), ""),
+    ifelse(!is.na(Website) & Website != "", paste0("<a href='http://", Website, "' target='_blank'>Website</a>"), "")
+  ),
+  radius = 8,
+  fillColor = ~color,
+  color = "white",
+  weight = 2,
+  opacity = 1,
+  fillOpacity = 0.8,
+  layerId = ~paste0("marker_", seq_len(nrow(Monterey_County_Assets)))
+) %>%
+htmlwidgets::onRender("
+  function(el, x) {
+    window.assetMap = this;
+    
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(function() { initializeInterface(); }, 100);
+    } else {
+      document.addEventListener('DOMContentLoaded', function() {
+         setTimeout(function() { initializeInterface(); }, 100);
+      });
+    }
+  }
+")
+```
+
+<div class="results-container">
+<h4>Results</h4>
+<div id="resultsTable">
+```{r results_table}
+DT::datatable(
+  Monterey_County_Assets %>%
+    select(Asset_Name, Asset_Category, address, Phone, Email, Website) %>%
+    mutate(`Distance (miles)` = NA_character_) %>%
+    rename(
+      `Asset Name` = Asset_Name,
+      `Category` = Asset_Category,
+      `Address` = address,
+      `Phone` = Phone,
+      `Email` = Email,
+      `Website` = Website
+    ),
+  options = list(
+    pageLength = 5,
+    scrollX = TRUE,
+    dom = 'frtip',
+    columnDefs = list(
+      list(targets = 6, defaultContent = "N/A", orderable = TRUE, className = "dt-center")
+    )
+  ),
+  elementId = "assetsDataTable",
+  escape = FALSE
+)
+```
+</div>
+</div>
+</div>
+</div>
+</div>
+
+```{js}
+// Global variables
+let RCategoryColors = {};
+let allAssets = [];
+let filteredAssets = [];
+let searchCoords = null;
+let userMarker = null;
+
+function htmlDecode(input) {
+const doc = new DOMParser().parseFromString(input, "text/html");
+return doc.documentElement.textContent;
+}
+
+function initializeInterface() {
+console.log('Initializing interface...');
+try {
+RCategoryColors = JSON.parse(htmlDecode(`r category_colors_json`));
+
+allAssets = HTMLWidgets.dataframeToD3(`r assets_json`);
+if (!allAssets || allAssets.length === 0) {
+    console.warn('No assets loaded from R.');
+    showNotification('No asset data loaded. Map may not function correctly.', 'error');
+    return;
+}
+
+allAssets.forEach(asset => {
+    asset.color = asset.color || getAssetColor(asset.Asset_Category); 
+});
+
+filteredAssets = [...allAssets];
+
+populateCategoryFilter();
+updateLegend();
+updateMapMarkers();
+updateResultsTable();
+
+document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+document.getElementById('searchAddress').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') {
+    searchByAddress();
+  }
+});
+
+if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    window.assetsDataTable = $('#assetsDataTable').DataTable();
+} else {
+setTimeout(function() {
+if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+            window.assetsDataTable = $('#assetsDataTable').DataTable();
+        } else {
+            console.error("DataTable #assetsDataTable could not be initialized.");
+        }
+    }, 1000);
+}
+console.log('Interface initialized with', allAssets.length, 'assets');
+} catch (error) {
+console.error("Error initializing interface:", error);
+showNotification('Error initializing the map interface. Please check console.', 'error', 10000);
+}
+}
+
+function populateCategoryFilter() {
+const select = document.getElementById('categoryFilter');
+if (!select) return;
+const categories = [...new Set(allAssets.map(asset => String(asset.Asset_Category || '')))].sort();
+
+select.innerHTML = '';
+categories.forEach(category => {
+if (category.trim() === "") return;
+const option = document.createElement('option');
+option.value = category;
+option.textContent = category;
+option.selected = true;
+select.appendChild(option);
+});
+}
+
+function selectAllCategories() {
+const select = document.getElementById('categoryFilter');
+if (!select) return;
+for (let option of select.options) {
+option.selected = true;
+}
+applyFilters();
+}
+
+function clearAllCategories() {
+const select = document.getElementById('categoryFilter');
+if (!select) return;
+for (let option of select.options) {
+option.selected = false;
+}
+applyFilters();
+}
+
+function applyFilters() {
+const selectedCategories = Array.from(document.getElementById('categoryFilter').selectedOptions)
+.map(option => option.value);
+
+if (selectedCategories.length === 0) {
+filteredAssets = [];
+} else {
+filteredAssets = allAssets.filter(asset =>
+selectedCategories.includes(asset.Asset_Category)
+);
+}
+
+if (searchCoords) {
+applyDistanceFilter();
+} else {
+filteredAssets.sort((a, b) => a.Asset_Name.localeCompare(b.Asset_Name));
+}
+
+updateMapMarkers();
+updateLegend();
+updateResultsTable();
+}
+
+function applyDistanceFilter() {
+if (!searchCoords || !filteredAssets) return;
+
+const maxDistance = parseFloat(document.getElementById('distanceFilter').value);
+
+if (maxDistance < 999) {
+filteredAssets = filteredAssets.filter(asset => {
+if (typeof asset.Latitude === 'undefined' || typeof asset.Longitude === 'undefined') return false;
+const distance = calculateDistance(
+searchCoords.lat, searchCoords.lng,
+asset.Latitude, asset.Longitude
+);
+return distance <= maxDistance;
+});
+}
+
+filteredAssets.sort((a, b) => {
+if (typeof a.Latitude === 'undefined' || typeof b.Latitude === 'undefined') return 0;
+const distA = calculateDistance(searchCoords.lat, searchCoords.lng, a.Latitude, a.Longitude);
+const distB = calculateDistance(searchCoords.lat, searchCoords.lng, b.Latitude, b.Longitude);
+return distA - distB;
+});
+}
+
+function updateDistanceFilter() {
+if (!searchCoords) {
+showNotification('Please set a location first to filter by distance.', 'info');
+return;
+}
+applyFilters();
+
+if (window.assetMap) {
+const distance = parseFloat(document.getElementById('distanceFilter').value);
+let zoom = 10;
+if (distance <= 1) zoom = 14;
+else if (distance <= 2) zoom = 13;
+else if (distance <= 5) zoom = 12;
+else if (distance <= 10) zoom = 11;
+
+window.assetMap.setView([searchCoords.lat, searchCoords.lng], zoom);
+}
+}
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+if (lat1 == null || lon1 == null || lat2 == null || lon2 == null) return Infinity;
+const R = 3959;
+const dLat = (lat2 - lat1) * Math.PI / 180;
+const dLon = (lon2 - lon1) * Math.PI / 180;
+const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+Math.sin(dLon / 2) * Math.sin(dLon / 2);
+const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+return R * c;
+}
+
+async function searchByAddress() {
+const address = document.getElementById('searchAddress').value.trim();
+if (!address) {
+showNotification('Please enter an address.', 'error');
+return;
+}
+showNotification('Searching for address...', 'info', 2000);
+try {
+const fullAddressQuery = address.includes(',') ? address : `${address}, Monterey County, CA`;
+const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddressQuery)}&limit=1`);
+if (!response.ok) throw new Error(`Geocoding service returned status ${response.status}`);
+const data = await response.json();
+
+if (data && data.length > 0) {
+  const coords = {
+    lat: parseFloat(data[0].lat),
+    lng: parseFloat(data[0].lon)
+  };
+  setSearchLocation(coords);
+  showNotification('Address found! Showing nearby resources.', 'success');
+} else {
+  showNotification('Address not found. Please try a more specific address.', 'error');
+}
+} catch (error) {
+console.error('Geocoding error:', error);
+showNotification('Error searching for address. Please check network or try again.', 'error');
+}
+}
+
+function getCurrentLocation() {
+if (!navigator.geolocation) {
+showNotification('Geolocation is not supported by your browser.', 'error');
+return;
+}
+showNotification('Getting your current location...', 'info', 3000);
+navigator.geolocation.getCurrentPosition(
+(position) => {
+const coords = {
+lat: position.coords.latitude,
+lng: position.coords.longitude
+};
+setSearchLocation(coords);
+showNotification('Using your current location.', 'success');
+},
+(error) => {
+console.error('Geolocation error:', error);
+let msg = 'Could not get your location. ';
+if (error.code === 1) msg += 'Permission denied.';
+else if (error.code === 2) msg += 'Position unavailable.';
+else msg += 'Timeout.';
+showNotification(msg, 'error');
+},
+{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+);
+}
+
+function setSearchLocation(coords) {
+searchCoords = coords;
+document.getElementById('distanceFilterDiv').style.display = 'block';
+
+if (window.assetMap) {
+if (userMarker) {
+window.assetMap.removeLayer(userMarker);
+}
+userMarker = L.marker([coords.lat, coords.lng], {
+icon: L.icon({
+iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
+iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
+shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+})
+}).addTo(window.assetMap);
+userMarker.bindPopup('Your Searched Location').openPopup();
+
+updateDistanceFilter();
+} else {
+applyFilters();
+}
+}
+
+function updateMapMarkers() {
+if (!window.assetMap) return;
+
+window.assetMap.eachLayer(layer => {
+if (layer instanceof L.CircleMarker) {
+window.assetMap.removeLayer(layer);
+}
+});
+
+filteredAssets.forEach((asset) => {
+if (typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
+let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
+`<em>${asset.Asset_Category || 'N/A'}</em><br>` +
+`Address: ${asset.address || 'N/A'}<br>`;
+if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
+if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
+if (asset.Website) popupContent += `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">Website</a><br>`;
+
+  if (searchCoords) {
+    const distance = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
+    if (isFinite(distance)) {
+        popupContent += `Distance: ${distance.toFixed(2)} miles`;
+    }
+  }
+  
+  L.circleMarker([asset.Latitude, asset.Longitude], {
+    radius: 8,
+    fillColor: asset.color || getAssetColor(asset.Asset_Category),
+    color: 'white',
+    weight: 2,
+    opacity: 1,
+    fillOpacity: 0.8
+  }).bindPopup(popupContent).addTo(window.assetMap);
+}
+});
+}
+
+function getAssetColor(category) {
+return RCategoryColors[category] || "#607D8B";
+}
+
+function updateLegend() {
+const legendDiv = document.getElementById('legend');
+if (!legendDiv) return;
+
+const displayedCategories = [...new Set(filteredAssets.map(asset => asset.Asset_Category))].sort();
+
+legendDiv.innerHTML = '';
+if (displayedCategories.length === 0) {
+legendDiv.innerHTML = '<p style="font-style: italic; color: #666;">No categories selected or match current filters.</p>';
+return;
+}
+displayedCategories.forEach(category => {
+  if (!category) return; // Skip if category is null or undefined
+  const color = getAssetColor(category);
+  const item = document.createElement('div');
+  item.className = 'legend-item';
+  item.innerHTML = `<div class="legend-color" style="background-color: ${color};"></div><span>${category}</span>`;
+  legendDiv.appendChild(item);
+});
+}
+
+function updateResultsTable() {
+if (typeof window.assetsDataTable === 'undefined' || !window.assetsDataTable) {
+  // Try to re-initialize if it was missed.
+  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    window.assetsDataTable = $('#assetsDataTable').DataTable();
+  } else {
+    console.warn('DataTable not available for updateResultsTable.');
+    return;
+  }
+}
+
+window.assetsDataTable.clear(); // Clear existing data
+
+const tableData = filteredAssets.map(asset => {
+  let distanceText = "N/A"; // Default for the distance column
+  if (searchCoords && typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
+    const dist = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
+    if (isFinite(dist)) {
+      distanceText = `${dist.toFixed(2)} miles`;
+    }
+  }
+
+  return [
+    asset.Asset_Name || '',
+    asset.Asset_Category || '',
+    asset.address || '',
+    asset.Phone || '',
+    asset.Email || '',
+    asset.Website ? `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">${asset.Website}</a>` : '',
+    distanceText // This is the 7th column (index 6)
+  ];
+});
+
+window.assetsDataTable.rows.add(tableData).draw();
+}
+
+function resetMap() {
+searchCoords = null;
+document.getElementById('searchAddress').value = '';
+document.getElementById('distanceFilterDiv').style.display = 'none'; // Hide distance filter
+document.getElementById('distanceFilter').value = "5"; // Reset to default distance
+
+selectAllCategories(); // This will call applyFilters()
+
+if (userMarker && window.assetMap) {
+  window.assetMap.removeLayer(userMarker);
+  userMarker = null;
+}
+
+if (window.assetMap) {
+  window.assetMap.setView([36.6777, -121.6555], 10); // Reset to initial view (e.g., Salinas)
+}
+
+// applyFilters is called by selectAllCategories, which updates map, legend, table
+showNotification('Map and filters reset.', 'success');
+}
+
+function showNotification(message, type = 'info', duration = 4000) {
+const notificationsDiv = document.getElementById('notifications');
+if (!notificationsDiv) return;
+
+// Clear previous notification
+notificationsDiv.innerHTML = '';
+
+const notification = document.createElement('div');
+notification.className = `notification ${type}`;
+notification.textContent = message;
+notification.style.display = 'block';
+
+notificationsDiv.appendChild(notification);
+
+setTimeout(() => {
+  notification.style.opacity = '0'; // Start fade out
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.parentNode.removeChild(notification);
+    }
+  }, 500); // Remove after fade
+}, duration);
+}
+
+// Initial call to set up the interface (moved to onRender of the map for timing)
+// document.addEventListener('DOMContentLoaded', initializeInterface);
+
+// Handle window resize to invalidate map size
+window.addEventListener('resize', function() {
+if (window.assetMap) {
+  setTimeout(function() {
+    window.assetMap.invalidateSize();
+  }, 100);
+}
+});
+
+// Make functions globally accessible if called from HTML onclick
+window.selectAllCategories = selectAllCategories;
+window.clearAllCategories = clearAllCategories;
+window.searchByAddress = searchByAddress;
+window.getCurrentLocation = getCurrentLocation;
+window.updateDistanceFilter = updateDistanceFilter;
+window.resetMap = resetMap;
