@@ -67,39 +67,37 @@ if (!is.null(asset_data)) {
     "Utility Assistance", "Veterans", "Victims of Crime Resources"
   )
   
-  # Process the data
-  colnames(asset_data)[1] <- "Raw"
+ # Clean up empty rows
   asset_data <- asset_data %>%
     filter(!if_all(everything(), ~ is.na(.) | . == ""))
   
-  current_category <- NA
+  # Detect category and agency rows
   asset_data <- asset_data %>%
     mutate(
       Category = NA_character_,
       Agency = NA_character_
     )
-  
+
+  current_category <- NA
   for (i in seq_len(nrow(asset_data))) {
-    raw_val <- asset_data$Raw[i]
-    
-    if (raw_val %in% categories) {
-      current_category <- raw_val
-    } else if (!is.na(current_category)) {
+    row_val <- asset_data[i, 1, drop = TRUE][[1]]
+    if (row_val %in% categories) {
+      current_category <- row_val
+    } else if (!is.na(row_val) && nzchar(row_val)) {
       asset_data$Category[i] <- current_category
-      asset_data$Agency[i] <- raw_val
+      asset_data$Agency[i] <- row_val
     }
   }
   
-  cleaned_data <- asset_data %>%
-    filter(!is.na(Agency)) %>%
-    select(Category, Agency, everything(), -Raw)
-  
+  asset_data <- asset_data %>%
+    filter(!is.na(Agency))
+
   # Filter and geocode
-  cleaned_data <- cleaned_data %>% 
-    filter(!is.na(`Address/ Domicilio`) & `Address/ Domicilio` != "Online" & `Address/ Domicilio` != "online") %>%
+  cleaned_data <- asset_data %>% 
+    filter(!is.na(`Address/ Domicilio`) & !tolower(`Address/ Domicilio`) %in% c("online")) %>%
     filter(grepl("^[0-9]", `Address/ Domicilio`))
-  
-   sampled_data <- cleaned_data %>%
+
+  sampled_data <- cleaned_data %>%
     group_by(Category) %>%
     slice(1) %>%
     ungroup()
@@ -177,12 +175,20 @@ get_category_color <- function(category) {
 }
 
 # Add color column using the R function
-Monterey_County_Assets$color <- sapply(Monterey_County_Assets$Asset_Category, get_category_color)
+Monterey_County_Assets$color <- as.character(sapply(Monterey_County_Assets$Asset_Category, get_category_color))
 
 # Prepare data for JavaScript
 assets_json <- toJSON(Monterey_County_Assets, dataframe = "rows")
 categories <- sort(unique(Monterey_County_Assets$Asset_Category))
 category_colors_json <- toJSON(as.list(category_colors)) # Pass colors to JS
+
+# Inject JS variables to HTML so JS can access them
+cat(sprintf("
+<script>
+window.assets = %s;
+window.categoryColors = %s;
+</script>
+", assets_json, category_colors_json))
 
 ```
 
@@ -594,6 +600,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 ```{r leaflet_map, fig.height=8, echo=FALSE}
+
 # Create the leaflet map
 leaflet(data = Monterey_County_Assets) %>%
 addTiles() %>%
@@ -699,9 +706,12 @@ function htmlDecode(input) {
 function initializeInterface() {
   console.log('Initializing interface...');
   try {
-    RCategoryColors = JSON.parse(htmlDecode(`r category_colors_json`));
-    allAssets = HTMLWidgets.dataframeToD3(`r assets_json`);
-    
+    if (typeof window.assets !== 'undefined') {
+  allAssets = window.assets;
+}
+if (typeof window.categoryColors !== 'undefined') {
+  RCategoryColors = window.categoryColors;
+  
     if (!allAssets || allAssets.length === 0) {
       console.warn('No assets loaded from R.');
       showNotification('No asset data loaded. Map may not function correctly.', 'error');
@@ -712,7 +722,9 @@ function initializeInterface() {
       asset.color = asset.color || getAssetColor(asset.Asset_Category); 
     });
 
-    filteredAssets = [...allAssets];
+    filteredAssets = allAssets
+  .filter(asset => selectedCategories.includes(asset.Asset_Category))
+  .map(asset => ({ ...asset })); // preserve color
 
     populateCategoryFilter();
     updateLegend();
@@ -984,7 +996,11 @@ function updateMapMarkers() {
       
       L.circleMarker([asset.Latitude, asset.Longitude], {
         radius: 8,
-        fillColor: asset.color || getAssetColor(asset.Asset_Category),
+        if (typeof window.assets !== 'undefined') {
+  allAssets = window.assets;
+}
+if (typeof window.categoryColors !== 'undefined') {
+  RCategoryColors = window.categoryColors;
         color: 'white',
         weight: 2,
         opacity: 1,
