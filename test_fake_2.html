@@ -7155,32 +7155,7 @@ display: none;
 </div>
 
 
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ forcats   1.0.0     ✔ readr     2.1.5
-## ✔ ggplot2   3.5.0     ✔ stringr   1.5.1
-## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
-## ✔ purrr     1.0.2     ✔ tidyr     1.3.1
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter()  masks stats::filter()
-## ✖ purrr::flatten() masks jsonlite::flatten()
-## ✖ dplyr::lag()     masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-## ✔ Reading from &quot;DTH Community Resource List&quot;.
-## 
-## ✔ Range &#39;&#39;By Category/ Por categoria&#39;&#39;.
-## 
-## Passing 32 addresses to the Nominatim single address geocoder
-## 
-## Query completed in: 34.1 seconds</code></pre>
-<style>
+<style type="text/css">
 
 .container-fluid {
 padding: 0;
@@ -7415,7 +7390,7 @@ a:hover { color: #93c5fd; }
 }
 </style>
 <div class="header">
-<img src="data:text/html,%3CHTML%3E%3CHEAD%3E%0A%3CTITLE%3EAccess%20Denied%3C%2FTITLE%3E%0A%3C%2FHEAD%3E%3CBODY%3E%0A%3CH1%3EAccess%20Denied%3C%2FH1%3E%0A%20%0AYou%20don%27t%20have%20permission%20to%20access%20%22http%26%2358%3B%26%2347%3B%26%2347%3Bwww%26%2346%3Bcountyofmonterey%26%2346%3Bgov%26%2347%3BHome%26%2347%3BShowPublishedImage%26%2347%3B2263%26%2347%3B637165318035470000%22%20on%20this%20server%2E%3CP%3E%0AReference%26%2332%3B%26%2335%3B18%26%2346%3Bd74f4317%26%2346%3B1749166763%26%2346%3B86a5c1f3%0A%3CP%3Ehttps%26%2358%3B%26%2347%3B%26%2347%3Berrors%26%2346%3Bedgesuite%26%2346%3Bnet%26%2347%3B18%26%2346%3Bd74f4317%26%2346%3B1749166763%26%2346%3B86a5c1f3%3C%2FP%3E%0A%3C%2FBODY%3E%0A%3C%2FHTML%3E%0A" alt="Monterey County Logo" />
+<img src="data:text/html,%3CHTML%3E%3CHEAD%3E%0A%3CTITLE%3EAccess%20Denied%3C%2FTITLE%3E%0A%3C%2FHEAD%3E%3CBODY%3E%0A%3CH1%3EAccess%20Denied%3C%2FH1%3E%0A%20%0AYou%20don%27t%20have%20permission%20to%20access%20%22http%26%2358%3B%26%2347%3B%26%2347%3Bwww%26%2346%3Bcountyofmonterey%26%2346%3Bgov%26%2347%3BHome%26%2347%3BShowPublishedImage%26%2347%3B2263%26%2347%3B637165318035470000%22%20on%20this%20server%2E%3CP%3E%0AReference%26%2332%3B%26%2335%3B18%26%2346%3B4d60d017%26%2346%3B1749247565%26%2346%3B31658dcc%0A%3CP%3Ehttps%26%2358%3B%26%2347%3B%26%2347%3Berrors%26%2346%3Bedgesuite%26%2346%3Bnet%26%2347%3B18%26%2346%3B4d60d017%26%2346%3B1749247565%26%2346%3B31658dcc%3C%2FP%3E%0A%3C%2FBODY%3E%0A%3C%2FHTML%3E%0A" alt="Monterey County Logo" />
 <h1>
 Monterey County Asset Map
 </h1>
@@ -7425,61 +7400,139 @@ Community Resources
 </div>
 <div class="container-fluid">
 <div class="row">
-<div class="col-md-4">
-<div class="sidebar">
-<div class="control-group">
-<label><strong>Filter by Category:</strong></label>
-<div id="categoryCheckboxes" style="max-height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: white;">
-<!-- Categories will be populated here -->
-</div>
-<div style="margin-top: 5px;">
-<button type="button" class="btn btn-secondary btn-sm" onclick="selectAllCategories()">
-Select All
-</button>
-<button type="button" class="btn btn-secondary btn-sm" onclick="clearAllCategories()">
-Clear All
-</button>
-</div>
-</div>
-<div class="control-group">
-<label><strong>Search by Address:</strong></label>
-<div class="address-search">
-<pre><code>&lt;input type=&quot;text&quot; id=&quot;searchAddress&quot; placeholder=&quot;123 Main St, Salinas, CA&quot;
-       style=&quot;padding: 8px; border: 1px solid #ddd; border-radius: 4px;&quot;&gt; 
-&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; onclick=&quot;searchByAddress()&quot;&gt;Search&lt;/button&gt;
-&lt;button type=&quot;button&quot; class=&quot;btn btn-info&quot; onclick=&quot;getCurrentLocation()&quot;&gt;Use Current Location&lt;/button&gt;</code></pre>
-</div>
-<p><small style="color: #666; display: block; margin-top: 5px; margin-bottom: 10px;">For
-best results, include city and state (e.g., Salinas, CA)</small></p>
-</div>
-<div id="distanceFilterDiv" class="distance-filter">
-<p><label><strong>Show Resources Within:</strong></label>
-<select id="distanceFilter" onchange="updateDistanceFilter()">
-<option value="1">1 mile</option> <option value="2">2 miles</option>
-<option value="5" selected>5 miles</option> <option value="10">10
-miles</option> <option value="999">All (from location)</option>
-</select></p>
-</div>
-<div class="control-group">
-<p><button class="btn btn-secondary" onclick="resetMap()" style="width: 100%;">Reset
-Map</button></p>
-</div>
-<div class="control-group">
-<h4>
-Category Legend
-</h4>
-<div id="legend">
-<pre><code>  &lt;p style=&quot;font-style: italic; color: #666;&quot;&gt;Select categories to see legend.&lt;/p&gt;</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-8">
-<div id="notifications">
+<pre><code>&lt;div class=&quot;col-md-4&quot;&gt;
+  &lt;div class=&quot;sidebar&quot;&gt;
+    &lt;div class=&quot;control-group&quot;&gt;
+      &lt;label&gt;&lt;strong&gt;Filter by Category:&lt;/strong&gt;&lt;/label&gt;
+      &lt;div id=&quot;categoryCheckboxes&quot; style=&quot;max-height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; background: white;&quot;&gt;
+        &lt;!-- Categories will be populated here --&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;margin-top: 5px;&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-secondary btn-sm&quot; onclick=&quot;selectAllCategories()&quot;&gt;Select All&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-secondary btn-sm&quot; onclick=&quot;clearAllCategories()&quot;&gt;Clear All&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
 
+    &lt;div class=&quot;control-group&quot;&gt;
+      &lt;label&gt;&lt;strong&gt;Search by Address:&lt;/strong&gt;&lt;/label&gt;
+      &lt;div class=&quot;address-search&quot;&gt;
+        &lt;input type=&quot;text&quot; id=&quot;searchAddress&quot; placeholder=&quot;123 Main St, Salinas, CA&quot; 
+               style=&quot;padding: 8px; border: 1px solid #ddd; border-radius: 4px;&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; onclick=&quot;searchByAddress()&quot;&gt;Search&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-info&quot; onclick=&quot;getCurrentLocation()&quot;&gt;Use Current Location&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;small style=&quot;color: #666; display: block; margin-top: 5px; margin-bottom: 10px;&quot;&gt;For best results, include city and state (e.g., Salinas, CA)&lt;/small&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;distance-filter&quot; id=&quot;distanceFilterDiv&quot;&gt;
+      &lt;label&gt;&lt;strong&gt;Show Resources Within:&lt;/strong&gt;&lt;/label&gt;
+      &lt;select id=&quot;distanceFilter&quot; onchange=&quot;updateDistanceFilter()&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;1 mile&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;2 miles&lt;/option&gt;
+        &lt;option value=&quot;5&quot; selected&gt;5 miles&lt;/option&gt;
+        &lt;option value=&quot;10&quot;&gt;10 miles&lt;/option&gt;
+        &lt;option value=&quot;999&quot;&gt;All (from location)&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;control-group&quot;&gt;
+      &lt;button class=&quot;btn btn-secondary&quot; onclick=&quot;resetMap()&quot; style=&quot;width: 100%;&quot;&gt;Reset Map&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;control-group&quot;&gt;
+      &lt;h4&gt;Category Legend&lt;/h4&gt;
+      &lt;div id=&quot;legend&quot;&gt;
+        &lt;p style=&quot;font-style: italic; color: #666;&quot;&gt;Select categories to see legend.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-8&quot;&gt;
+  &lt;div id=&quot;notifications&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 </div>
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-c289a71798c23dbc7484" style="width:672px;height:768px;"></div>
-<script type="application/json" data-for="htmlwidget-c289a71798c23dbc7484">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["CartoDB.Positron",null,"Light Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldStreetMap",null,"Street Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Light Map","Street Map","Satellite"],[],{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"addCircleMarkers","args":[[36.672329,36.6723699,36.6824682,36.6767397,36.6792373,38.573938,36.6778731,36.6797778,36.6823763,36.6717762,36.6592348,36.6723699,36.8885872,36.6823763,36.6745308,36.6698699,36.6625996],[-121.65897,-121.6198414,-121.6042708,-121.6213509,-121.6526124,-121.497827,-121.6052961,-121.6524577,-121.6037736,-121.6519865,-121.6643641,-121.6198414,-121.6438172,-121.6037736,-121.6546637,-121.6490851,-121.8080341],8,["marker_1","marker_2","marker_3","marker_4","marker_5","marker_6","marker_7","marker_8","marker_9","marker_10","marker_11","marker_12","marker_13","marker_14","marker_15","marker_16","marker_17"],null,{"interactive":true,"className":"","stroke":true,"color":"white","weight":2,"opacity":1,"fill":true,"fillColor":["#1E88E5","#4CAF50","#8E24AA","#29B6F6","#F44336","#2E7D32","#FDD835","#C62828","#7B1FA2","#3F51B5","#F8BBD0","#1976D2","#388E3C","#EF5350","#9E9E9E","#673AB7","#FF5722"],"fillOpacity":0.8},null,null,["<strong>Central Coast Center for Independent Living<\/strong><br><em>Adult Disability Resources<\/em><br>Address: 318 Cayuga St, Salinas, CA 93901<br>Phone: (831)757-2968<br>Email: vsolorzano@cccil.org and info@cccil.org<br><a href='http://www.cccil.org' target='_blank'>Website<\/a>","<strong>California Rural Legal Assistance (CRLA) Salinas<\/strong><br><em>Benefits<\/em><br>Address: 3 Williams Road Salinas, CA 93905<br>Phone: (831) 757-5221<br><a href='http://https://crla.org/' target='_blank'>Website<\/a>","<strong>Alisal (MCOE pre-school)<\/strong><br><em>Child Care/ Early Education<\/em><br>Address: 1437 Del Monte Ave, Salinas, CA 93905<br>Phone: (831)757-5634<br>","<strong>Alisal Unified School District - Special Education Services<\/strong><br><em>Child Development and Special Needs<\/em><br>Address: 1205 E. Market St. • Salinas, CA 93905<br>Phone: (831) 753-5711<br>Email: janet.rodriguez@alisal.org<br><a href='http://https://www.alisal.org/domain/202' target='_blank'>Website<\/a>","<strong>Dorothy's Place<\/strong><br><em>Crisis<\/em><br>Address: 30 Soledad St. Salinas, CA 93902<br>Phone: (831)757-3838<br>","<strong>California Department of Developmental Services (ages birth to three)<\/strong><br><em>Education (Adult/Children)<\/em><br>Address: 1600 9th St. Sacramento, CA 95814<br>Phone: (916)654-1690<br><a href='http://www.dds.ca.gov' target='_blank'>Website<\/a>","<strong>Alisal Union School District<\/strong><br><em>Education - School Districts<\/em><br>Address: 155 Bardin Rd., Salinas, CA 93905<br>Phone: (831)753-5700<br>Email: janet.rodriguez@alisal.org, (813)753-5711 Ext 4212<br><a href='http://www.alisal.org' target='_blank'>Website<\/a>","<strong>Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)<\/strong><br><em>Emergency Shelters<\/em><br>Address: 115 E Lake St. Salinas, CA 93901<br>Phone: (831)272- 3042<br><a href='http://www.communityhomelesssolutions.org' target='_blank'>Website<\/a>","<strong>Alisal Family Recource Center - Healthy Start<\/strong><br><em>Employment<\/em><br>Address: 1441 Del Monte Avenue, Salinas, CA 93905<br>Phone: (831)775-4500<br>","<strong>Heal Together Hub<\/strong><br><em>Grief and Loss<\/em><br>Address: 427 Pajaro St, Salinas, CA 93901<br>Phone: 831-320-0947<br>Email: info@heal-together.org<br><a href='http://https://www.heal-together.org/' target='_blank'>Website<\/a>","<strong>The Parenting Connection<\/strong><br><em>Infant Resources<\/em><br>Address: 1212 Riker St, Salinas, CA 93901<br>Phone: 831-647-3333<br>Email: Salud@parentingconnectionMC.org<br><a href='http://https://www.parentingconnectionmc.org/' target='_blank'>Website<\/a>","<strong>California Rural Legal Assistance (CRLA) Salinas<\/strong><br><em>Legal Assistance<\/em><br>Address: 3 Williams Road Salinas, CA 93905<br>Phone: (831) 757-5221<br><a href='http://https://crla.org/' target='_blank'>Website<\/a>","<strong>Aromas - Monterey County Free Libraries<\/strong><br><em>Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)<\/em><br>Address: 387 Blohm Aromas, CA 95004<br>Phone: (831) 796-6128<br>","<strong>Alisal Family Resource Center<\/strong><br><em>Playgroups<\/em><br>Address: 1441 Del Monte Ave., Salinas, CA 93905<br>Phone: (831) 775-4500<br>Email: alma.jauregui@alisal.org<br>","<strong>Alliance on Aging (providing services &amp; advocacy on behalf of 55+ in Monterey County)<\/strong><br><em>Seniors<\/em><br>Address: 247 Main St, Salinas, CA 93901<br>Phone: 831-758-4011<br><a href='http://www.allianceonaging.org' target='_blank'>Website<\/a>","<strong>Access Support Network (Syringe Exchange, 1 for 1 Exchange<\/strong><br><em>Substance use support/treatment/services<\/em><br>Address: 223 John St, Salinas, CA 93901<br>Phone: (831)975-5016<br><a href='http://asn.org' target='_blank'>Website<\/a>","<strong>Major General William H Gourley VA DoD Outpatien Clinic<\/strong><br><em>Veterans<\/em><br>Address: 201 9th St. Marina, CA 93933<br>Phone: (831)884-1000<br><a href='http://www.va.gov' target='_blank'>Website<\/a>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[36.6777,-121.6555],10,[]],"limits":{"lat":[36.6592348,38.573938],"lng":[-121.8080341,-121.497827]}},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n    function(el, x) {\n      window.assetMap = this;\n      setTimeout(function() {\n        if (typeof initializeInterface === 'function') {\n          initializeInterface();\n        } else {\n          console.error('initializeInterface function not found');\n        }\n      }, 500);\n    }\n  ).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const assets = JSON.parse([{"DTH Community Resource List - By Category":"Central Coast Center for Independent Living","address":"318 Cayuga St, Salinas, CA 93901","Contact person":"Villy Solorzano","Email":"vsolorzano@cccil.org and info@cccil.org","Website":"www.cccil.org","Phone":"(831)757-2968","Location Tag":"Cross-County","Asset_Category":"Adult Disability Resources","Asset_Name":"Central Coast Center for Independent Living","Latitude":36.6723,"Longitude":-121.659,"color":"#1E88E5"},{"DTH Community Resource List - By Category":"California Rural Legal Assistance (CRLA) Salinas","address":"3 Williams Road Salinas, CA 93905","Website":"https://crla.org/","Phone":"(831) 757-5221","Location Tag":"Salinas","Asset_Category":"Benefits","Asset_Name":"California Rural Legal Assistance (CRLA) Salinas","Latitude":36.6724,"Longitude":-121.6198,"color":"#4CAF50"},{"DTH Community Resource List - By Category":"Alisal (MCOE pre-school)","address":"1437 Del Monte Ave, Salinas, CA 93905","Phone":"(831)757-5634","Location Tag":"Salinas","Asset_Category":"Child Care/ Early Education","Asset_Name":"Alisal (MCOE pre-school)","Latitude":36.6825,"Longitude":-121.6043,"color":"#8E24AA"},{"DTH Community Resource List - By Category":"Alisal Unified School District - Special Education Services","address":"1205 E. Market St. • Salinas, CA 93905","Contact person":"Janet Rodriguez","Email":"janet.rodriguez@alisal.org","Website":"https://www.alisal.org/domain/202","Phone":"(831) 753-5711","Asset_Category":"Child Development and Special Needs","Asset_Name":"Alisal Unified School District - Special Education Services","Latitude":36.6767,"Longitude":-121.6214,"color":"#29B6F6"},{"DTH Community Resource List - By Category":"Dorothy's Place","address":"30 Soledad St. Salinas, CA 93902","Phone":"(831)757-3838","Asset_Category":"Crisis","Asset_Name":"Dorothy's Place","Latitude":36.6792,"Longitude":-121.6526,"color":"#F44336"},{"DTH Community Resource List - By Category":"California Department of Developmental Services (ages birth to three)","address":"1600 9th St. Sacramento, CA 95814","Website":"www.dds.ca.gov","Phone":"(916)654-1690","Asset_Category":"Education (Adult/Children)","Asset_Name":"California Department of Developmental Services (ages birth to three)","Latitude":38.5739,"Longitude":-121.4978,"color":"#2E7D32"},{"DTH Community Resource List - By Category":"Alisal Union School District","address":"155 Bardin Rd., Salinas, CA 93905","Contact person":"Janet Rodriguez, Translator/Clerk","Email":"janet.rodriguez@alisal.org, (813)753-5711 Ext 4212","Website":"www.alisal.org","Phone":"(831)753-5700","Asset_Category":"Education - School Districts","Asset_Name":"Alisal Union School District","Latitude":36.6779,"Longitude":-121.6053,"color":"#FDD835"},{"DTH Community Resource List - By Category":"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)","address":"115 E Lake St. Salinas, CA 93901","Website":"www.communityhomelesssolutions.org","Phone":"(831)272- 3042","Asset_Category":"Emergency Shelters","Asset_Name":"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)","Latitude":36.6798,"Longitude":-121.6525,"color":"#C62828"},{"DTH Community Resource List - By Category":"Alisal Family Recource Center - Healthy Start","address":"1441 Del Monte Avenue, Salinas, CA 93905","Phone":"(831)775-4500","Asset_Category":"Employment","Asset_Name":"Alisal Family Recource Center - Healthy Start","Latitude":36.6824,"Longitude":-121.6038,"color":"#7B1FA2"},{"DTH Community Resource List - By Category":"Heal Together Hub","address":"427 Pajaro St, Salinas, CA 93901","Email":"info@heal-together.org","Website":"https://www.heal-together.org/","Phone":"831-320-0947","Asset_Category":"Grief and Loss","Asset_Name":"Heal Together Hub","Latitude":36.6718,"Longitude":-121.652,"color":"#3F51B5"},{"DTH Community Resource List - By Category":"The Parenting Connection","address":"1212 Riker St, Salinas, CA 93901","Email":"Salud@parentingconnectionMC.org","Website":"https://www.parentingconnectionmc.org/","Phone":"831-647-3333","Asset_Category":"Infant Resources","Asset_Name":"The Parenting Connection","Latitude":36.6592,"Longitude":-121.6644,"color":"#F8BBD0"},{"DTH Community Resource List - By Category":"California Rural Legal Assistance (CRLA) Salinas","address":"3 Williams Road Salinas, CA 93905","Website":"https://crla.org/","Phone":"(831) 757-5221","Asset_Category":"Legal Assistance","Asset_Name":"California Rural Legal Assistance (CRLA) Salinas","Latitude":36.6724,"Longitude":-121.6198,"color":"#1976D2"},{"DTH Community Resource List - By Category":"Aromas - Monterey County Free Libraries","address":"387 Blohm Aromas, CA 95004","Phone":"(831) 796-6128","Asset_Category":"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)","Asset_Name":"Aromas - Monterey County Free Libraries","Latitude":36.8886,"Longitude":-121.6438,"color":"#388E3C"},{"DTH Community Resource List - By Category":"Alisal Family Resource Center","address":"1441 Del Monte Ave., Salinas, CA 93905","Contact person":"Alma Jauregui","Email":"alma.jauregui@alisal.org","Phone":"(831) 775-4500","Asset_Category":"Playgroups","Asset_Name":"Alisal Family Resource Center","Latitude":36.6824,"Longitude":-121.6038,"color":"#EF5350"},{"DTH Community Resource List - By Category":"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)","address":"247 Main St, Salinas, CA 93901","Website":"www.allianceonaging.org","Phone":"831-758-4011","Asset_Category":"Seniors","Asset_Name":"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)","Latitude":36.6745,"Longitude":-121.6547,"color":"#9E9E9E"},{"DTH Community Resource List - By Category":"Access Support Network (Syringe Exchange, 1 for 1 Exchange","address":"223 John St, Salinas, CA 93901","Website":"asn.org","Phone":"(831)975-5016","Asset_Category":"Substance use support/treatment/services","Asset_Name":"Access Support Network (Syringe Exchange, 1 for 1 Exchange","Latitude":36.6699,"Longitude":-121.6491,"color":"#673AB7"},{"DTH Community Resource List - By Category":"Major General William H Gourley VA DoD Outpatien Clinic","address":"201 9th St. Marina, CA 93933","Website":"www.va.gov","Phone":"(831)884-1000","Asset_Category":"Veterans","Asset_Name":"Major General William H Gourley VA DoD Outpatien Clinic","Latitude":36.6626,"Longitude":-121.808,"color":"#FF5722"}]);
+  const categoryColors = JSON.parse({"Adult Disability Resources":["#1E88E5"],"Benefits":["#4CAF50"],"Community Resources":["#FF7043"],"Child Care/ Early Education":["#8E24AA"],"Credit Bureaus/ Agencias de Informacion Crediticia":["#E91E63"],"Crisis":["#F44336"],"Child Development and Special Needs":["#29B6F6"],"Emergency Shelters":["#C62828"],"Early Childhood Programs":["#42A5F5"],"Education (Adult/Children)":["#2E7D32"],"Education - School Districts":["#FDD835"],"Employment":["#7B1FA2"],"Farmworker Assistance":["#66BB6A"],"Grief and Loss":["#3F51B5"],"Health - Physical Health":["#E53935"],"Health - Mental Health":["#FB8C00"],"Home Visiting Programs":["#757575"],"Housing":["#424242"],"Immigration/Citizenship":["#FFD600"],"Infant Resources":["#F8BBD0"],"Legal Assistance":["#1976D2"],"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)":["#388E3C"],"Parenting Education":["#81C784"],"Parent Support Groups":["#64B5F6"],"Playgroups":["#EF5350"],"Recreation":["#81C784"],"Religious Services":["#9C27B0"],"Seniors":["#9E9E9E"],"Substance use support/treatment/services":["#673AB7"],"Children with Special Needs/Autism":["#4FC3F7"],"Teen Programs":["#D4E157"],"Transportation":["#26A69A"],"Utility Assistance":["#2196F3"],"Veterans":["#FF5722"],"Victims of Crime Resources":["#FF9800"]});
+
+  function renderCategoryCheckboxes() {
+    const container = document.getElementById("categoryCheckboxes");
+    const categories = Object.keys(categoryColors).sort();
+    categories.forEach(cat => {
+      const id = `cat-${cat.replace(/\\s+/g, "_")}`;
+      const color = categoryColors[cat] || "#607D8B";
+      const label = `
+        <div class="legend-item">
+          <input type="checkbox" class="category-check" id="${id}" value="${cat}" checked>
+          <label for="${id}">
+            <div class="legend-color" style="background-color:${color}; display:inline-block;"></div>
+            ${cat}
+          </label>
+        </div>`;
+      container.innerHTML += label;
+    });
+
+    document.querySelectorAll('.category-check').forEach(cb => {
+      cb.addEventListener('change', () => {
+        updateLegend(getSelectedCategories());
+      });
+    });
+  }
+
+  function getSelectedCategories() {
+    return Array.from(document.querySelectorAll('.category-check:checked'))
+      .map(cb => cb.value);
+  }
+
+  function updateLegend(selectedCategories) {
+    const legend = document.getElementById("legend");
+    legend.innerHTML = "";
+    if (selectedCategories.length === 0) {
+      legend.innerHTML = '<p style="font-style: italic; color: #666;">Select categories to see legend.</p>';
+      return;
+    }
+    selectedCategories.forEach(cat => {
+      const color = categoryColors[cat] || "#607D8B";
+      const item = document.createElement("div");
+      item.className = "legend-item";
+      item.innerHTML = `<div class="legend-color" style="background-color:${color};"></div>${cat}`;
+      legend.appendChild(item);
+    });
+  }
+
+  window.selectAllCategories = function() {
+    document.querySelectorAll('.category-check').forEach(cb => cb.checked = true);
+    updateLegend(getSelectedCategories());
+  };
+
+  window.clearAllCategories = function() {
+    document.querySelectorAll('.category-check').forEach(cb => cb.checked = false);
+    updateLegend([]);
+  };
+
+  renderCategoryCheckboxes();
+  updateLegend(getSelectedCategories());
+});
+</script>
+</script>
+<pre><code>## 
+## &lt;script&gt;
+## // Make data available globally for JavaScript functions
+## window.assets = [{&quot;DTH Community Resource List - By Category&quot;:&quot;Central Coast Center for Independent Living&quot;,&quot;address&quot;:&quot;318 Cayuga St, Salinas, CA 93901&quot;,&quot;Contact person&quot;:&quot;Villy Solorzano&quot;,&quot;Email&quot;:&quot;vsolorzano@cccil.org and info@cccil.org&quot;,&quot;Website&quot;:&quot;www.cccil.org&quot;,&quot;Phone&quot;:&quot;(831)757-2968&quot;,&quot;Location Tag&quot;:&quot;Cross-County&quot;,&quot;Asset_Category&quot;:&quot;Adult Disability Resources&quot;,&quot;Asset_Name&quot;:&quot;Central Coast Center for Independent Living&quot;,&quot;Latitude&quot;:36.6723,&quot;Longitude&quot;:-121.659,&quot;color&quot;:&quot;#1E88E5&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;California Rural Legal Assistance (CRLA) Salinas&quot;,&quot;address&quot;:&quot;3 Williams Road Salinas, CA 93905&quot;,&quot;Website&quot;:&quot;https://crla.org/&quot;,&quot;Phone&quot;:&quot;(831) 757-5221&quot;,&quot;Location Tag&quot;:&quot;Salinas&quot;,&quot;Asset_Category&quot;:&quot;Benefits&quot;,&quot;Asset_Name&quot;:&quot;California Rural Legal Assistance (CRLA) Salinas&quot;,&quot;Latitude&quot;:36.6724,&quot;Longitude&quot;:-121.6198,&quot;color&quot;:&quot;#4CAF50&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Alisal (MCOE pre-school)&quot;,&quot;address&quot;:&quot;1437 Del Monte Ave, Salinas, CA 93905&quot;,&quot;Phone&quot;:&quot;(831)757-5634&quot;,&quot;Location Tag&quot;:&quot;Salinas&quot;,&quot;Asset_Category&quot;:&quot;Child Care/ Early Education&quot;,&quot;Asset_Name&quot;:&quot;Alisal (MCOE pre-school)&quot;,&quot;Latitude&quot;:36.6825,&quot;Longitude&quot;:-121.6043,&quot;color&quot;:&quot;#8E24AA&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Alisal Unified School District - Special Education Services&quot;,&quot;address&quot;:&quot;1205 E. Market St. • Salinas, CA 93905&quot;,&quot;Contact person&quot;:&quot;Janet Rodriguez&quot;,&quot;Email&quot;:&quot;janet.rodriguez@alisal.org&quot;,&quot;Website&quot;:&quot;https://www.alisal.org/domain/202&quot;,&quot;Phone&quot;:&quot;(831) 753-5711&quot;,&quot;Asset_Category&quot;:&quot;Child Development and Special Needs&quot;,&quot;Asset_Name&quot;:&quot;Alisal Unified School District - Special Education Services&quot;,&quot;Latitude&quot;:36.6767,&quot;Longitude&quot;:-121.6214,&quot;color&quot;:&quot;#29B6F6&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Dorothy&#39;s Place&quot;,&quot;address&quot;:&quot;30 Soledad St. Salinas, CA 93902&quot;,&quot;Phone&quot;:&quot;(831)757-3838&quot;,&quot;Asset_Category&quot;:&quot;Crisis&quot;,&quot;Asset_Name&quot;:&quot;Dorothy&#39;s Place&quot;,&quot;Latitude&quot;:36.6792,&quot;Longitude&quot;:-121.6526,&quot;color&quot;:&quot;#F44336&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;California Department of Developmental Services (ages birth to three)&quot;,&quot;address&quot;:&quot;1600 9th St. Sacramento, CA 95814&quot;,&quot;Website&quot;:&quot;www.dds.ca.gov&quot;,&quot;Phone&quot;:&quot;(916)654-1690&quot;,&quot;Asset_Category&quot;:&quot;Education (Adult/Children)&quot;,&quot;Asset_Name&quot;:&quot;California Department of Developmental Services (ages birth to three)&quot;,&quot;Latitude&quot;:38.5739,&quot;Longitude&quot;:-121.4978,&quot;color&quot;:&quot;#2E7D32&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Alisal Union School District&quot;,&quot;address&quot;:&quot;155 Bardin Rd., Salinas, CA 93905&quot;,&quot;Contact person&quot;:&quot;Janet Rodriguez, Translator/Clerk&quot;,&quot;Email&quot;:&quot;janet.rodriguez@alisal.org, (813)753-5711 Ext 4212&quot;,&quot;Website&quot;:&quot;www.alisal.org&quot;,&quot;Phone&quot;:&quot;(831)753-5700&quot;,&quot;Asset_Category&quot;:&quot;Education - School Districts&quot;,&quot;Asset_Name&quot;:&quot;Alisal Union School District&quot;,&quot;Latitude&quot;:36.6779,&quot;Longitude&quot;:-121.6053,&quot;color&quot;:&quot;#FDD835&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)&quot;,&quot;address&quot;:&quot;115 E Lake St. Salinas, CA 93901&quot;,&quot;Website&quot;:&quot;www.communityhomelesssolutions.org&quot;,&quot;Phone&quot;:&quot;(831)272- 3042&quot;,&quot;Asset_Category&quot;:&quot;Emergency Shelters&quot;,&quot;Asset_Name&quot;:&quot;Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)&quot;,&quot;Latitude&quot;:36.6798,&quot;Longitude&quot;:-121.6525,&quot;color&quot;:&quot;#C62828&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Alisal Family Recource Center - Healthy Start&quot;,&quot;address&quot;:&quot;1441 Del Monte Avenue, Salinas, CA 93905&quot;,&quot;Phone&quot;:&quot;(831)775-4500&quot;,&quot;Asset_Category&quot;:&quot;Employment&quot;,&quot;Asset_Name&quot;:&quot;Alisal Family Recource Center - Healthy Start&quot;,&quot;Latitude&quot;:36.6824,&quot;Longitude&quot;:-121.6038,&quot;color&quot;:&quot;#7B1FA2&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Heal Together Hub&quot;,&quot;address&quot;:&quot;427 Pajaro St, Salinas, CA 93901&quot;,&quot;Email&quot;:&quot;info@heal-together.org&quot;,&quot;Website&quot;:&quot;https://www.heal-together.org/&quot;,&quot;Phone&quot;:&quot;831-320-0947&quot;,&quot;Asset_Category&quot;:&quot;Grief and Loss&quot;,&quot;Asset_Name&quot;:&quot;Heal Together Hub&quot;,&quot;Latitude&quot;:36.6718,&quot;Longitude&quot;:-121.652,&quot;color&quot;:&quot;#3F51B5&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;The Parenting Connection&quot;,&quot;address&quot;:&quot;1212 Riker St, Salinas, CA 93901&quot;,&quot;Email&quot;:&quot;Salud@parentingconnectionMC.org&quot;,&quot;Website&quot;:&quot;https://www.parentingconnectionmc.org/&quot;,&quot;Phone&quot;:&quot;831-647-3333&quot;,&quot;Asset_Category&quot;:&quot;Infant Resources&quot;,&quot;Asset_Name&quot;:&quot;The Parenting Connection&quot;,&quot;Latitude&quot;:36.6592,&quot;Longitude&quot;:-121.6644,&quot;color&quot;:&quot;#F8BBD0&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;California Rural Legal Assistance (CRLA) Salinas&quot;,&quot;address&quot;:&quot;3 Williams Road Salinas, CA 93905&quot;,&quot;Website&quot;:&quot;https://crla.org/&quot;,&quot;Phone&quot;:&quot;(831) 757-5221&quot;,&quot;Asset_Category&quot;:&quot;Legal Assistance&quot;,&quot;Asset_Name&quot;:&quot;California Rural Legal Assistance (CRLA) Salinas&quot;,&quot;Latitude&quot;:36.6724,&quot;Longitude&quot;:-121.6198,&quot;color&quot;:&quot;#1976D2&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Aromas - Monterey County Free Libraries&quot;,&quot;address&quot;:&quot;387 Blohm Aromas, CA 95004&quot;,&quot;Phone&quot;:&quot;(831) 796-6128&quot;,&quot;Asset_Category&quot;:&quot;Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)&quot;,&quot;Asset_Name&quot;:&quot;Aromas - Monterey County Free Libraries&quot;,&quot;Latitude&quot;:36.8886,&quot;Longitude&quot;:-121.6438,&quot;color&quot;:&quot;#388E3C&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Alisal Family Resource Center&quot;,&quot;address&quot;:&quot;1441 Del Monte Ave., Salinas, CA 93905&quot;,&quot;Contact person&quot;:&quot;Alma Jauregui&quot;,&quot;Email&quot;:&quot;alma.jauregui@alisal.org&quot;,&quot;Phone&quot;:&quot;(831) 775-4500&quot;,&quot;Asset_Category&quot;:&quot;Playgroups&quot;,&quot;Asset_Name&quot;:&quot;Alisal Family Resource Center&quot;,&quot;Latitude&quot;:36.6824,&quot;Longitude&quot;:-121.6038,&quot;color&quot;:&quot;#EF5350&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Alliance on Aging (providing services &amp; advocacy on behalf of 55+ in Monterey County)&quot;,&quot;address&quot;:&quot;247 Main St, Salinas, CA 93901&quot;,&quot;Website&quot;:&quot;www.allianceonaging.org&quot;,&quot;Phone&quot;:&quot;831-758-4011&quot;,&quot;Asset_Category&quot;:&quot;Seniors&quot;,&quot;Asset_Name&quot;:&quot;Alliance on Aging (providing services &amp; advocacy on behalf of 55+ in Monterey County)&quot;,&quot;Latitude&quot;:36.6745,&quot;Longitude&quot;:-121.6547,&quot;color&quot;:&quot;#9E9E9E&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Access Support Network (Syringe Exchange, 1 for 1 Exchange&quot;,&quot;address&quot;:&quot;223 John St, Salinas, CA 93901&quot;,&quot;Website&quot;:&quot;asn.org&quot;,&quot;Phone&quot;:&quot;(831)975-5016&quot;,&quot;Asset_Category&quot;:&quot;Substance use support/treatment/services&quot;,&quot;Asset_Name&quot;:&quot;Access Support Network (Syringe Exchange, 1 for 1 Exchange&quot;,&quot;Latitude&quot;:36.6699,&quot;Longitude&quot;:-121.6491,&quot;color&quot;:&quot;#673AB7&quot;},{&quot;DTH Community Resource List - By Category&quot;:&quot;Major General William H Gourley VA DoD Outpatien Clinic&quot;,&quot;address&quot;:&quot;201 9th St. Marina, CA 93933&quot;,&quot;Website&quot;:&quot;www.va.gov&quot;,&quot;Phone&quot;:&quot;(831)884-1000&quot;,&quot;Asset_Category&quot;:&quot;Veterans&quot;,&quot;Asset_Name&quot;:&quot;Major General William H Gourley VA DoD Outpatien Clinic&quot;,&quot;Latitude&quot;:36.6626,&quot;Longitude&quot;:-121.808,&quot;color&quot;:&quot;#FF5722&quot;}];
+## window.categoryColors = {&quot;Adult Disability Resources&quot;:&quot;#1E88E5&quot;,&quot;Benefits&quot;:&quot;#4CAF50&quot;,&quot;Community Resources&quot;:&quot;#FF7043&quot;,&quot;Child Care/ Early Education&quot;:&quot;#8E24AA&quot;,&quot;Credit Bureaus/ Agencias de Informacion Crediticia&quot;:&quot;#E91E63&quot;,&quot;Crisis&quot;:&quot;#F44336&quot;,&quot;Child Development and Special Needs&quot;:&quot;#29B6F6&quot;,&quot;Emergency Shelters&quot;:&quot;#C62828&quot;,&quot;Early Childhood Programs&quot;:&quot;#42A5F5&quot;,&quot;Education (Adult/Children)&quot;:&quot;#2E7D32&quot;,&quot;Education - School Districts&quot;:&quot;#FDD835&quot;,&quot;Employment&quot;:&quot;#7B1FA2&quot;,&quot;Farmworker Assistance&quot;:&quot;#66BB6A&quot;,&quot;Grief and Loss&quot;:&quot;#3F51B5&quot;,&quot;Health - Physical Health&quot;:&quot;#E53935&quot;,&quot;Health - Mental Health&quot;:&quot;#FB8C00&quot;,&quot;Home Visiting Programs&quot;:&quot;#757575&quot;,&quot;Housing&quot;:&quot;#424242&quot;,&quot;Immigration/Citizenship&quot;:&quot;#FFD600&quot;,&quot;Infant Resources&quot;:&quot;#F8BBD0&quot;,&quot;Legal Assistance&quot;:&quot;#1976D2&quot;,&quot;Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)&quot;:&quot;#388E3C&quot;,&quot;Parenting Education&quot;:&quot;#81C784&quot;,&quot;Parent Support Groups&quot;:&quot;#64B5F6&quot;,&quot;Playgroups&quot;:&quot;#EF5350&quot;,&quot;Recreation&quot;:&quot;#81C784&quot;,&quot;Religious Services&quot;:&quot;#9C27B0&quot;,&quot;Seniors&quot;:&quot;#9E9E9E&quot;,&quot;Substance use support/treatment/services&quot;:&quot;#673AB7&quot;,&quot;Children with Special Needs/Autism&quot;:&quot;#4FC3F7&quot;,&quot;Teen Programs&quot;:&quot;#D4E157&quot;,&quot;Transportation&quot;:&quot;#26A69A&quot;,&quot;Utility Assistance&quot;:&quot;#2196F3&quot;,&quot;Veterans&quot;:&quot;#FF5722&quot;,&quot;Victims of Crime Resources&quot;:&quot;#FF9800&quot;};
+## console.log(&#39;Data loaded from R:&#39;, {
+##   assetsCount: window.assets ? window.assets.length : 0,
+##   categoriesCount: window.categoryColors ? Object.keys(window.categoryColors).length : 0,
+##   sampleAsset: window.assets &amp;&amp; window.assets.length &gt; 0 ? window.assets[0] : null,
+##   sampleColors: window.categoryColors ? Object.keys(window.categoryColors).slice(0, 5) : []
+## });
+## &lt;/script&gt;</code></pre>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-40e3f231d08e39ab6843" style="width:672px;height:768px;"></div>
+<script type="application/json" data-for="htmlwidget-40e3f231d08e39ab6843">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["CartoDB.Positron",null,"Light Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldStreetMap",null,"Street Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Light Map","Street Map","Satellite"],[],{"collapsed":false,"autoZIndex":true,"position":"topright"}]},{"method":"addCircleMarkers","args":[[36.672329,36.6723699,36.6824682,36.6767397,36.6792373,38.573938,36.6778731,36.6797778,36.6823763,36.6717762,36.6592348,36.6723699,36.8885872,36.6823763,36.6745308,36.6698699,36.6625996],[-121.65897,-121.6198414,-121.6042708,-121.6213509,-121.6526124,-121.497827,-121.6052961,-121.6524577,-121.6037736,-121.6519865,-121.6643641,-121.6198414,-121.6438172,-121.6037736,-121.6546637,-121.6490851,-121.8080341],8,["marker_1","marker_2","marker_3","marker_4","marker_5","marker_6","marker_7","marker_8","marker_9","marker_10","marker_11","marker_12","marker_13","marker_14","marker_15","marker_16","marker_17"],null,{"interactive":true,"className":"","stroke":true,"color":"white","weight":2,"opacity":1,"fill":true,"fillColor":["#1E88E5","#4CAF50","#8E24AA","#29B6F6","#F44336","#2E7D32","#FDD835","#C62828","#7B1FA2","#3F51B5","#F8BBD0","#1976D2","#388E3C","#EF5350","#9E9E9E","#673AB7","#FF5722"],"fillOpacity":0.8},null,null,["<strong>Central Coast Center for Independent Living<\/strong><br><em>Adult Disability Resources<\/em><br>Address: 318 Cayuga St, Salinas, CA 93901<br>Phone: (831)757-2968<br>Email: vsolorzano@cccil.org and info@cccil.org<br><a href='http://www.cccil.org' target='_blank'>Website<\/a>","<strong>California Rural Legal Assistance (CRLA) Salinas<\/strong><br><em>Benefits<\/em><br>Address: 3 Williams Road Salinas, CA 93905<br>Phone: (831) 757-5221<br><a href='http://https://crla.org/' target='_blank'>Website<\/a>","<strong>Alisal (MCOE pre-school)<\/strong><br><em>Child Care/ Early Education<\/em><br>Address: 1437 Del Monte Ave, Salinas, CA 93905<br>Phone: (831)757-5634<br>","<strong>Alisal Unified School District - Special Education Services<\/strong><br><em>Child Development and Special Needs<\/em><br>Address: 1205 E. Market St. • Salinas, CA 93905<br>Phone: (831) 753-5711<br>Email: janet.rodriguez@alisal.org<br><a href='http://https://www.alisal.org/domain/202' target='_blank'>Website<\/a>","<strong>Dorothy's Place<\/strong><br><em>Crisis<\/em><br>Address: 30 Soledad St. Salinas, CA 93902<br>Phone: (831)757-3838<br>","<strong>California Department of Developmental Services (ages birth to three)<\/strong><br><em>Education (Adult/Children)<\/em><br>Address: 1600 9th St. Sacramento, CA 95814<br>Phone: (916)654-1690<br><a href='http://www.dds.ca.gov' target='_blank'>Website<\/a>","<strong>Alisal Union School District<\/strong><br><em>Education - School Districts<\/em><br>Address: 155 Bardin Rd., Salinas, CA 93905<br>Phone: (831)753-5700<br>Email: janet.rodriguez@alisal.org, (813)753-5711 Ext 4212<br><a href='http://www.alisal.org' target='_blank'>Website<\/a>","<strong>Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)<\/strong><br><em>Emergency Shelters<\/em><br>Address: 115 E Lake St. Salinas, CA 93901<br>Phone: (831)272- 3042<br><a href='http://www.communityhomelesssolutions.org' target='_blank'>Website<\/a>","<strong>Alisal Family Recource Center - Healthy Start<\/strong><br><em>Employment<\/em><br>Address: 1441 Del Monte Avenue, Salinas, CA 93905<br>Phone: (831)775-4500<br>","<strong>Heal Together Hub<\/strong><br><em>Grief and Loss<\/em><br>Address: 427 Pajaro St, Salinas, CA 93901<br>Phone: 831-320-0947<br>Email: info@heal-together.org<br><a href='http://https://www.heal-together.org/' target='_blank'>Website<\/a>","<strong>The Parenting Connection<\/strong><br><em>Infant Resources<\/em><br>Address: 1212 Riker St, Salinas, CA 93901<br>Phone: 831-647-3333<br>Email: Salud@parentingconnectionMC.org<br><a href='http://https://www.parentingconnectionmc.org/' target='_blank'>Website<\/a>","<strong>California Rural Legal Assistance (CRLA) Salinas<\/strong><br><em>Legal Assistance<\/em><br>Address: 3 Williams Road Salinas, CA 93905<br>Phone: (831) 757-5221<br><a href='http://https://crla.org/' target='_blank'>Website<\/a>","<strong>Aromas - Monterey County Free Libraries<\/strong><br><em>Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)<\/em><br>Address: 387 Blohm Aromas, CA 95004<br>Phone: (831) 796-6128<br>","<strong>Alisal Family Resource Center<\/strong><br><em>Playgroups<\/em><br>Address: 1441 Del Monte Ave., Salinas, CA 93905<br>Phone: (831) 775-4500<br>Email: alma.jauregui@alisal.org<br>","<strong>Alliance on Aging (providing services &amp; advocacy on behalf of 55+ in Monterey County)<\/strong><br><em>Seniors<\/em><br>Address: 247 Main St, Salinas, CA 93901<br>Phone: 831-758-4011<br><a href='http://www.allianceonaging.org' target='_blank'>Website<\/a>","<strong>Access Support Network (Syringe Exchange, 1 for 1 Exchange<\/strong><br><em>Substance use support/treatment/services<\/em><br>Address: 223 John St, Salinas, CA 93901<br>Phone: (831)975-5016<br><a href='http://asn.org' target='_blank'>Website<\/a>","<strong>Major General William H Gourley VA DoD Outpatien Clinic<\/strong><br><em>Veterans<\/em><br>Address: 201 9th St. Marina, CA 93933<br>Phone: (831)884-1000<br><a href='http://www.va.gov' target='_blank'>Website<\/a>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"setView":[[36.6777,-121.6555],10,[]],"limits":{"lat":[36.6592348,38.573938],"lng":[-121.8080341,-121.497827]}},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n    function(el, x) {\n      window.assetMap = this;\n      \n      // Initialize after a brief delay to ensure DOM is ready\n      setTimeout(function() { \n        if (typeof initializeInterface === 'function') {\n          initializeInterface(); \n        } else {\n          console.error('initializeInterface function not found');\n        }\n      }, 500);\n    }\n  ).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
 <div class="results-container">
 <h4>
 Results
@@ -7493,9 +7546,8 @@ Results
 </div>
 </div>
 <script>
-<script>
 // Global variables
-let categoryColors = {};
+let RCategoryColors = {};
 let allAssets = [];
 let filteredAssets = [];
 let searchCoords = null;
@@ -7504,23 +7556,20 @@ let userMarker = null;
 function initializeInterface() {
   console.log('Initializing interface...');
   try {
-    // Get data from the global variables created by R
+    // CRITICAL FIX: Get data from the global variables created by R
+    // These should be available from the R chunk that creates assets_json and category_colors_json
     if (typeof assets !== 'undefined') {
-      allAssets = assets;
+      allAssets = assets; // This comes from the global 'assets' variable in your HTML
       console.log('Assets loaded from global variable:', allAssets.length);
     }
     
-    // Handle category colors from multiple possible sources
-    if (typeof window.categoryColors !== 'undefined') {
-      categoryColors = window.categoryColors;
-    } else if (typeof categoryColorsFromR !== 'undefined') {
-      categoryColors = categoryColorsFromR;
-    } else if (typeof window.category_colors !== 'undefined') {
-      categoryColors = window.category_colors;
+    if (typeof categoryColors !== 'undefined') {
+      RCategoryColors = categoryColors; // This comes from the global 'categoryColors' variable
+      console.log('Category colors loaded:', Object.keys(RCategoryColors).length);
     }
     
-    // Fallback: If no data, create defaults
-    if (!categoryColors || Object.keys(categoryColors).length === 0) {
+    // Fallback: If the above doesn't work, ensure we have some color mapping
+    if (!RCategoryColors || Object.keys(RCategoryColors).length === 0) {
       console.warn('No category colors found, creating default mapping');
       createDefaultColorMapping();
     }
@@ -7531,303 +7580,62 @@ function initializeInterface() {
       return;
     }
 
-    // Ensure each asset has a color property
+    // CRITICAL FIX: Ensure each asset has a color property and it's preserved
     allAssets.forEach((asset, index) => {
       if (!asset.color || asset.color === '#000000' || asset.color === 'black') {
         asset.color = getAssetColor(asset.Asset_Category);
+        console.log(`Asset ${index} (${asset.Asset_Name}) assigned color: ${asset.color} for category: ${asset.Asset_Category}`);
       }
     });
 
-    // Initialize filtered assets
-    filteredAssets = [...allAssets];
+    // Deep copy to preserve colors
+    filteredAssets = allAssets.map(asset => ({...asset}));
 
-    // Set up the interface components
     populateCategoryFilter();
     updateLegend();
     updateMapMarkers();
     updateResultsTable();
 
     // Add event listeners
-    setupEventListeners();
+    const searchInput = document.getElementById('searchAddress');
+    if (searchInput) {
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchByAddress();
+        }
+      });
+    }
 
-    // Initialize DataTable with delay to ensure DOM is ready
-    setTimeout(initializeDataTable, 1000);
+    // Initialize DataTable
+    setTimeout(function() {
+      if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+        window.assetsDataTable = $('#assetsDataTable').DataTable();
+      }
+    }, 1000);
     
-    console.log('Interface initialized successfully');
+    console.log('Interface initialized with', allAssets.length, 'assets');
+    console.log('Sample asset colors:', allAssets.slice(0, 3).map(a => ({name: a.Asset_Name, color: a.color, category: a.Asset_Category})));
   } catch (error) {
     console.error("Error initializing interface:", error);
     showNotification('Error initializing the map interface.', 'error', 10000);
   }
 }
 
-function setupEventListeners() {
-  // Search input event listener
-  const searchInput = document.getElementById('searchAddress');
-  if (searchInput) {
-    searchInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        searchByAddress();
-      }
-    });
-  }
-
-  // Distance filter event listener
-  const distanceFilter = document.getElementById('distanceFilter');
-  if (distanceFilter) {
-    distanceFilter.addEventListener('change', updateDistanceFilter);
-  }
-
-  // Button event listeners - make sure buttons exist before adding listeners
-  const searchBtn = document.getElementById('searchBtn');
-  if (searchBtn) {
-    searchBtn.addEventListener('click', searchByAddress);
-  }
-
-  const locationBtn = document.getElementById('locationBtn');
-  if (locationBtn) {
-    locationBtn.addEventListener('click', getCurrentLocation);
-  }
-
-  const resetBtn = document.getElementById('resetBtn');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', resetMap);
-  }
-
-  const selectAllBtn = document.getElementById('selectAllBtn');
-  if (selectAllBtn) {
-    selectAllBtn.addEventListener('click', selectAllCategories);
-  }
-
-  const clearAllBtn = document.getElementById('clearAllBtn');
-  if (clearAllBtn) {
-    clearAllBtn.addEventListener('click', clearAllCategories);
-  }
-}
-
-function initializeDataTable() {
-  try {
-    if ($.fn.DataTable && $('#assetsDataTable').length > 0) {
-      if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
-        $('#assetsDataTable').DataTable().destroy();
-      }
-      
-      window.assetsDataTable = $('#assetsDataTable').DataTable({
-        responsive: true,
-        pageLength: 10,
-        order: [[0, 'asc']],
-        columnDefs: [
-          { targets: [5], orderable: false } // Website column not sortable
-        ]
-      });
-    }
-  } catch (error) {
-    console.warn('DataTable initialization failed:', error);
-  }
-}
-
-function populateCategoryFilter() {
-  const container = document.getElementById("categoryCheckboxes");
-  if (!container) {
-    console.warn('categoryCheckboxes container not found');
-    return;
-  }
-  
-  // Clear existing content
-  container.innerHTML = '';
-  
-  // Get unique categories from assets
-  const categories = [...new Set(allAssets.map(asset => asset.Asset_Category))]
-    .filter(cat => cat)
-    .sort();
-  
-  if (categories.length === 0) {
-    container.innerHTML = '<p>No categories available</p>';
-    return;
-  }
-
-  console.log('Creating category filters for:', categories);
-  
-  categories.forEach(category => {
-    const id = `cat-${category.replace(/\s+/g, "_").replace(/[^a-zA-Z0-9_]/g, "")}`;
-    const color = getAssetColor(category);
-    
-    // Create checkbox container
-    const checkboxDiv = document.createElement('div');
-    checkboxDiv.className = 'legend-item category-filter-item';
-    checkboxDiv.style.cssText = 'margin-bottom: 8px; display: flex; align-items: center;';
-    
-    // Create checkbox
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'category-check';
-    checkbox.id = id;
-    checkbox.value = category;
-    checkbox.checked = true;
-    checkbox.style.cssText = 'margin-right: 8px;';
-    
-    // Create label
-    const label = document.createElement('label');
-    label.htmlFor = id;
-    label.style.cssText = 'cursor: pointer; display: flex; align-items: center; font-size: 14px;';
-    
-    // Create color indicator
-    const colorDiv = document.createElement('div');
-    colorDiv.className = 'legend-color';
-    colorDiv.style.cssText = `
-      background-color: ${color};
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      margin-right: 8px;
-      vertical-align: middle;
-      border-radius: 50%;
-      border: 2px solid white;
-      box-shadow: 0 0 3px rgba(0,0,0,0.3);
-      flex-shrink: 0;
-    `;
-    
-    // Create text span
-    const textSpan = document.createElement('span');
-    textSpan.textContent = category;
-    
-    // Assemble the elements
-    label.appendChild(colorDiv);
-    label.appendChild(textSpan);
-    checkboxDiv.appendChild(checkbox);
-    checkboxDiv.appendChild(label);
-    container.appendChild(checkboxDiv);
-    
-    // Add event listener
-    checkbox.addEventListener('change', applyFilters);
-  });
-  
-  console.log('Category filter populated with', categories.length, 'categories');
-}
-
-function selectAllCategories() {
-  const checkboxes = document.querySelectorAll('.category-check');
-  checkboxes.forEach(cb => cb.checked = true);
-  applyFilters();
-  showNotification('All categories selected', 'success', 2000);
-}
-
-function clearAllCategories() {
-  const checkboxes = document.querySelectorAll('.category-check');
-  checkboxes.forEach(cb => cb.checked = false);
-  applyFilters();
-  showNotification('All categories cleared', 'info', 2000);
-}
-
 function createDefaultColorMapping() {
+  // Create a default color mapping if none exists
   const defaultColors = [
     "#1E88E5", "#4CAF50", "#FF7043", "#8E24AA", "#E91E63", "#F44336", 
     "#29B6F6", "#C62828", "#42A5F5", "#2E7D32", "#FDD835", "#7B1FA2",
-    "#66BB6A", "#3F51B5", "#E53935", "#FB8C00", "#757575", "#424242",
-    "#FFD600", "#F8BBD0", "#1976D2", "#388E3C", "#81C784", "#64B5F6"
+    "#66BB6A", "#3F51B5", "#E53935", "#FB8C00", "#757575", "#424242"
   ];
   
   const categories = [...new Set(allAssets.map(asset => asset.Asset_Category))].filter(cat => cat);
   
   categories.forEach((category, index) => {
-    categoryColors[category] = defaultColors[index % defaultColors.length];
+    RCategoryColors[category] = defaultColors[index % defaultColors.length];
   });
   
   console.log('Created default color mapping for', categories.length, 'categories');
-}
-
-function getAssetColor(category) {
-  if (!category) {
-    return "#607D8B";
-  }
-  
-  // Try exact match first
-  let color = categoryColors[category];
-  
-  if (!color) {
-    // Try case-insensitive match
-    const categoryKey = Object.keys(categoryColors).find(key => 
-      key.toLowerCase() === category.toLowerCase()
-    );
-    if (categoryKey) {
-      color = categoryColors[categoryKey];
-    }
-  }
-  
-  // If still no color, use default
-  if (!color || color === '#000000' || color === 'black') {
-    color = "#607D8B";
-  }
-  
-  return color;
-}
-
-function applyFilters() {
-  const selectedCategories = Array.from(document.querySelectorAll('.category-check:checked'))
-    .map(checkbox => checkbox.value);
-
-  if (selectedCategories.length === 0) {
-    filteredAssets = [];
-  } else {
-    filteredAssets = allAssets.filter(asset => 
-      selectedCategories.includes(asset.Asset_Category)
-    );
-  }
-
-  console.log('Filtered assets:', filteredAssets.length, 'out of', allAssets.length);
-
-  if (searchCoords) {
-    applyDistanceFilter();
-  } else {
-    filteredAssets.sort((a, b) => (a.Asset_Name || '').localeCompare(b.Asset_Name || ''));
-  }
-
-  updateMapMarkers();
-  updateLegend();
-  updateResultsTable();
-}
-
-function applyDistanceFilter() {
-  if (!searchCoords || !filteredAssets) return;
-
-  const maxDistance = parseFloat(document.getElementById('distanceFilter')?.value || 999);
-
-  if (maxDistance < 999) {
-    filteredAssets = filteredAssets.filter(asset => {
-      if (!asset.Latitude || !asset.Longitude) return false;
-      const distance = calculateDistance(
-        searchCoords.lat, searchCoords.lng,
-        asset.Latitude, asset.Longitude
-      );
-      return distance <= maxDistance;
-    });
-  }
-
-  filteredAssets.sort((a, b) => {
-    if (!a.Latitude || !b.Latitude) return 0;
-    const distA = calculateDistance(searchCoords.lat, searchCoords.lng, a.Latitude, a.Longitude);
-    const distB = calculateDistance(searchCoords.lat, searchCoords.lng, b.Latitude, b.Longitude);
-    return distA - distB;
-  });
-}
-
-function updateDistanceFilter() {
-  if (!searchCoords) {
-    showNotification('Please set a location first to filter by distance.', 'info');
-    return;
-  }
-  
-  applyFilters();
-
-  if (window.assetMap) {
-    const distance = parseFloat(document.getElementById('distanceFilter')?.value || 5);
-    let zoom = 10;
-    if (distance <= 1) zoom = 14;
-    else if (distance <= 2) zoom = 13;
-    else if (distance <= 5) zoom = 12;
-    else if (distance <= 10) zoom = 11;
-
-    window.assetMap.setView([searchCoords.lat, searchCoords.lng], zoom);
-  }
 }
 
 function updateMapMarkers() {
@@ -7845,34 +7653,43 @@ function updateMapMarkers() {
 
   console.log('Adding', filteredAssets.length, 'markers to map');
 
-  filteredAssets.forEach((asset) => {
-    if (asset.Latitude && asset.Longitude) {
-      const markerColor = asset.color || getAssetColor(asset.Asset_Category);
+  // Add new markers with proper colors
+  filteredAssets.forEach((asset, index) => {
+    if (typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined' && 
+        asset.Latitude !== null && asset.Longitude !== null) {
       
-      let popupContent = `<div style="min-width: 200px;">
-        <strong>${asset.Asset_Name || 'N/A'}</strong><br>
-        <em style="color: ${markerColor};">${asset.Asset_Category || 'N/A'}</em><br>
-        <strong>Address:</strong> ${asset.address || 'N/A'}<br>`;
+      // CRITICAL FIX: Always get fresh color and ensure it's not black
+      let markerColor = asset.color || getAssetColor(asset.Asset_Category);
       
-      if (asset.Phone) popupContent += `<strong>Phone:</strong> ${asset.Phone}<br>`;
-      if (asset.Email) popupContent += `<strong>Email:</strong> ${asset.Email}<br>`;
+      // Double-check that color is valid
+      if (!markerColor || markerColor === '#000000' || markerColor === 'black' || markerColor === '') {
+        markerColor = getAssetColor(asset.Asset_Category);
+        asset.color = markerColor; // Update the asset's color property
+      }
+      
+      console.log(`Marker ${index}: ${asset.Asset_Name} - Color: ${markerColor} - Category: ${asset.Asset_Category}`);
+      
+      let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
+        `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
+        `Address: ${asset.address || 'N/A'}<br>`;
+      
+      if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
+      if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
       if (asset.Website) {
         const website = asset.Website.startsWith('http') ? asset.Website : 'http://' + asset.Website;
-        popupContent += `<strong>Website:</strong> <a href="${website}" target="_blank" rel="noopener">Visit Site</a><br>`;
+        popupContent += `<a href="${website}" target="_blank">Website</a><br>`;
       }
 
       if (searchCoords) {
         const distance = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
         if (isFinite(distance)) {
-          popupContent += `<strong>Distance:</strong> ${distance.toFixed(2)} miles`;
+          popupContent += `Distance: ${distance.toFixed(2)} miles`;
         }
       }
       
-      popupContent += '</div>';
-      
       L.circleMarker([asset.Latitude, asset.Longitude], {
         radius: 8,
-        fillColor: markerColor,
+        fillColor: markerColor,  // Use the verified color
         color: 'white',
         weight: 2,
         opacity: 1,
@@ -7882,24 +7699,49 @@ function updateMapMarkers() {
   });
 }
 
+function getAssetColor(category) {
+  // CRITICAL FIX: More robust color retrieval with fallbacks
+  console.log(`Getting color for category: "${category}"`);
+  console.log('Available categories in RCategoryColors:', Object.keys(RCategoryColors));
+  
+  if (!category) {
+    console.warn('No category provided, using default color');
+    return "#607D8B";
+  }
+  
+  // Try exact match first
+  let color = RCategoryColors[category];
+  
+  if (!color) {
+    // Try case-insensitive match
+    const categoryKey = Object.keys(RCategoryColors).find(key => 
+      key.toLowerCase() === category.toLowerCase()
+    );
+    if (categoryKey) {
+      color = RCategoryColors[categoryKey];
+    }
+  }
+  
+  // If still no color, assign a default and log warning
+  if (!color || color === '#000000' || color === 'black') {
+    console.warn(`No color found for category "${category}", using default`);
+    color = "#607D8B";
+  }
+  
+  console.log(`Color for "${category}": ${color}`);
+  return color;
+}
+
 function updateLegend() {
   const legendDiv = document.getElementById('legend');
-  if (!legendDiv) {
-    console.warn('Legend div not found');
-    return;
-  }
+  if (!legendDiv) return;
 
-  const displayedCategories = [...new Set(filteredAssets.map(asset => asset.Asset_Category))]
-    .filter(cat => cat)
-    .sort();
+  const displayedCategories = [...new Set(filteredAssets.map(asset => asset.Asset_Category))].filter(cat => cat).sort();
 
   legendDiv.innerHTML = '';
   
   if (displayedCategories.length === 0) {
-    const noDataMsg = document.createElement('p');
-    noDataMsg.style.cssText = 'font-style: italic; color: #666; margin: 10px 0;';
-    noDataMsg.textContent = 'No categories selected.';
-    legendDiv.appendChild(noDataMsg);
+    legendDiv.innerHTML = '<p style="font-style: italic; color: #666;">No categories selected.</p>';
     return;
   }
   
@@ -7907,78 +7749,95 @@ function updateLegend() {
   
   displayedCategories.forEach(category => {
     const color = getAssetColor(category);
+    console.log(`Legend - Category: ${category}, Color: ${color}`);
     
     const item = document.createElement('div');
     item.className = 'legend-item';
-    item.style.cssText = 'margin-bottom: 5px; display: flex; align-items: center;';
-    
-    const colorDiv = document.createElement('div');
-    colorDiv.className = 'legend-color';
-    colorDiv.style.cssText = `
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      background-color: ${color};
-      margin-right: 8px;
-      vertical-align: middle;
-      border-radius: 50%;
-      border: 2px solid white;
-      box-shadow: 0 0 3px rgba(0,0,0,0.3);
-      flex-shrink: 0;
-    `;
-    
-    const textSpan = document.createElement('span');
-    textSpan.textContent = category;
-    textSpan.style.cssText = 'font-size: 12px; line-height: 1.2;';
-    
-    item.appendChild(colorDiv);
-    item.appendChild(textSpan);
+    item.innerHTML = `<div class="legend-color" style="display:inline-block; width:15px; height:15px; background-color: ${color}; margin-right:8px; vertical-align:middle; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 3px rgba(0,0,0,0.3);"></div><span>${category}</span>`;
     legendDiv.appendChild(item);
   });
 }
 
-function updateResultsTable() {
-  if (!window.assetsDataTable) {
-    console.warn('DataTable not available for updateResultsTable.');
-    return;
+// CRITICAL FIX: Preserve colors during filtering
+function applyFilters() {
+  const selectedCategories = Array.from(document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked'))
+    .map(checkbox => checkbox.value);
+
+  if (selectedCategories.length === 0) {
+    filteredAssets = [];
+  } else {
+    // Deep copy to preserve color properties
+    filteredAssets = allAssets
+      .filter(asset => selectedCategories.includes(asset.Asset_Category))
+      .map(asset => {
+        // Ensure color is preserved/refreshed
+        const assetCopy = {...asset};
+        if (!assetCopy.color || assetCopy.color === '#000000' || assetCopy.color === 'black') {
+          assetCopy.color = getAssetColor(assetCopy.Asset_Category);
+        }
+        return assetCopy;
+      });
   }
 
-  try {
-    window.assetsDataTable.clear();
+  console.log('Filtered assets:', filteredAssets.length, 'out of', allAssets.length);
 
-    const tableData = filteredAssets.map(asset => {
-      let distanceText = "N/A";
-      if (searchCoords && asset.Latitude && asset.Longitude) {
-        const dist = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
-        if (isFinite(dist)) {
-          distanceText = `${dist.toFixed(2)} miles`;
-        }
-      }
+  if (searchCoords) {
+    applyDistanceFilter();
+  } else {
+    filteredAssets.sort((a, b) => a.Asset_Name.localeCompare(b.Asset_Name));
+  }
 
-      const websiteLink = asset.Website ? 
-        `<a href="${asset.Website.startsWith('http') ? asset.Website : 'http://' + asset.Website}" target="_blank" rel="noopener">${asset.Website}</a>` : 
-        '';
+  updateMapMarkers();
+  updateLegend();
+  updateResultsTable();
+}
 
-      return [
-        asset.Asset_Name || '',
-        asset.Asset_Category || '',
-        asset.address || '',
-        asset.Phone || '',
-        asset.Email || '',
-        websiteLink,
-        distanceText
-      ];
+function applyDistanceFilter() {
+  if (!searchCoords || !filteredAssets) return;
+
+  const maxDistance = parseFloat(document.getElementById('distanceFilter').value);
+
+  if (maxDistance < 999) {
+    filteredAssets = filteredAssets.filter(asset => {
+      if (typeof asset.Latitude === 'undefined' || typeof asset.Longitude === 'undefined') return false;
+      const distance = calculateDistance(
+        searchCoords.lat, searchCoords.lng,
+        asset.Latitude, asset.Longitude
+      );
+      return distance <= maxDistance;
     });
+  }
 
-    window.assetsDataTable.rows.add(tableData).draw();
-  } catch (error) {
-    console.error('Error updating results table:', error);
+  filteredAssets.sort((a, b) => {
+    if (typeof a.Latitude === 'undefined' || typeof b.Latitude === 'undefined') return 0;
+    const distA = calculateDistance(searchCoords.lat, searchCoords.lng, a.Latitude, a.Longitude);
+    const distB = calculateDistance(searchCoords.lat, searchCoords.lng, b.Latitude, b.Longitude);
+    return distA - distB;
+  });
+}
+
+function updateDistanceFilter() {
+  if (!searchCoords) {
+    showNotification('Please set a location first to filter by distance.', 'info');
+    return;
+  }
+  applyFilters();
+
+  if (window.assetMap) {
+    const distance = parseFloat(document.getElementById('distanceFilter').value);
+    let zoom = 10;
+    if (distance <= 1) zoom = 14;
+    else if (distance <= 2) zoom = 13;
+    else if (distance <= 5) zoom = 12;
+    else if (distance <= 10) zoom = 11;
+
+    window.assetMap.setView([searchCoords.lat, searchCoords.lng], zoom);
   }
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
   if (lat1 == null || lon1 == null || lat2 == null || lon2 == null) return Infinity;
-  const R = 3959; // Earth's radius in miles
+  const R = 3959;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
   const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -7989,10 +7848,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 
 async function searchByAddress() {
-  const searchInput = document.getElementById('searchAddress');
-  if (!searchInput) return;
-  
-  const address = searchInput.value.trim();
+  const address = document.getElementById('searchAddress').value.trim();
   if (!address) {
     showNotification('Please enter an address.', 'error');
     return;
@@ -8054,11 +7910,7 @@ function getCurrentLocation() {
 
 function setSearchLocation(coords) {
   searchCoords = coords;
-  
-  const distanceFilterDiv = document.getElementById('distanceFilterDiv');
-  if (distanceFilterDiv) {
-    distanceFilterDiv.style.display = 'block';
-  }
+  document.getElementById('distanceFilterDiv').style.display = 'block';
 
   if (window.assetMap) {
     if (userMarker) {
@@ -8084,17 +7936,119 @@ function setSearchLocation(coords) {
   }
 }
 
+function updateMapMarkers() {
+  if (!window.assetMap) return;
+
+  // Remove existing circle markers
+  window.assetMap.eachLayer(layer => {
+    if (layer instanceof L.CircleMarker) {
+      window.assetMap.removeLayer(layer);
+    }
+  });
+
+  // Add new markers with proper colors
+  filteredAssets.forEach((asset) => {
+    if (typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
+      let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
+        `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
+        `Address: ${asset.address || 'N/A'}<br>`;
+      
+      if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
+      if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
+      if (asset.Website) {
+        const website = asset.Website.startsWith('http') ? asset.Website : 'http://' + asset.Website;
+        popupContent += `<a href="${website}" target="_blank">Website</a><br>`;
+      }
+
+      if (searchCoords) {
+        const distance = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
+        if (isFinite(distance)) {
+          popupContent += `Distance: ${distance.toFixed(2)} miles`;
+        }
+      }
+      
+      // Get the color for this asset
+      const markerColor = asset.color || getAssetColor(asset.Asset_Category);
+      
+      L.circleMarker([asset.Latitude, asset.Longitude], {
+        radius: 8,
+        fillColor: markerColor,  // Use the proper color
+        color: 'white',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.8
+      }).bindPopup(popupContent).addTo(window.assetMap);
+    }
+  });
+}
+
+function getAssetColor(category) {
+  // Return the color from the mapping, or default color
+  return RCategoryColors[category] || "#607D8B";
+}
+
+function updateLegend() {
+  const legendDiv = document.getElementById('legend');
+  if (!legendDiv) return;
+
+  const displayedCategories = [...new Set(filteredAssets.map(asset => asset.Asset_Category))].filter(cat => cat).sort();
+
+  legendDiv.innerHTML = '';
+  
+  if (displayedCategories.length === 0) {
+    legendDiv.innerHTML = '<p style="font-style: italic; color: #666;">No categories selected.</p>';
+    return;
+  }
+  
+  displayedCategories.forEach(category => {
+    const color = getAssetColor(category);
+    const item = document.createElement('div');
+    item.className = 'legend-item';
+    item.innerHTML = `<div class="legend-color" style="display:inline-block; width:15px; height:15px; background-color: ${color}; margin-right:8px; vertical-align:middle; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 3px rgba(0,0,0,0.3);"></div><span>${category}</span>`;
+    legendDiv.appendChild(item);
+  });
+}
+
+function updateResultsTable() {
+  if (typeof window.assetsDataTable === 'undefined' || !window.assetsDataTable) {
+    if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+      window.assetsDataTable = $('#assetsDataTable').DataTable();
+    } else {
+      console.warn('DataTable not available for updateResultsTable.');
+      return;
+    }
+  }
+
+  window.assetsDataTable.clear();
+
+  const tableData = filteredAssets.map(asset => {
+    let distanceText = "N/A";
+    if (searchCoords && typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
+      const dist = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
+      if (isFinite(dist)) {
+        distanceText = `${dist.toFixed(2)} miles`;
+      }
+    }
+
+    return [
+      asset.Asset_Name || '',
+      asset.Asset_Category || '',
+      asset.address || '',
+      asset.Phone || '',
+      asset.Email || '',
+      asset.Website ? `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">${asset.Website}</a>` : '',
+      distanceText
+    ];
+  });
+
+  window.assetsDataTable.rows.add(tableData).draw();
+}
+
 function resetMap() {
   searchCoords = null;
-  
-  const searchInput = document.getElementById('searchAddress');
-  if (searchInput) searchInput.value = '';
-  
-  const distanceFilterDiv = document.getElementById('distanceFilterDiv');
-  if (distanceFilterDiv) distanceFilterDiv.style.display = 'none';
-  
-  const distanceFilter = document.getElementById('distanceFilter');
-  if (distanceFilter) distanceFilter.value = "5";
+  document.getElementById('searchAddress').value = '';
+  document.getElementById('distanceFilterDiv').style.display = 'none';
+  document.getElementById('distanceFilter').value = "5";
 
   selectAllCategories();
 
@@ -8112,41 +8066,25 @@ function resetMap() {
 
 function showNotification(message, type = 'info', duration = 4000) {
   const notificationsDiv = document.getElementById('notifications');
-  if (!notificationsDiv) {
-    console.log('Notification:', message);
-    return;
-  }
+  if (!notificationsDiv) return;
 
-  // Clear existing notifications
   notificationsDiv.innerHTML = '';
 
   const notification = document.createElement('div');
   notification.className = `notification ${type}`;
   notification.textContent = message;
-  notification.style.cssText = `
-    display: block;
-    padding: 10px 15px;
-    margin: 5px 0;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: opacity 0.5s ease;
-    ${type === 'error' ? 'background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;' : ''}
-    ${type === 'success' ? 'background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;' : ''}
-    ${type === 'info' ? 'background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb;' : ''}
-  `;
+  notification.style.display = 'block';
 
   notificationsDiv.appendChild(notification);
 
-  if (duration > 0) {
+  setTimeout(() => {
+    notification.style.opacity = '0';
     setTimeout(() => {
-      notification.style.opacity = '0';
-      setTimeout(() => {
-        if (notification.parentNode) {
-          notification.parentNode.removeChild(notification);
-        }
-      }, 500);
-    }, duration);
-  }
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 500);
+  }, duration);
 }
 
 // Window resize handler
@@ -8165,19 +8103,6 @@ window.searchByAddress = searchByAddress;
 window.getCurrentLocation = getCurrentLocation;
 window.updateDistanceFilter = updateDistanceFilter;
 window.resetMap = resetMap;
-window.populateCategoryFilter = populateCategoryFilter;
-window.initializeInterface = initializeInterface;
-
-// Initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(initializeInterface, 500);
-  });
-} else {
-  setTimeout(initializeInterface, 500);
-}
-
-</script>
 </script>
 
 
