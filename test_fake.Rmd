@@ -703,59 +703,55 @@ function htmlDecode(input) {
   return doc.documentElement.textContent;
 }
 
-// Let's also verify the initialization of the map and data
 function initializeInterface() {
-    console.log('Initializing interface...');
-    try {
-        RCategoryColors = JSON.parse(htmlDecode(`r category_colors_json`));
-
-        allAssets = HTMLWidgets.dataframeToD3(`r assets_json`);
-        if (!allAssets || allAssets.length === 0) {
-            console.warn('No assets loaded from R.');
-            showNotification('No asset data loaded. Map may not function correctly.', 'error');
-            return;
-        }
-
-        // Initialize markers layer
-        if (window.assetMap && !window.markersLayer) {
-            window.markersLayer = L.layerGroup().addTo(window.assetMap);
-        }
-
-        allAssets.forEach(asset => {
-            asset.color = asset.color || getAssetColor(asset.Asset_Category);
-        });
-
-        filteredAssets = [...allAssets];
-
-        populateCategoryFilter();
-        updateLegend();
-        updateMapMarkers();
-        updateResultsTable();
-
-        // Add event listeners
-        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-        document.getElementById('searchAddress').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchByAddress();
-            }
-        });
-
-        // Initialize DataTable
-        if (!$.fn.DataTable.isDataTable('#assetsDataTable')) {
-            setTimeout(function() {
-                if (!$.fn.DataTable.isDataTable('#assetsDataTable')) {
-                    window.assetsDataTable = $('#assetsDataTable').DataTable();
-                }
-            }, 1000);
-        } else {
-            window.assetsDataTable = $('#assetsDataTable').DataTable();
-        }
-
-        console.log('Interface initialized with', allAssets.length, 'assets');
-    } catch (error) {
-        console.error("Error initializing interface:", error);
-        showNotification('Error initializing the map interface. Please check console.', 'error', 10000);
+  console.log('Initializing interface...');
+  try {
+    if (typeof window.assets !== 'undefined') {
+  allAssets = window.assets;
+}
+if (typeof window.categoryColors !== 'undefined') {
+  RCategoryColors = window.categoryColors;
+  
+    if (!allAssets || allAssets.length === 0) {
+      console.warn('No assets loaded from R.');
+      showNotification('No asset data loaded. Map may not function correctly.', 'error');
+      return;
     }
+
+    allAssets.forEach(asset => {
+      asset.color = asset.color || getAssetColor(asset.Asset_Category); 
+    });
+
+    filteredAssets = allAssets
+  .filter(asset => selectedCategories.includes(asset.Asset_Category))
+  .map(asset => ({ ...asset })); // preserve color
+
+    populateCategoryFilter();
+    updateLegend();
+    updateMapMarkers();
+    updateResultsTable();
+
+    document.getElementById('searchAddress').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        searchByAddress();
+      }
+    });
+
+    if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+      window.assetsDataTable = $('#assetsDataTable').DataTable();
+    } else {
+      setTimeout(function() {
+        if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+          window.assetsDataTable = $('#assetsDataTable').DataTable();
+        }
+      }, 1000);
+    }
+    
+    console.log('Interface initialized with', allAssets.length, 'assets');
+  } catch (error) {
+    console.error("Error initializing interface:", error);
+    showNotification('Error initializing the map interface.', 'error', 10000);
+  }
 }
 
 function populateCategoryFilter() {
@@ -1025,31 +1021,25 @@ function setSearchLocation(coords) {
 }
 
 function updateMapMarkers() {
-    if (!window.assetMap) return;
-
-    // Create a layer group to manage markers if it doesn't exist
-    if (!window.markersLayer) {
-        window.markersLayer = L.layerGroup().addTo(window.assetMap);
-    } else {
-        window.markersLayer.clearLayers(); // Clear existing markers
+    console.log('Updating map markers...'); // Debug log
+    
+    if (!window.assetMap) {
+        console.error('Map not initialized'); // Debug log
+        return;
     }
 
-    filteredAssets.forEach((asset) => {
-        if (typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
-            let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
-                `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
-                `Address: ${asset.address || 'N/A'}<br>`;
-            if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
-            if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
-            if (asset.Website) popupContent += `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">Website</a><br>`;
+    // Remove existing markers
+    window.assetMap.eachLayer(layer => {
+        if (layer instanceof L.CircleMarker) {
+            window.assetMap.removeLayer(layer);
+        }
+    });
 
-            if (searchCoords) {
-                const distance = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
-                if (isFinite(distance)) {
-                    popupContent += `Distance: ${distance.toFixed(2)} miles`;
-                }
-            }
+    console.log('Adding', filteredAssets.length, 'markers to map'); // Debug log
 
+    // Add new markers for filtered assets
+    filteredAssets.forEach((asset, index) => {
+        if (asset.Latitude && asset.Longitude) {
             const marker = L.circleMarker([asset.Latitude, asset.Longitude], {
                 radius: 8,
                 fillColor: asset.color || getAssetColor(asset.Asset_Category),
@@ -1057,9 +1047,33 @@ function updateMapMarkers() {
                 weight: 2,
                 opacity: 1,
                 fillOpacity: 0.8
-            }).bindPopup(popupContent);
+            });
 
-            window.markersLayer.addLayer(marker);
+            let popupContent = `
+                <strong>${asset.Asset_Name || 'N/A'}</strong><br>
+                <em>${asset.Asset_Category || 'N/A'}</em><br>
+                Address: ${asset.address || 'N/A'}<br>
+            `;
+
+            if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
+            if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
+            if (asset.Website) {
+                const website = asset.Website.startsWith('http') ? asset.Website : 'http://' + asset.Website;
+                popupContent += `<a href="${website}" target="_blank">Website</a><br>`;
+            }
+
+            if (searchCoords) {
+                const distance = calculateDistance(
+                    searchCoords.lat, searchCoords.lng,
+                    asset.Latitude, asset.Longitude
+                );
+                if (isFinite(distance)) {
+                    popupContent += `Distance: ${distance.toFixed(2)} miles`;
+                }
+            }
+
+            marker.bindPopup(popupContent);
+            marker.addTo(window.assetMap);
         }
     });
 }
@@ -1089,6 +1103,7 @@ function updateLegend() {
     legendDiv.appendChild(item);
   });
 }
+
 function updateResultsTable() {
   if (typeof window.assetsDataTable === 'undefined' || !window.assetsDataTable) {
     if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
@@ -1181,15 +1196,3 @@ window.searchByAddress = searchByAddress;
 window.getCurrentLocation = getCurrentLocation;
 window.updateDistanceFilter = updateDistanceFilter;
 window.resetMap = resetMap;
-```
-// Add this right before the closing </body> tag
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, checking map initialization...');
-    if (typeof window.assetMap === 'undefined') {
-        console.error('Map not initialized properly');
-    } else {
-        console.log('Map initialized successfully');
-    }
-});
-</script>
