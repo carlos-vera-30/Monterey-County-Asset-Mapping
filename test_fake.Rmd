@@ -612,29 +612,9 @@ addLayersControl(
   options = layersControlOptions(collapsed = FALSE)
 ) %>%
 setView(lng = -121.6555, lat = 36.6777, zoom = 10) %>%
-addCircleMarkers(
-  lng = ~Longitude,
-  lat = ~Latitude,
-  popup = ~paste0(
-    "<strong>", htmltools::htmlEscape(Asset_Name), "</strong><br>",
-    "<em>", htmltools::htmlEscape(Asset_Category), "</em><br>",
-    "Address: ", htmltools::htmlEscape(address), "<br>",
-    ifelse(!is.na(Phone) & Phone != "", paste0("Phone: ", htmltools::htmlEscape(Phone), "<br>"), ""),
-    ifelse(!is.na(Email) & Email != "", paste0("Email: ", htmltools::htmlEscape(Email), "<br>"), ""),
-    ifelse(!is.na(Website) & Website != "", paste0("<a href='http://", Website, "' target='_blank'>Website</a>"), "")
-  ),
-  radius = 8,
-  fillColor = ~color,
-  color = "white",
-  weight = 2,
-  opacity = 1,
-  fillOpacity = 0.8,
-  layerId = ~paste0("marker_", seq_len(nrow(Monterey_County_Assets)))
-) %>%
 htmlwidgets::onRender("
   function(el, x) {
     window.assetMap = this;
-    
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
       setTimeout(function() { initializeInterface(); }, 100);
     } else {
@@ -687,6 +667,7 @@ let allAssets = [];
 let filteredAssets = [];
 let searchCoords = null;
 let userMarker = null;
+window.assetMarkers = [];
 
 function debugDataLoading() {
   console.log('=== DEBUG INFO ===');
@@ -971,18 +952,20 @@ function setSearchLocation(coords) {
 function updateMapMarkers() {
   if (!window.assetMap) return;
 
-  window.assetMap.eachLayer(layer => {
-    if (layer instanceof L.CircleMarker) {
-      window.assetMap.removeLayer(layer);
-    }
-  });
+  // Remove all previous asset markers
+  if (window.assetMarkers && window.assetMarkers.length > 0) {
+    window.assetMarkers.forEach(marker => {
+      window.assetMap.removeLayer(marker);
+    });
+    window.assetMarkers = [];
+  }
 
+  // Add new markers for filteredAssets
   filteredAssets.forEach((asset) => {
     if (typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
       let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
         `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
         `Address: ${asset.address || 'N/A'}<br>`;
-      
       if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
       if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
       if (asset.Website) popupContent += `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">Website</a><br>`;
@@ -993,19 +976,18 @@ function updateMapMarkers() {
           popupContent += `Distance: ${distance.toFixed(2)} miles`;
         }
       }
-      
-      L.circleMarker([asset.Latitude, asset.Longitude], {
+
+      // Create marker and keep reference
+      const marker = L.circleMarker([asset.Latitude, asset.Longitude], {
         radius: 8,
-        if (typeof window.assets !== 'undefined') {
-  allAssets = window.assets;
-}
-if (typeof window.categoryColors !== 'undefined') {
-  RCategoryColors = window.categoryColors;
+        fillColor: asset.color || getAssetColor(asset.Asset_Category),
         color: 'white',
         weight: 2,
         opacity: 1,
         fillOpacity: 0.8
       }).bindPopup(popupContent).addTo(window.assetMap);
+
+      window.assetMarkers.push(marker);
     }
   });
 }
