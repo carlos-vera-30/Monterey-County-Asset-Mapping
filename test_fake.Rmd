@@ -1,5 +1,5 @@
 ---
-title: "Monterey County Asset Map2"
+title: 
 output: html_document
 ---
 
@@ -326,8 +326,12 @@ window.categoryColors = %s;
 }
 
 .distance-filter {
-  margin-top: 15px;
-  display: none;
+  margin-bottom: 15px;
+}
+
+.distance-filter label {
+  display: block;
+  margin-bottom: 5px;
 }
 
 .distance-filter select {
@@ -491,17 +495,6 @@ window.categoryColors = %s;
 </div>
 </div>
 
-<div class="control-group">
-  <label><strong>Search by Address:</strong></label>
-  <div class="address-search"> <span style="color: #28a745;">&lt;!-- Apply .address-search class to this div --&gt;</span>
-    <input type="text" id="searchAddress" placeholder="123 Main St, Salinas, CA"
-           style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"> <span style="color: #dc3545;">&lt;!-- Removed width: 100% and adjusted margin --&gt;</span>
-    <button type="button" class="btn btn-primary" onclick="searchByAddress()">Search</button>
-    <button type="button" class="btn btn-info" onclick="getCurrentLocation()">Use Current Location</button>
-  </div>
-  <small style="color: #666; display: block; margin-top: 5px; margin-bottom: 10px;">For best results, include city and state (e.g., Salinas, CA)</small> <span style="color: #17a2b8;">&lt;!-- Small text moved outside the address-search div if preferred, or can be inside --&gt;</span>
-</div>
-
 <div class="distance-filter" id="distanceFilterDiv">
   <label><strong>Show Resources Within:</strong></label>
   <select id="distanceFilter" onchange="updateDistanceFilter()">
@@ -514,11 +507,22 @@ window.categoryColors = %s;
 </div>
 
 <div class="control-group">
+  <label><strong>Search by Address:</strong></label>
+  <div class="address-search"> </span>
+    <input type="text" id="searchAddress" placeholder="123 Main St, Salinas, CA"
+           style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></span>
+    <button type="button" class="btn btn-primary" onclick="searchByAddress()">Search</button>
+    <button type="button" class="btn btn-info" onclick="getCurrentLocation()">Use Current Location</button>
+  </div>
+  <small style="color: #666; display: block; margin-top: 5px; margin-bottom: 10px;">For best results, include city and state (e.g., Salinas, CA)</small></span>
+</div>
+
+<div class="control-group">
   <button class="btn btn-secondary" onclick="resetMap()" style="width: 100%;">Reset Map</button>
 </div>
 
 <div class="control-group">
-  <h4>Category Legend</h4>
+  <h4>Category Displayed</h4>
   <div id="legend">
       <p style="font-style: italic; color: #666;">Select categories to see legend.</p>
   </div>
@@ -929,7 +933,6 @@ function getCurrentLocation() {
 
 function setSearchLocation(coords) {
   searchCoords = coords;
-  document.getElementById('distanceFilterDiv').style.display = 'block';
 
   if (window.assetMap) {
     if (userMarker) {
@@ -1064,7 +1067,6 @@ function updateResultsTable() {
 function resetMap() {
   searchCoords = null;
   document.getElementById('searchAddress').value = '';
-  document.getElementById('distanceFilterDiv').style.display = 'none';
   document.getElementById('distanceFilter').value = "5";
 
   selectAllCategories();
