@@ -47,9 +47,6 @@ if (!is.null(asset_data)) {
   print("Failed to load data.")
 }
 
-# Load and process data
-asset_data <- read_asset_data()
-
 if (!is.null(asset_data)) {
   # Your list of known categories
   categories <- c(
@@ -593,37 +590,49 @@ function clearAllCategories() {
 document.addEventListener("DOMContentLoaded", function() {
   renderCategoryCheckboxes();
   updateLegend(getSelectedCategories());
-
-  document.getElementById("selectAll").addEventListener("click", selectAllCategories);
-  document.getElementById("clearAll").addEventListener("click", clearAllCategories);
+  // No need to add event listeners to selectAll or clearAll
 });
 </script>
 
 ```{r leaflet_map, fig.height=8, echo=FALSE}
 
-# Create the leaflet map
 leaflet(data = Monterey_County_Assets) %>%
-addTiles() %>%
-addProviderTiles("CartoDB.Positron", group = "Light Map") %>%
-addProviderTiles("Esri.WorldStreetMap", group = "Street Map") %>%
-addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
-addLayersControl(
-  baseGroups = c("Light Map", "Street Map", "Satellite"),
-  options = layersControlOptions(collapsed = FALSE)
-) %>%
-setView(lng = -121.6555, lat = 36.6777, zoom = 10) %>%
-htmlwidgets::onRender("
-  function(el, x) {
-    window.assetMap = this;
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      setTimeout(function() { initializeInterface(); }, 100);
-    } else {
-      document.addEventListener('DOMContentLoaded', function() {
-         setTimeout(function() { initializeInterface(); }, 100);
-      });
+  addTiles() %>%
+  addProviderTiles("CartoDB.Positron", group = "Light Map") %>%
+  addProviderTiles("Esri.WorldStreetMap", group = "Street Map") %>%
+  addProviderTiles("Esri.WorldImagery", group = "Satellite") %>%
+  addLayersControl(
+    baseGroups = c("Light Map", "Street Map", "Satellite"),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>%
+  setView(lng = -121.6555, lat = 36.6777, zoom = 10) %>%
+  htmlwidgets::onRender(sprintf("
+    function(el, x) {
+      window.assetMap = this;
+      window.assets = %s;
+      window.categoryColors = {
+        %s
+      };
+      
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        setTimeout(function() { initializeInterface(); }, 100);
+      } else {
+        document.addEventListener('DOMContentLoaded', function() {
+          setTimeout(function() { initializeInterface(); }, 100);
+        });
+      }
     }
-  }
-")
+  ", 
+  jsonlite::toJSON(Monterey_County_Assets),
+  paste0(sapply(unique(Monterey_County_Assets$Asset_Category), 
+                function(cat) {
+                  paste0("\"", cat, "\": \"", 
+                         ifelse(cat %in% names(category_colors), 
+                                category_colors[cat], "#607D8B"), 
+                         "\"")
+                }), collapse = ",\n  ")
+  ))
+
 ```
 
 <div class="results-container">
@@ -685,55 +694,52 @@ function htmlDecode(input) {
 }
 
 function initializeInterface() {
-  console.log('Initializing interface...');
+  console.log('Initializing interface with assets:', window.assets);
+  
   try {
     if (typeof window.assets !== 'undefined') {
-  allAssets = window.assets;
-}
-if (typeof window.categoryColors !== 'undefined') {
-  RCategoryColors = window.categoryColors;
-  
+      allAssets = window.assets;
+    }
+    if (typeof window.categoryColors !== 'undefined') {
+      RCategoryColors = window.categoryColors;
+    }
+
     if (!allAssets || allAssets.length === 0) {
       console.warn('No assets loaded from R.');
       showNotification('No asset data loaded. Map may not function correctly.', 'error');
       return;
     }
 
+    // Initialize all assets with colors
     allAssets.forEach(asset => {
-      asset.color = asset.color || getAssetColor(asset.Asset_Category); 
+      asset.color = asset.color || getAssetColor(asset.Asset_Category);
     });
+
+    // Get initial selected categories from checkboxes or default to all
+    const initialCategories = Array.from(document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked'))
+      .map(checkbox => checkbox.value);
+    
+    selectedCategories = initialCategories.length > 0 ? 
+      initialCategories : 
+      [...new Set(allAssets.map(asset => asset.Asset_Category))];
 
     filteredAssets = allAssets
-  .filter(asset => selectedCategories.includes(asset.Asset_Category))
-  .map(asset => ({ ...asset })); // preserve color
+      .filter(asset => selectedCategories.includes(asset.Asset_Category));
 
+    // Initialize UI components
     populateCategoryFilter();
-    updateLegend();
     updateMapMarkers();
+    updateLegend();
     updateResultsTable();
 
-    document.getElementById('searchAddress').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        searchByAddress();
-      }
-    });
-
-    if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
-      window.assetsDataTable = $('#assetsDataTable').DataTable();
-    } else {
-      setTimeout(function() {
-        if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
-          window.assetsDataTable = $('#assetsDataTable').DataTable();
-        }
-      }, 1000);
-    }
+    console.log('Interface initialized successfully');
     
-    console.log('Interface initialized with', allAssets.length, 'assets');
   } catch (error) {
     console.error("Error initializing interface:", error);
     showNotification('Error initializing the map interface.', 'error', 10000);
   }
 }
+
 
 function populateCategoryFilter() {
   const container = document.getElementById('categoryCheckboxes');
@@ -961,35 +967,37 @@ function updateMapMarkers() {
   }
 
   // Add new markers for filteredAssets
-  filteredAssets.forEach((asset) => {
-    if (typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
-      let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
-        `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
-        `Address: ${asset.address || 'N/A'}<br>`;
-      if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
-      if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
-      if (asset.Website) popupContent += `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">Website</a><br>`;
+filteredAssets.forEach((asset) => {
+  const lat = Number(asset.Latitude);
+  const lng = Number(asset.Longitude);
 
-      if (searchCoords) {
-        const distance = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
-        if (isFinite(distance)) {
-          popupContent += `Distance: ${distance.toFixed(2)} miles`;
-        }
+  if (isFinite(lat) && isFinite(lng)) {
+    let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
+      `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
+      `Address: ${asset.address || 'N/A'}<br>`;
+    if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
+    if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
+    if (asset.Website) popupContent += `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">Website</a><br>`;
+
+    if (searchCoords) {
+      const distance = calculateDistance(searchCoords.lat, searchCoords.lng, lat, lng);
+      if (isFinite(distance)) {
+        popupContent += `Distance: ${distance.toFixed(2)} miles`;
       }
-
-      // Create marker and keep reference
-      const marker = L.circleMarker([asset.Latitude, asset.Longitude], {
-        radius: 8,
-        fillColor: asset.color || getAssetColor(asset.Asset_Category),
-        color: 'white',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.8
-      }).bindPopup(popupContent).addTo(window.assetMap);
-
-      window.assetMarkers.push(marker);
     }
-  });
+
+    const marker = L.circleMarker([lat, lng], {
+      radius: 8,
+      fillColor: asset.color || getAssetColor(asset.Asset_Category),
+      color: 'white',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }).bindPopup(popupContent).addTo(window.assetMap);
+
+    window.assetMarkers.push(marker);
+  }
+});
 }
 
 function getAssetColor(category) {
@@ -1104,10 +1112,20 @@ window.addEventListener('resize', function() {
   }
 });
 
+// Make functions globally accessible if called from HTML onclick
 window.selectAllCategories = selectAllCategories;
 window.clearAllCategories = clearAllCategories;
 window.searchByAddress = searchByAddress;
 window.getCurrentLocation = getCurrentLocation;
 window.updateDistanceFilter = updateDistanceFilter;
 window.resetMap = resetMap;
+
+// Handle window resize to invalidate map size
+window.addEventListener('resize', function() {
+  if (window.assetMap) {
+    setTimeout(function() {
+      window.assetMap.invalidateSize();
+    }, 100);
+  }
+});
 
