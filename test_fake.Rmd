@@ -680,6 +680,7 @@ let allAssets = [];
 let filteredAssets = [];
 let searchCoords = null;
 let userMarker = null;
+let assetsDataTable = null;
 window.assetMarkers = [];
 
 function debugDataLoading() {
@@ -723,7 +724,7 @@ function initializeInterface() {
     const initialCategories = Array.from(document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked'))
       .map(checkbox => checkbox.value);
     
-    selectedCategories = initialCategories.length > 0 ? 
+    const selectedCategories = initialCategories.length > 0 ? 
       initialCategories : 
       [...new Set(allAssets.map(asset => asset.Asset_Category))];
 
@@ -734,7 +735,11 @@ function initializeInterface() {
     populateCategoryFilter();
     updateMapMarkers();
     updateLegend();
-    updateResultsTable();
+    
+    // Initialize DataTable reference (this will also update the table when ready)
+   setTimeout(() => {
+  initializeDataTableReference();
+}, 500); 
 
     console.log('Interface initialized successfully');
     
@@ -744,6 +749,87 @@ function initializeInterface() {
   }
 }
 
+function initializeDataTableReference() {
+  // Wait for the DataTable to be fully initialized by R/DT
+  const maxAttempts = 100; // 10 seconds max wait
+  let attempts = 0;
+  
+  const checkForDataTable = () => {
+    attempts++;
+    console.log(`Attempt ${attempts}: Checking for DataTable...`);
+    
+    // Check if the table element exists
+    const tableElement = document.getElementById('assetsDataTable');
+    if (!tableElement) {
+      console.log('Table element not found');
+      if (attempts < maxAttempts) {
+        setTimeout(checkForDataTable, 100);
+      }
+      return;
+    }
+    
+    // Check if DataTable is initialized
+    if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+      assetsDataTable = $('#assetsDataTable').DataTable();
+      console.log('DataTable reference established:', assetsDataTable);
+      
+      // Add event listener for when DataTable is fully drawn
+      assetsDataTable.on('draw.dt', function() {
+        console.log('DataTable draw event fired');
+      });
+      
+      // Now safe to update the table
+      updateResultsTable();
+      return;
+    }
+    
+    // If not ready yet, try again
+    if (attempts < maxAttempts) {
+      setTimeout(checkForDataTable, 100);
+    } else {
+      console.error('DataTable failed to initialize after maximum attempts');
+    }
+  };
+  
+  checkForDataTable();
+}
+
+function debugDataTable() {
+  console.log('=== ENHANCED DATATABLE DEBUG ===');
+  console.log('Table element exists:', document.getElementById('assetsDataTable') !== null);
+  console.log('jQuery available:', typeof $ !== 'undefined');
+  console.log('DataTable plugin available:', typeof $.fn.DataTable !== 'undefined');
+  console.log('Is DataTable initialized:', $.fn.DataTable.isDataTable('#assetsDataTable'));
+  console.log('assetsDataTable reference:', assetsDataTable);
+  console.log('allAssets length:', allAssets ? allAssets.length : 'undefined');
+  console.log('filteredAssets length:', filteredAssets ? filteredAssets.length : 'undefined');
+  
+  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    const dt = $('#assetsDataTable').DataTable();
+    console.log('DataTable instance:', dt);
+    console.log('Current row count:', dt.rows().count());
+    console.log('DataTable data:', dt.rows().data().toArray());
+  }
+  
+  // Test if we can manually trigger an update
+  console.log('Testing manual update...');
+  updateResultsTable();
+  
+  console.log('=== END ENHANCED DEBUG ===');
+}
+
+function waitForDataTable() {
+  // Check if DataTable is ready, if not, wait and try again
+  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    updateResultsTable();
+  } else {
+    // Try again after a short delay
+    setTimeout(waitForDataTable, 100);
+  }
+}
+
+// Also add a variable to track when selectedCategories is defined
+let selectedCategories = [];
 
 function populateCategoryFilter() {
   const container = document.getElementById('categoryCheckboxes');
@@ -793,8 +879,12 @@ function clearAllCategories() {
 }
 
 function applyFilters() {
+  console.log('=== APPLY FILTERS CALLED ===');
+  
   const selectedCategories = Array.from(document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked'))
     .map(checkbox => checkbox.value);
+
+  console.log('Selected categories:', selectedCategories);
 
   if (selectedCategories.length === 0) {
     filteredAssets = [];
@@ -804,6 +894,8 @@ function applyFilters() {
     );
   }
 
+  console.log('Filtered assets count:', filteredAssets.length);
+
   if (searchCoords) {
     applyDistanceFilter();
   } else {
@@ -812,7 +904,28 @@ function applyFilters() {
 
   updateMapMarkers();
   updateLegend();
-  updateResultsTable();
+  
+  // Enhanced table update with better error handling
+  console.log('About to update table...');
+  
+  // Use a more robust approach to update the table
+  const attemptTableUpdate = (attempts = 0) => {
+    if (attempts > 10) {
+      console.error('Failed to update table after 10 attempts');
+      return;
+    }
+    
+    if (assetsDataTable || $.fn.DataTable.isDataTable('#assetsDataTable')) {
+      updateResultsTable();
+    } else {
+      console.log(`Table not ready, attempt ${attempts + 1}`);
+      setTimeout(() => attemptTableUpdate(attempts + 1), 100);
+    }
+  };
+  
+  attemptTableUpdate();
+  
+  console.log('=== APPLY FILTERS COMPLETE ===');
 }
 
 function applyDistanceFilter() {
@@ -1030,38 +1143,93 @@ function updateLegend() {
 }
 
 function updateResultsTable() {
-  if (typeof window.assetsDataTable === 'undefined' || !window.assetsDataTable) {
+  console.log('updateResultsTable called');
+  console.log('assetsDataTable:', assetsDataTable);
+  console.log('filteredAssets length:', filteredAssets ? filteredAssets.length : 'undefined');
+  
+  // If we don't have the DataTable reference, try to get it
+  if (!assetsDataTable) {
+    console.log('No DataTable reference, attempting to get it...');
     if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
-      window.assetsDataTable = $('#assetsDataTable').DataTable();
+      assetsDataTable = $('#assetsDataTable').DataTable();
+      console.log('Got DataTable reference:', assetsDataTable);
     } else {
-      console.warn('DataTable not available for updateResultsTable.');
+      console.error('DataTable not available for updating');
+      // Try again after a delay
+      setTimeout(updateResultsTable, 200);
       return;
     }
   }
-
-  window.assetsDataTable.clear();
-
-  const tableData = filteredAssets.map(asset => {
-    let distanceText = "N/A";
-    if (searchCoords && typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
-      const dist = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
-      if (isFinite(dist)) {
-        distanceText = `${dist.toFixed(2)} miles`;
+  
+  try {
+    // Clear existing data
+    console.log('Clearing DataTable...');
+    assetsDataTable.clear();
+    
+    // Prepare new data
+    const tableData = filteredAssets.map(asset => {
+      let distanceText = "N/A";
+      if (searchCoords && typeof asset.Latitude !== 'undefined' && typeof asset.Longitude !== 'undefined') {
+        const dist = calculateDistance(searchCoords.lat, searchCoords.lng, asset.Latitude, asset.Longitude);
+        if (isFinite(dist)) {
+          distanceText = dist.toFixed(2);
+        }
       }
+
+      return [
+        asset.Asset_Name || '',
+        asset.Asset_Category || '',
+        asset.address || '',
+        asset.Phone || '',
+        asset.Email || '',
+        asset.Website ? `<a href="${asset.Website.startsWith('http') ? asset.Website : 'http://' + asset.Website}" target="_blank">${asset.Website}</a>` : '',
+        distanceText
+      ];
+    });
+    
+    console.log('Adding', tableData.length, 'rows to DataTable');
+    
+    // Add new data and redraw
+    if (tableData.length > 0) {
+      assetsDataTable.rows.add(tableData);
     }
+    assetsDataTable.draw();
+    
+    console.log('DataTable updated successfully');
+    
+  } catch (error) {
+    console.error('Error updating DataTable:', error);
+    // Try again after a delay
+    setTimeout(updateResultsTable, 200);
+  }
+}
 
-    return [
-      asset.Asset_Name || '',
-      asset.Asset_Category || '',
-      asset.address || '',
-      asset.Phone || '',
-      asset.Email || '',
-      asset.Website ? `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">${asset.Website}</a>` : '',
-      distanceText
-    ];
-  });
-
-  window.assetsDataTable.rows.add(tableData).draw();
+function debugTableState() {
+  console.log('=== COMPLETE TABLE DEBUG ===');
+  console.log('1. Table element exists:', document.getElementById('assetsDataTable') !== null);
+  console.log('2. DataTable initialized:', $.fn.DataTable.isDataTable('#assetsDataTable'));
+  console.log('3. assetsDataTable reference:', assetsDataTable);
+  console.log('4. allAssets length:', allAssets ? allAssets.length : 'undefined');
+  console.log('5. filteredAssets length:', filteredAssets ? filteredAssets.length : 'undefined');
+  
+  // Check what categories are selected
+  const selectedCategories = Array.from(document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked'))
+    .map(checkbox => checkbox.value);
+  console.log('6. Selected categories:', selectedCategories);
+  
+  // Check if filteredAssets has the right data
+  if (filteredAssets && filteredAssets.length > 0) {
+    console.log('7. First filtered asset:', filteredAssets[0]);
+  }
+  
+  // Check DataTable current state
+  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    const dt = $('#assetsDataTable').DataTable();
+    console.log('8. DataTable row count:', dt.rows().count());
+    console.log('9. DataTable has data:', dt.rows().data().length);
+  }
+  
+  console.log('=== END COMPLETE DEBUG ===');
 }
 
 function resetMap() {
@@ -1105,6 +1273,21 @@ function showNotification(message, type = 'info', duration = 4000) {
     }, 500);
   }, duration);
 }
+function ensureDataTableReady(callback, attempts = 0) {
+  if (attempts > 50) {
+    console.error('DataTable failed to initialize after 50 attempts');
+    return;
+  }
+  
+  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    if (!assetsDataTable) {
+      assetsDataTable = $('#assetsDataTable').DataTable();
+    }
+    callback();
+  } else {
+    setTimeout(() => ensureDataTableReady(callback, attempts + 1), 100);
+  }
+}
 
 window.addEventListener('resize', function() {
   if (window.assetMap) {
@@ -1114,6 +1297,7 @@ window.addEventListener('resize', function() {
   }
 });
 
+
 // Make functions globally accessible if called from HTML onclick
 window.selectAllCategories = selectAllCategories;
 window.clearAllCategories = clearAllCategories;
@@ -1121,6 +1305,8 @@ window.searchByAddress = searchByAddress;
 window.getCurrentLocation = getCurrentLocation;
 window.updateDistanceFilter = updateDistanceFilter;
 window.resetMap = resetMap;
+window.debugDataTable = debugDataTable;
+window.debugTableState = debugTableState;
 
 // Handle window resize to invalidate map size
 window.addEventListener('resize', function() {
@@ -1130,4 +1316,18 @@ window.addEventListener('resize', function() {
     }, 100);
   }
 });
+```
 
+```{r save-for-netlify, include=FALSE}
+# Set base names
+input_file <- knitr::current_input()
+base_name <- tools::file_path_sans_ext(input_file)
+output_file <- paste0(base_name, ".html")
+
+# Create site/ directory in same folder if it doesn't exist
+dir.create("site", showWarnings = FALSE)
+
+# Copy HTML file to site/index.html
+file.copy(output_file, file.path("site", "index.html"), overwrite = TRUE)
+
+message("Copied ", output_file, " to site/index.html")
