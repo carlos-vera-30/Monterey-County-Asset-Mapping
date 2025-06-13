@@ -963,18 +963,24 @@ function applyDistanceFilter() {
 function updateDistanceFilter() {
   if (!searchCoords) {
     showNotification('Please set a location first to filter by distance.', 'info');
+    if (window.radiusCircle) {
+      window.assetMap.removeLayer(window.radiusCircle);
+      window.radiusCircle = null;
+    }
     return;
   }
   applyFilters();
 
+  // Draw distance circle
+  const distance = parseFloat(document.getElementById('distanceFilter').value);
+  drawDistanceCircle(searchCoords, distance);
+
   if (window.assetMap) {
-    const distance = parseFloat(document.getElementById('distanceFilter').value);
     let zoom = 10;
     if (distance <= 1) zoom = 14;
     else if (distance <= 2) zoom = 13;
     else if (distance <= 5) zoom = 12;
     else if (distance <= 10) zoom = 11;
-
     window.assetMap.setView([searchCoords.lat, searchCoords.lng], zoom);
   }
 }
@@ -1062,17 +1068,15 @@ function setSearchLocation(coords) {
     
     userMarker = L.marker([coords.lat, coords.lng], {
       icon: L.icon({
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
-        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-        iconSize: [25, 41], 
-        iconAnchor: [12, 41], 
-        popupAnchor: [1, -34], 
-        shadowSize: [41, 41]
-      })
+  iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+  iconSize: [25, 41], 
+  iconAnchor: [12, 41], 
+  shadowSize: [41, 41]
+})
     }).addTo(window.assetMap);
     
-    userMarker.bindPopup('Your Searched Location').openPopup();
+    //userMarker.bindPopup('Your Searched Location').openPopup();
     updateDistanceFilter();
   } else {
     applyFilters();
@@ -1117,7 +1121,7 @@ filteredAssets.forEach((asset) => {
       weight: 2,
       opacity: 1,
       fillOpacity: 0.8
-    }).bindPopup(popupContent).addTo(window.assetMap);
+    })/*.bindPopup(popupContent)*/.addTo(window.assetMap);
 
     window.assetMarkers.push(marker);
   }
@@ -1297,6 +1301,25 @@ function ensureDataTableReady(callback, attempts = 0) {
   }
 }
 
+function drawDistanceCircle(center, miles) {
+  if (!window.assetMap) return;
+  // Remove previous circle
+  if (window.radiusCircle) {
+    window.assetMap.removeLayer(window.radiusCircle);
+    window.radiusCircle = null;
+  }
+  if (!center || !miles || miles >= 999) return; // Don't draw if "All" selected
+  const meters = miles * 1609.34;
+  window.radiusCircle = L.circle([center.lat, center.lng], {
+    color: "#4285F4",
+    fillColor: "#4285F4",
+    fillOpacity: 0.18,
+    weight: 2,
+    radius: meters,
+    interactive: false
+  }).addTo(window.assetMap);
+}
+
 window.addEventListener('resize', function() {
   if (window.assetMap) {
     setTimeout(function() {
@@ -1306,7 +1329,9 @@ window.addEventListener('resize', function() {
 });
 
 
+
 // Make functions globally accessible if called from HTML onclick
+window.radiusCircle = null;
 window.selectAllCategories = selectAllCategories;
 window.clearAllCategories = clearAllCategories;
 window.searchByAddress = searchByAddress;
