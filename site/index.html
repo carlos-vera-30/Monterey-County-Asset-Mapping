@@ -11,7 +11,7 @@
 
 
 
-<title>test_fake.knit</title>
+<title>F5MC_Asset_Map.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -7392,7 +7392,7 @@ a:hover { color: #93c5fd; }
 }
 </style>
 <div class="header">
-<img src="data:text/html,%3CHTML%3E%3CHEAD%3E%0A%3CTITLE%3EAccess%20Denied%3C%2FTITLE%3E%0A%3C%2FHEAD%3E%3CBODY%3E%0A%3CH1%3EAccess%20Denied%3C%2FH1%3E%0A%20%0AYou%20don%27t%20have%20permission%20to%20access%20%22http%26%2358%3B%26%2347%3B%26%2347%3Bwww%26%2346%3Bcountyofmonterey%26%2346%3Bgov%26%2347%3BHome%26%2347%3BShowPublishedImage%26%2347%3B2263%26%2347%3B637165318035470000%22%20on%20this%20server%2E%3CP%3E%0AReference%26%2332%3B%26%2335%3B18%26%2346%3Bd34f4317%26%2346%3B1749744790%26%2346%3B73eb8fee%0A%3CP%3Ehttps%26%2358%3B%26%2347%3B%26%2347%3Berrors%26%2346%3Bedgesuite%26%2346%3Bnet%26%2347%3B18%26%2346%3Bd34f4317%26%2346%3B1749744790%26%2346%3B73eb8fee%3C%2FP%3E%0A%3C%2FBODY%3E%0A%3C%2FHTML%3E%0A" alt="Monterey County Logo" />
+<img src="data:text/html,%3CHTML%3E%3CHEAD%3E%0A%3CTITLE%3EAccess%20Denied%3C%2FTITLE%3E%0A%3C%2FHEAD%3E%3CBODY%3E%0A%3CH1%3EAccess%20Denied%3C%2FH1%3E%0A%20%0AYou%20don%27t%20have%20permission%20to%20access%20%22http%26%2358%3B%26%2347%3B%26%2347%3Bwww%26%2346%3Bcountyofmonterey%26%2346%3Bgov%26%2347%3BHome%26%2347%3BShowPublishedImage%26%2347%3B2263%26%2347%3B637165318035470000%22%20on%20this%20server%2E%3CP%3E%0AReference%26%2332%3B%26%2335%3B18%26%2346%3Bd74f4317%26%2346%3B1749832678%26%2346%3B5fd640b6%0A%3CP%3Ehttps%26%2358%3B%26%2347%3B%26%2347%3Berrors%26%2346%3Bedgesuite%26%2346%3Bnet%26%2347%3B18%26%2346%3Bd74f4317%26%2346%3B1749832678%26%2346%3B5fd640b6%3C%2FP%3E%0A%3C%2FBODY%3E%0A%3C%2FHTML%3E%0A" alt="Monterey County Logo" />
 <h1>
 Monterey County Asset Map
 </h1>
@@ -7429,13 +7429,15 @@ miles</option> <option value="999">All (from location)</option>
 <div class="control-group">
 <label><strong>Search by Address:</strong></label>
 <div class="address-search">
-<pre><code>&lt;input type=&quot;text&quot; id=&quot;searchAddress&quot; placeholder=&quot;123 Main St, Salinas, CA&quot;
-       style=&quot;padding: 8px; border: 1px solid #ddd; border-radius: 4px;&quot;&gt;
-&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; onclick=&quot;searchByAddress()&quot;&gt;Search&lt;/button&gt;
-&lt;button type=&quot;button&quot; class=&quot;btn btn-info&quot; onclick=&quot;getCurrentLocation()&quot;&gt;Use Current Location&lt;/button&gt;</code></pre>
+</span>
+<input type="text" id="searchAddress" placeholder="123 Main St, Salinas, CA" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></span>
+<button type="button" class="btn btn-primary" onclick="searchByAddress()">Search</button>
+<button type="button" class="btn btn-info" onclick="getCurrentLocation()">Use
+Current Location</button>
 </div>
 <p><small style="color: #666; display: block; margin-top: 5px; margin-bottom: 10px;">For
-best results, include city and state (e.g., Salinas, CA)</small></p>
+best results, include city and state (e.g., Salinas,
+CA)</small></span></p>
 </div>
 <div class="control-group">
 <p><button class="btn btn-secondary" onclick="resetMap()" style="width: 100%;">Reset
@@ -7456,22 +7458,74 @@ Category Displayed
 
 </div>
 <script>
-// Parse the data from R
-window.assets = JSON.parse([{"DTH Community Resource List - By Category":"Central Coast Center for Independent Living","address":"318 Cayuga St, Salinas, CA 93901","Contact person":"Villy Solorzano","Email":"vsolorzano@cccil.org and info@cccil.org","Website":"www.cccil.org","Phone":"(831)757-2968","Location Tag":"Cross-County","Asset_Category":"Adult Disability Resources","Asset_Name":"Central Coast Center for Independent Living","Latitude":36.6723,"Longitude":-121.659,"color":"#1E88E5"},{"DTH Community Resource List - By Category":"California Rural Legal Assistance (CRLA) Salinas","address":"3 Williams Road Salinas, CA 93905","Website":"https://crla.org/","Phone":"(831) 757-5221","Location Tag":"Salinas","Asset_Category":"Benefits","Asset_Name":"California Rural Legal Assistance (CRLA) Salinas","Latitude":36.6724,"Longitude":-121.6198,"color":"#4CAF50"},{"DTH Community Resource List - By Category":"Alisal (MCOE pre-school)","address":"1437 Del Monte Ave, Salinas, CA 93905","Phone":"(831)757-5634","Location Tag":"Salinas","Asset_Category":"Child Care/ Early Education","Asset_Name":"Alisal (MCOE pre-school)","Latitude":36.6825,"Longitude":-121.6043,"color":"#8E24AA"},{"DTH Community Resource List - By Category":"Alisal Unified School District - Special Education Services","address":"1205 E. Market St. • Salinas, CA 93905","Contact person":"Janet Rodriguez","Email":"janet.rodriguez@alisal.org","Website":"https://www.alisal.org/domain/202","Phone":"(831) 753-5711","Asset_Category":"Child Development and Special Needs","Asset_Name":"Alisal Unified School District - Special Education Services","Latitude":36.6767,"Longitude":-121.6214,"color":"#29B6F6"},{"DTH Community Resource List - By Category":"Dorothy's Place","address":"30 Soledad St. Salinas, CA 93902","Phone":"(831)757-3838","Asset_Category":"Crisis","Asset_Name":"Dorothy's Place","Latitude":36.6792,"Longitude":-121.6526,"color":"#F44336"},{"DTH Community Resource List - By Category":"California Department of Developmental Services (ages birth to three)","address":"1600 9th St. Sacramento, CA 95814","Website":"www.dds.ca.gov","Phone":"(916)654-1690","Asset_Category":"Education (Adult/Children)","Asset_Name":"California Department of Developmental Services (ages birth to three)","Latitude":38.5739,"Longitude":-121.4978,"color":"#2E7D32"},{"DTH Community Resource List - By Category":"Alisal Union School District","address":"155 Bardin Rd., Salinas, CA 93905","Contact person":"Janet Rodriguez, Translator/Clerk","Email":"janet.rodriguez@alisal.org, (813)753-5711 Ext 4212","Website":"www.alisal.org","Phone":"(831)753-5700","Asset_Category":"Education - School Districts","Asset_Name":"Alisal Union School District","Latitude":36.6779,"Longitude":-121.6053,"color":"#FDD835"},{"DTH Community Resource List - By Category":"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)","address":"115 E Lake St. Salinas, CA 93901","Website":"www.communityhomelesssolutions.org","Phone":"(831)272- 3042","Asset_Category":"Emergency Shelters","Asset_Name":"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)","Latitude":36.6798,"Longitude":-121.6525,"color":"#C62828"},{"DTH Community Resource List - By Category":"Alisal Family Recource Center - Healthy Start","address":"1441 Del Monte Avenue, Salinas, CA 93905","Phone":"(831)775-4500","Asset_Category":"Employment","Asset_Name":"Alisal Family Recource Center - Healthy Start","Latitude":36.6824,"Longitude":-121.6038,"color":"#7B1FA2"},{"DTH Community Resource List - By Category":"Heal Together Hub","address":"427 Pajaro St, Salinas, CA 93901","Email":"info@heal-together.org","Website":"https://www.heal-together.org/","Phone":"831-320-0947","Asset_Category":"Grief and Loss","Asset_Name":"Heal Together Hub","Latitude":36.6718,"Longitude":-121.652,"color":"#3F51B5"},{"DTH Community Resource List - By Category":"The Parenting Connection","address":"1212 Riker St, Salinas, CA 93901","Email":"Salud@parentingconnectionMC.org","Website":"https://www.parentingconnectionmc.org/","Phone":"831-647-3333","Asset_Category":"Infant Resources","Asset_Name":"The Parenting Connection","Latitude":36.6592,"Longitude":-121.6644,"color":"#F8BBD0"},{"DTH Community Resource List - By Category":"California Rural Legal Assistance (CRLA) Salinas","address":"3 Williams Road Salinas, CA 93905","Website":"https://crla.org/","Phone":"(831) 757-5221","Asset_Category":"Legal Assistance","Asset_Name":"California Rural Legal Assistance (CRLA) Salinas","Latitude":36.6724,"Longitude":-121.6198,"color":"#1976D2"},{"DTH Community Resource List - By Category":"Aromas - Monterey County Free Libraries","address":"387 Blohm Aromas, CA 95004","Phone":"(831) 796-6128","Asset_Category":"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)","Asset_Name":"Aromas - Monterey County Free Libraries","Latitude":36.8886,"Longitude":-121.6438,"color":"#388E3C"},{"DTH Community Resource List - By Category":"Alisal Family Resource Center","address":"1441 Del Monte Ave., Salinas, CA 93905","Contact person":"Alma Jauregui","Email":"alma.jauregui@alisal.org","Phone":"(831) 775-4500","Asset_Category":"Playgroups","Asset_Name":"Alisal Family Resource Center","Latitude":36.6824,"Longitude":-121.6038,"color":"#EF5350"},{"DTH Community Resource List - By Category":"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)","address":"247 Main St, Salinas, CA 93901","Website":"www.allianceonaging.org","Phone":"831-758-4011","Asset_Category":"Seniors","Asset_Name":"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)","Latitude":36.6745,"Longitude":-121.6547,"color":"#9E9E9E"},{"DTH Community Resource List - By Category":"Access Support Network (Syringe Exchange, 1 for 1 Exchange","address":"223 John St, Salinas, CA 93901","Website":"asn.org","Phone":"(831)975-5016","Asset_Category":"Substance use support/treatment/services","Asset_Name":"Access Support Network (Syringe Exchange, 1 for 1 Exchange","Latitude":36.6699,"Longitude":-121.6491,"color":"#673AB7"},{"DTH Community Resource List - By Category":"Major General William H Gourley VA DoD Outpatien Clinic","address":"201 9th St. Marina, CA 93933","Website":"www.va.gov","Phone":"(831)884-1000","Asset_Category":"Veterans","Asset_Name":"Major General William H Gourley VA DoD Outpatien Clinic","Latitude":36.6626,"Longitude":-121.808,"color":"#FF5722"}]);
-window.categoryColors = JSON.parse({"Adult Disability Resources":["#1E88E5"],"Benefits":["#4CAF50"],"Community Resources":["#FF7043"],"Child Care/ Early Education":["#8E24AA"],"Credit Bureaus/ Agencias de Informacion Crediticia":["#E91E63"],"Crisis":["#F44336"],"Child Development and Special Needs":["#29B6F6"],"Emergency Shelters":["#C62828"],"Early Childhood Programs":["#42A5F5"],"Education (Adult/Children)":["#2E7D32"],"Education - School Districts":["#FDD835"],"Employment":["#7B1FA2"],"Farmworker Assistance":["#66BB6A"],"Grief and Loss":["#3F51B5"],"Health - Physical Health":["#E53935"],"Health - Mental Health":["#FB8C00"],"Home Visiting Programs":["#757575"],"Housing":["#424242"],"Immigration/Citizenship":["#FFD600"],"Infant Resources":["#F8BBD0"],"Legal Assistance":["#1976D2"],"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)":["#388E3C"],"Parenting Education":["#81C784"],"Parent Support Groups":["#64B5F6"],"Playgroups":["#EF5350"],"Recreation":["#81C784"],"Religious Services":["#9C27B0"],"Seniors":["#9E9E9E"],"Substance use support/treatment/services":["#673AB7"],"Children with Special Needs/Autism":["#4FC3F7"],"Teen Programs":["#D4E157"],"Transportation":["#26A69A"],"Utility Assistance":["#2196F3"],"Veterans":["#FF5722"],"Victims of Crime Resources":["#FF9800"]});
+const assets = [{"DTH Community Resource List - By Category":"Central Coast Center for Independent Living","address":"318 Cayuga St, Salinas, CA 93901","Contact person":"Villy Solorzano","Email":"vsolorzano@cccil.org and info@cccil.org","Website":"www.cccil.org","Phone":"(831)757-2968","Location Tag":"Cross-County","Asset_Category":"Adult Disability Resources","Asset_Name":"Central Coast Center for Independent Living","Latitude":36.6723,"Longitude":-121.659,"color":"#1E88E5"},{"DTH Community Resource List - By Category":"California Rural Legal Assistance (CRLA) Salinas","address":"3 Williams Road Salinas, CA 93905","Website":"https://crla.org/","Phone":"(831) 757-5221","Location Tag":"Salinas","Asset_Category":"Benefits","Asset_Name":"California Rural Legal Assistance (CRLA) Salinas","Latitude":36.6724,"Longitude":-121.6198,"color":"#4CAF50"},{"DTH Community Resource List - By Category":"Alisal (MCOE pre-school)","address":"1437 Del Monte Ave, Salinas, CA 93905","Phone":"(831)757-5634","Location Tag":"Salinas","Asset_Category":"Child Care/ Early Education","Asset_Name":"Alisal (MCOE pre-school)","Latitude":36.6825,"Longitude":-121.6043,"color":"#8E24AA"},{"DTH Community Resource List - By Category":"Alisal Unified School District - Special Education Services","address":"1205 E. Market St. • Salinas, CA 93905","Contact person":"Janet Rodriguez","Email":"janet.rodriguez@alisal.org","Website":"https://www.alisal.org/domain/202","Phone":"(831) 753-5711","Asset_Category":"Child Development and Special Needs","Asset_Name":"Alisal Unified School District - Special Education Services","Latitude":36.6767,"Longitude":-121.6214,"color":"#29B6F6"},{"DTH Community Resource List - By Category":"Dorothy's Place","address":"30 Soledad St. Salinas, CA 93902","Phone":"(831)757-3838","Asset_Category":"Crisis","Asset_Name":"Dorothy's Place","Latitude":36.6792,"Longitude":-121.6526,"color":"#F44336"},{"DTH Community Resource List - By Category":"California Department of Developmental Services (ages birth to three)","address":"1600 9th St. Sacramento, CA 95814","Website":"www.dds.ca.gov","Phone":"(916)654-1690","Asset_Category":"Education (Adult/Children)","Asset_Name":"California Department of Developmental Services (ages birth to three)","Latitude":38.5739,"Longitude":-121.4978,"color":"#2E7D32"},{"DTH Community Resource List - By Category":"Alisal Union School District","address":"155 Bardin Rd., Salinas, CA 93905","Contact person":"Janet Rodriguez, Translator/Clerk","Email":"janet.rodriguez@alisal.org, (813)753-5711 Ext 4212","Website":"www.alisal.org","Phone":"(831)753-5700","Asset_Category":"Education - School Districts","Asset_Name":"Alisal Union School District","Latitude":36.6779,"Longitude":-121.6053,"color":"#FDD835"},{"DTH Community Resource List - By Category":"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)","address":"115 E Lake St. Salinas, CA 93901","Website":"www.communityhomelesssolutions.org","Phone":"(831)272- 3042","Asset_Category":"Emergency Shelters","Asset_Name":"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)","Latitude":36.6798,"Longitude":-121.6525,"color":"#C62828"},{"DTH Community Resource List - By Category":"Alisal Family Recource Center - Healthy Start","address":"1441 Del Monte Avenue, Salinas, CA 93905","Phone":"(831)775-4500","Asset_Category":"Employment","Asset_Name":"Alisal Family Recource Center - Healthy Start","Latitude":36.6824,"Longitude":-121.6038,"color":"#7B1FA2"},{"DTH Community Resource List - By Category":"Heal Together Hub","address":"427 Pajaro St, Salinas, CA 93901","Email":"info@heal-together.org","Website":"https://www.heal-together.org/","Phone":"831-320-0947","Asset_Category":"Grief and Loss","Asset_Name":"Heal Together Hub","Latitude":36.6718,"Longitude":-121.652,"color":"#3F51B5"},{"DTH Community Resource List - By Category":"The Parenting Connection","address":"1212 Riker St, Salinas, CA 93901","Email":"Salud@parentingconnectionMC.org","Website":"https://www.parentingconnectionmc.org/","Phone":"831-647-3333","Asset_Category":"Infant Resources","Asset_Name":"The Parenting Connection","Latitude":36.6592,"Longitude":-121.6644,"color":"#F8BBD0"},{"DTH Community Resource List - By Category":"California Rural Legal Assistance (CRLA) Salinas","address":"3 Williams Road Salinas, CA 93905","Website":"https://crla.org/","Phone":"(831) 757-5221","Asset_Category":"Legal Assistance","Asset_Name":"California Rural Legal Assistance (CRLA) Salinas","Latitude":36.6724,"Longitude":-121.6198,"color":"#1976D2"},{"DTH Community Resource List - By Category":"Aromas - Monterey County Free Libraries","address":"387 Blohm Aromas, CA 95004","Phone":"(831) 796-6128","Asset_Category":"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)","Asset_Name":"Aromas - Monterey County Free Libraries","Latitude":36.8886,"Longitude":-121.6438,"color":"#388E3C"},{"DTH Community Resource List - By Category":"Alisal Family Resource Center","address":"1441 Del Monte Ave., Salinas, CA 93905","Contact person":"Alma Jauregui","Email":"alma.jauregui@alisal.org","Phone":"(831) 775-4500","Asset_Category":"Playgroups","Asset_Name":"Alisal Family Resource Center","Latitude":36.6824,"Longitude":-121.6038,"color":"#EF5350"},{"DTH Community Resource List - By Category":"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)","address":"247 Main St, Salinas, CA 93901","Website":"www.allianceonaging.org","Phone":"831-758-4011","Asset_Category":"Seniors","Asset_Name":"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)","Latitude":36.6745,"Longitude":-121.6547,"color":"#9E9E9E"},{"DTH Community Resource List - By Category":"Access Support Network (Syringe Exchange, 1 for 1 Exchange","address":"223 John St, Salinas, CA 93901","Website":"asn.org","Phone":"(831)975-5016","Asset_Category":"Substance use support/treatment/services","Asset_Name":"Access Support Network (Syringe Exchange, 1 for 1 Exchange","Latitude":36.6699,"Longitude":-121.6491,"color":"#673AB7"},{"DTH Community Resource List - By Category":"Major General William H Gourley VA DoD Outpatien Clinic","address":"201 9th St. Marina, CA 93933","Website":"www.va.gov","Phone":"(831)884-1000","Asset_Category":"Veterans","Asset_Name":"Major General William H Gourley VA DoD Outpatien Clinic","Latitude":36.6626,"Longitude":-121.808,"color":"#FF5722"}];
+const categoryColors = {"Adult Disability Resources":["#1E88E5"],"Benefits":["#4CAF50"],"Community Resources":["#FF7043"],"Child Care/ Early Education":["#8E24AA"],"Credit Bureaus/ Agencias de Informacion Crediticia":["#E91E63"],"Crisis":["#F44336"],"Child Development and Special Needs":["#29B6F6"],"Emergency Shelters":["#C62828"],"Early Childhood Programs":["#42A5F5"],"Education (Adult/Children)":["#2E7D32"],"Education - School Districts":["#FDD835"],"Employment":["#7B1FA2"],"Farmworker Assistance":["#66BB6A"],"Grief and Loss":["#3F51B5"],"Health - Physical Health":["#E53935"],"Health - Mental Health":["#FB8C00"],"Home Visiting Programs":["#757575"],"Housing":["#424242"],"Immigration/Citizenship":["#FFD600"],"Infant Resources":["#F8BBD0"],"Legal Assistance":["#1976D2"],"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)":["#388E3C"],"Parenting Education":["#81C784"],"Parent Support Groups":["#64B5F6"],"Playgroups":["#EF5350"],"Recreation":["#81C784"],"Religious Services":["#9C27B0"],"Seniors":["#9E9E9E"],"Substance use support/treatment/services":["#673AB7"],"Children with Special Needs/Autism":["#4FC3F7"],"Teen Programs":["#D4E157"],"Transportation":["#26A69A"],"Utility Assistance":["#2196F3"],"Veterans":["#FF5722"],"Victims of Crime Resources":["#FF9800"]};
 
-// Initialize the interface when the page loads
+function renderCategoryCheckboxes() {
+  const container = document.getElementById("categoryCheckboxes");
+  const categories = Object.keys(categoryColors).sort();
+  categories.forEach(cat => {
+    const id = `cat-${cat.replace(/\s+/g, "_")}`;
+    const color = categoryColors[cat] || "#607D8B";
+    const label = `
+      <div class="legend-item">
+        <input type="checkbox" class="category-check" id="${id}" value="${cat}" checked>
+        <label for="${id}">
+          <div class="legend-color" style="background-color:${color}; display:inline-block;"></div>
+          ${cat}
+        </label>
+      </div>`;
+    container.innerHTML += label;
+  });
+
+  document.querySelectorAll('.category-check').forEach(cb => {
+    cb.addEventListener('change', () => {
+  updateLegend(getSelectedCategories());
+  if (typeof applyFilters === "function") applyFilters();
+});
+  });
+}
+
+function getSelectedCategories() {
+  return Array.from(document.querySelectorAll('.category-check:checked'))
+    .map(cb => cb.value);
+}
+
+function updateLegend(selectedCategories) {
+  const legend = document.getElementById("legend");
+  legend.innerHTML = "";
+  if (selectedCategories.length === 0) {
+    legend.innerHTML = '<p style="font-style: italic; color: #666;">Select categories to see legend.</p>';
+    return;
+  }
+  selectedCategories.forEach(cat => {
+    const color = categoryColors[cat] || "#607D8B";
+    const item = document.createElement("div");
+    item.className = "legend-item";
+    item.innerHTML = `<div class="legend-color" style="background-color:${color};"></div>${cat}`;
+    legend.appendChild(item);
+  });
+}
+
+function selectAllCategories() {
+  document.querySelectorAll('.category-check').forEach(cb => cb.checked = true);
+  updateLegend(getSelectedCategories());
+  if (typeof applyFilters === "function") applyFilters();
+}
+function clearAllCategories() {
+  document.querySelectorAll('.category-check').forEach(cb => cb.checked = false);
+  updateLegend([]);
+  if (typeof applyFilters === "function") applyFilters();
+}
+
 document.addEventListener("DOMContentLoaded", function() {
-  // Wait a bit for all elements to be ready, then initialize
-  setTimeout(function() {
-    if (typeof initializeInterface === 'function') {
-      initializeInterface();
-    }
-  }, 100);
+  renderCategoryCheckboxes();
+  updateLegend(getSelectedCategories());
+  // No need to add event listeners to selectAll or clearAll
 });
 </script>
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-90eaec646a7b09aa4312" style="width:672px;height:768px;"></div>
-<script type="application/json" data-for="htmlwidget-90eaec646a7b09aa4312">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["CartoDB.Positron",null,"Light Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldStreetMap",null,"Street Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Light Map","Street Map","Satellite"],[],{"collapsed":false,"autoZIndex":true,"position":"topright"}]}],"setView":[[36.6777,-121.6555],10,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n    function(el, x) {\n      window.assetMap = this;\n      window.assets = [{\"DTH Community Resource List - By Category\":\"Central Coast Center for Independent Living\",\"address\":\"318 Cayuga St, Salinas, CA 93901\",\"Contact person\":\"Villy Solorzano\",\"Email\":\"vsolorzano@cccil.org and info@cccil.org\",\"Website\":\"www.cccil.org\",\"Phone\":\"(831)757-2968\",\"Location Tag\":\"Cross-County\",\"Asset_Category\":\"Adult Disability Resources\",\"Asset_Name\":\"Central Coast Center for Independent Living\",\"Latitude\":36.6723,\"Longitude\":-121.659,\"color\":\"#1E88E5\"},{\"DTH Community Resource List - By Category\":\"California Rural Legal Assistance (CRLA) Salinas\",\"address\":\"3 Williams Road Salinas, CA 93905\",\"Website\":\"https://crla.org/\",\"Phone\":\"(831) 757-5221\",\"Location Tag\":\"Salinas\",\"Asset_Category\":\"Benefits\",\"Asset_Name\":\"California Rural Legal Assistance (CRLA) Salinas\",\"Latitude\":36.6724,\"Longitude\":-121.6198,\"color\":\"#4CAF50\"},{\"DTH Community Resource List - By Category\":\"Alisal (MCOE pre-school)\",\"address\":\"1437 Del Monte Ave, Salinas, CA 93905\",\"Phone\":\"(831)757-5634\",\"Location Tag\":\"Salinas\",\"Asset_Category\":\"Child Care/ Early Education\",\"Asset_Name\":\"Alisal (MCOE pre-school)\",\"Latitude\":36.6825,\"Longitude\":-121.6043,\"color\":\"#8E24AA\"},{\"DTH Community Resource List - By Category\":\"Alisal Unified School District - Special Education Services\",\"address\":\"1205 E. Market St. • Salinas, CA 93905\",\"Contact person\":\"Janet Rodriguez\",\"Email\":\"janet.rodriguez@alisal.org\",\"Website\":\"https://www.alisal.org/domain/202\",\"Phone\":\"(831) 753-5711\",\"Asset_Category\":\"Child Development and Special Needs\",\"Asset_Name\":\"Alisal Unified School District - Special Education Services\",\"Latitude\":36.6767,\"Longitude\":-121.6214,\"color\":\"#29B6F6\"},{\"DTH Community Resource List - By Category\":\"Dorothy's Place\",\"address\":\"30 Soledad St. Salinas, CA 93902\",\"Phone\":\"(831)757-3838\",\"Asset_Category\":\"Crisis\",\"Asset_Name\":\"Dorothy's Place\",\"Latitude\":36.6792,\"Longitude\":-121.6526,\"color\":\"#F44336\"},{\"DTH Community Resource List - By Category\":\"California Department of Developmental Services (ages birth to three)\",\"address\":\"1600 9th St. Sacramento, CA 95814\",\"Website\":\"www.dds.ca.gov\",\"Phone\":\"(916)654-1690\",\"Asset_Category\":\"Education (Adult/Children)\",\"Asset_Name\":\"California Department of Developmental Services (ages birth to three)\",\"Latitude\":38.5739,\"Longitude\":-121.4978,\"color\":\"#2E7D32\"},{\"DTH Community Resource List - By Category\":\"Alisal Union School District\",\"address\":\"155 Bardin Rd., Salinas, CA 93905\",\"Contact person\":\"Janet Rodriguez, Translator/Clerk\",\"Email\":\"janet.rodriguez@alisal.org, (813)753-5711 Ext 4212\",\"Website\":\"www.alisal.org\",\"Phone\":\"(831)753-5700\",\"Asset_Category\":\"Education - School Districts\",\"Asset_Name\":\"Alisal Union School District\",\"Latitude\":36.6779,\"Longitude\":-121.6053,\"color\":\"#FDD835\"},{\"DTH Community Resource List - By Category\":\"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)\",\"address\":\"115 E Lake St. Salinas, CA 93901\",\"Website\":\"www.communityhomelesssolutions.org\",\"Phone\":\"(831)272- 3042\",\"Asset_Category\":\"Emergency Shelters\",\"Asset_Name\":\"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)\",\"Latitude\":36.6798,\"Longitude\":-121.6525,\"color\":\"#C62828\"},{\"DTH Community Resource List - By Category\":\"Alisal Family Recource Center - Healthy Start\",\"address\":\"1441 Del Monte Avenue, Salinas, CA 93905\",\"Phone\":\"(831)775-4500\",\"Asset_Category\":\"Employment\",\"Asset_Name\":\"Alisal Family Recource Center - Healthy Start\",\"Latitude\":36.6824,\"Longitude\":-121.6038,\"color\":\"#7B1FA2\"},{\"DTH Community Resource List - By Category\":\"Heal Together Hub\",\"address\":\"427 Pajaro St, Salinas, CA 93901\",\"Email\":\"info@heal-together.org\",\"Website\":\"https://www.heal-together.org/\",\"Phone\":\"831-320-0947\",\"Asset_Category\":\"Grief and Loss\",\"Asset_Name\":\"Heal Together Hub\",\"Latitude\":36.6718,\"Longitude\":-121.652,\"color\":\"#3F51B5\"},{\"DTH Community Resource List - By Category\":\"The Parenting Connection\",\"address\":\"1212 Riker St, Salinas, CA 93901\",\"Email\":\"Salud@parentingconnectionMC.org\",\"Website\":\"https://www.parentingconnectionmc.org/\",\"Phone\":\"831-647-3333\",\"Asset_Category\":\"Infant Resources\",\"Asset_Name\":\"The Parenting Connection\",\"Latitude\":36.6592,\"Longitude\":-121.6644,\"color\":\"#F8BBD0\"},{\"DTH Community Resource List - By Category\":\"California Rural Legal Assistance (CRLA) Salinas\",\"address\":\"3 Williams Road Salinas, CA 93905\",\"Website\":\"https://crla.org/\",\"Phone\":\"(831) 757-5221\",\"Asset_Category\":\"Legal Assistance\",\"Asset_Name\":\"California Rural Legal Assistance (CRLA) Salinas\",\"Latitude\":36.6724,\"Longitude\":-121.6198,\"color\":\"#1976D2\"},{\"DTH Community Resource List - By Category\":\"Aromas - Monterey County Free Libraries\",\"address\":\"387 Blohm Aromas, CA 95004\",\"Phone\":\"(831) 796-6128\",\"Asset_Category\":\"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)\",\"Asset_Name\":\"Aromas - Monterey County Free Libraries\",\"Latitude\":36.8886,\"Longitude\":-121.6438,\"color\":\"#388E3C\"},{\"DTH Community Resource List - By Category\":\"Alisal Family Resource Center\",\"address\":\"1441 Del Monte Ave., Salinas, CA 93905\",\"Contact person\":\"Alma Jauregui\",\"Email\":\"alma.jauregui@alisal.org\",\"Phone\":\"(831) 775-4500\",\"Asset_Category\":\"Playgroups\",\"Asset_Name\":\"Alisal Family Resource Center\",\"Latitude\":36.6824,\"Longitude\":-121.6038,\"color\":\"#EF5350\"},{\"DTH Community Resource List - By Category\":\"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)\",\"address\":\"247 Main St, Salinas, CA 93901\",\"Website\":\"www.allianceonaging.org\",\"Phone\":\"831-758-4011\",\"Asset_Category\":\"Seniors\",\"Asset_Name\":\"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)\",\"Latitude\":36.6745,\"Longitude\":-121.6547,\"color\":\"#9E9E9E\"},{\"DTH Community Resource List - By Category\":\"Access Support Network (Syringe Exchange, 1 for 1 Exchange\",\"address\":\"223 John St, Salinas, CA 93901\",\"Website\":\"asn.org\",\"Phone\":\"(831)975-5016\",\"Asset_Category\":\"Substance use support/treatment/services\",\"Asset_Name\":\"Access Support Network (Syringe Exchange, 1 for 1 Exchange\",\"Latitude\":36.6699,\"Longitude\":-121.6491,\"color\":\"#673AB7\"},{\"DTH Community Resource List - By Category\":\"Major General William H Gourley VA DoD Outpatien Clinic\",\"address\":\"201 9th St. Marina, CA 93933\",\"Website\":\"www.va.gov\",\"Phone\":\"(831)884-1000\",\"Asset_Category\":\"Veterans\",\"Asset_Name\":\"Major General William H Gourley VA DoD Outpatien Clinic\",\"Latitude\":36.6626,\"Longitude\":-121.808,\"color\":\"#FF5722\"}];\n      window.categoryColors = {\n        \"Adult Disability Resources\": \"#1E88E5\",\n  \"Benefits\": \"#4CAF50\",\n  \"Child Care/ Early Education\": \"#8E24AA\",\n  \"Child Development and Special Needs\": \"#29B6F6\",\n  \"Crisis\": \"#F44336\",\n  \"Education (Adult/Children)\": \"#2E7D32\",\n  \"Education - School Districts\": \"#FDD835\",\n  \"Emergency Shelters\": \"#C62828\",\n  \"Employment\": \"#7B1FA2\",\n  \"Grief and Loss\": \"#3F51B5\",\n  \"Infant Resources\": \"#F8BBD0\",\n  \"Legal Assistance\": \"#1976D2\",\n  \"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)\": \"#388E3C\",\n  \"Playgroups\": \"#EF5350\",\n  \"Seniors\": \"#9E9E9E\",\n  \"Substance use support/treatment/services\": \"#673AB7\",\n  \"Veterans\": \"#FF5722\"\n      };\n      \n      if (document.readyState === 'complete' || document.readyState === 'interactive') {\n        setTimeout(function() { initializeInterface(); }, 100);\n      } else {\n        document.addEventListener('DOMContentLoaded', function() {\n          setTimeout(function() { initializeInterface(); }, 100);\n        });\n      }\n    }\n  ).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-1cc42c89f0ef4245dc47" style="width:672px;height:768px;"></div>
+<script type="application/json" data-for="htmlwidget-1cc42c89f0ef4245dc47">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addProviderTiles","args":["CartoDB.Positron",null,"Light Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldStreetMap",null,"Street Map",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Satellite",{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addLayersControl","args":[["Light Map","Street Map","Satellite"],[],{"collapsed":false,"autoZIndex":true,"position":"topright"}]}],"setView":[[36.6777,-121.6555],10,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n    function(el, x) {\n      window.assetMap = this;\n      window.assets = [{\"DTH Community Resource List - By Category\":\"Central Coast Center for Independent Living\",\"address\":\"318 Cayuga St, Salinas, CA 93901\",\"Contact person\":\"Villy Solorzano\",\"Email\":\"vsolorzano@cccil.org and info@cccil.org\",\"Website\":\"www.cccil.org\",\"Phone\":\"(831)757-2968\",\"Location Tag\":\"Cross-County\",\"Asset_Category\":\"Adult Disability Resources\",\"Asset_Name\":\"Central Coast Center for Independent Living\",\"Latitude\":36.6723,\"Longitude\":-121.659,\"color\":\"#1E88E5\"},{\"DTH Community Resource List - By Category\":\"California Rural Legal Assistance (CRLA) Salinas\",\"address\":\"3 Williams Road Salinas, CA 93905\",\"Website\":\"https://crla.org/\",\"Phone\":\"(831) 757-5221\",\"Location Tag\":\"Salinas\",\"Asset_Category\":\"Benefits\",\"Asset_Name\":\"California Rural Legal Assistance (CRLA) Salinas\",\"Latitude\":36.6724,\"Longitude\":-121.6198,\"color\":\"#4CAF50\"},{\"DTH Community Resource List - By Category\":\"Alisal (MCOE pre-school)\",\"address\":\"1437 Del Monte Ave, Salinas, CA 93905\",\"Phone\":\"(831)757-5634\",\"Location Tag\":\"Salinas\",\"Asset_Category\":\"Child Care/ Early Education\",\"Asset_Name\":\"Alisal (MCOE pre-school)\",\"Latitude\":36.6825,\"Longitude\":-121.6043,\"color\":\"#8E24AA\"},{\"DTH Community Resource List - By Category\":\"Alisal Unified School District - Special Education Services\",\"address\":\"1205 E. Market St. • Salinas, CA 93905\",\"Contact person\":\"Janet Rodriguez\",\"Email\":\"janet.rodriguez@alisal.org\",\"Website\":\"https://www.alisal.org/domain/202\",\"Phone\":\"(831) 753-5711\",\"Asset_Category\":\"Child Development and Special Needs\",\"Asset_Name\":\"Alisal Unified School District - Special Education Services\",\"Latitude\":36.6767,\"Longitude\":-121.6214,\"color\":\"#29B6F6\"},{\"DTH Community Resource List - By Category\":\"Dorothy's Place\",\"address\":\"30 Soledad St. Salinas, CA 93902\",\"Phone\":\"(831)757-3838\",\"Asset_Category\":\"Crisis\",\"Asset_Name\":\"Dorothy's Place\",\"Latitude\":36.6792,\"Longitude\":-121.6526,\"color\":\"#F44336\"},{\"DTH Community Resource List - By Category\":\"California Department of Developmental Services (ages birth to three)\",\"address\":\"1600 9th St. Sacramento, CA 95814\",\"Website\":\"www.dds.ca.gov\",\"Phone\":\"(916)654-1690\",\"Asset_Category\":\"Education (Adult/Children)\",\"Asset_Name\":\"California Department of Developmental Services (ages birth to three)\",\"Latitude\":38.5739,\"Longitude\":-121.4978,\"color\":\"#2E7D32\"},{\"DTH Community Resource List - By Category\":\"Alisal Union School District\",\"address\":\"155 Bardin Rd., Salinas, CA 93905\",\"Contact person\":\"Janet Rodriguez, Translator/Clerk\",\"Email\":\"janet.rodriguez@alisal.org, (813)753-5711 Ext 4212\",\"Website\":\"www.alisal.org\",\"Phone\":\"(831)753-5700\",\"Asset_Category\":\"Education - School Districts\",\"Asset_Name\":\"Alisal Union School District\",\"Latitude\":36.6779,\"Longitude\":-121.6053,\"color\":\"#FDD835\"},{\"DTH Community Resource List - By Category\":\"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)\",\"address\":\"115 E Lake St. Salinas, CA 93901\",\"Website\":\"www.communityhomelesssolutions.org\",\"Phone\":\"(831)272- 3042\",\"Asset_Category\":\"Emergency Shelters\",\"Asset_Name\":\"Community Homeless Solutions - Chinatown Navigation Center (51 bed for homeless residing in Chinatown Area)\",\"Latitude\":36.6798,\"Longitude\":-121.6525,\"color\":\"#C62828\"},{\"DTH Community Resource List - By Category\":\"Alisal Family Recource Center - Healthy Start\",\"address\":\"1441 Del Monte Avenue, Salinas, CA 93905\",\"Phone\":\"(831)775-4500\",\"Asset_Category\":\"Employment\",\"Asset_Name\":\"Alisal Family Recource Center - Healthy Start\",\"Latitude\":36.6824,\"Longitude\":-121.6038,\"color\":\"#7B1FA2\"},{\"DTH Community Resource List - By Category\":\"Heal Together Hub\",\"address\":\"427 Pajaro St, Salinas, CA 93901\",\"Email\":\"info@heal-together.org\",\"Website\":\"https://www.heal-together.org/\",\"Phone\":\"831-320-0947\",\"Asset_Category\":\"Grief and Loss\",\"Asset_Name\":\"Heal Together Hub\",\"Latitude\":36.6718,\"Longitude\":-121.652,\"color\":\"#3F51B5\"},{\"DTH Community Resource List - By Category\":\"The Parenting Connection\",\"address\":\"1212 Riker St, Salinas, CA 93901\",\"Email\":\"Salud@parentingconnectionMC.org\",\"Website\":\"https://www.parentingconnectionmc.org/\",\"Phone\":\"831-647-3333\",\"Asset_Category\":\"Infant Resources\",\"Asset_Name\":\"The Parenting Connection\",\"Latitude\":36.6592,\"Longitude\":-121.6644,\"color\":\"#F8BBD0\"},{\"DTH Community Resource List - By Category\":\"California Rural Legal Assistance (CRLA) Salinas\",\"address\":\"3 Williams Road Salinas, CA 93905\",\"Website\":\"https://crla.org/\",\"Phone\":\"(831) 757-5221\",\"Asset_Category\":\"Legal Assistance\",\"Asset_Name\":\"California Rural Legal Assistance (CRLA) Salinas\",\"Latitude\":36.6724,\"Longitude\":-121.6198,\"color\":\"#1976D2\"},{\"DTH Community Resource List - By Category\":\"Aromas - Monterey County Free Libraries\",\"address\":\"387 Blohm Aromas, CA 95004\",\"Phone\":\"(831) 796-6128\",\"Asset_Category\":\"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)\",\"Asset_Name\":\"Aromas - Monterey County Free Libraries\",\"Latitude\":36.8886,\"Longitude\":-121.6438,\"color\":\"#388E3C\"},{\"DTH Community Resource List - By Category\":\"Alisal Family Resource Center\",\"address\":\"1441 Del Monte Ave., Salinas, CA 93905\",\"Contact person\":\"Alma Jauregui\",\"Email\":\"alma.jauregui@alisal.org\",\"Phone\":\"(831) 775-4500\",\"Asset_Category\":\"Playgroups\",\"Asset_Name\":\"Alisal Family Resource Center\",\"Latitude\":36.6824,\"Longitude\":-121.6038,\"color\":\"#EF5350\"},{\"DTH Community Resource List - By Category\":\"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)\",\"address\":\"247 Main St, Salinas, CA 93901\",\"Website\":\"www.allianceonaging.org\",\"Phone\":\"831-758-4011\",\"Asset_Category\":\"Seniors\",\"Asset_Name\":\"Alliance on Aging (providing services & advocacy on behalf of 55+ in Monterey County)\",\"Latitude\":36.6745,\"Longitude\":-121.6547,\"color\":\"#9E9E9E\"},{\"DTH Community Resource List - By Category\":\"Access Support Network (Syringe Exchange, 1 for 1 Exchange\",\"address\":\"223 John St, Salinas, CA 93901\",\"Website\":\"asn.org\",\"Phone\":\"(831)975-5016\",\"Asset_Category\":\"Substance use support/treatment/services\",\"Asset_Name\":\"Access Support Network (Syringe Exchange, 1 for 1 Exchange\",\"Latitude\":36.6699,\"Longitude\":-121.6491,\"color\":\"#673AB7\"},{\"DTH Community Resource List - By Category\":\"Major General William H Gourley VA DoD Outpatien Clinic\",\"address\":\"201 9th St. Marina, CA 93933\",\"Website\":\"www.va.gov\",\"Phone\":\"(831)884-1000\",\"Asset_Category\":\"Veterans\",\"Asset_Name\":\"Major General William H Gourley VA DoD Outpatien Clinic\",\"Latitude\":36.6626,\"Longitude\":-121.808,\"color\":\"#FF5722\"}];\n      window.categoryColors = {\n        \"Adult Disability Resources\": \"#1E88E5\",\n  \"Benefits\": \"#4CAF50\",\n  \"Child Care/ Early Education\": \"#8E24AA\",\n  \"Child Development and Special Needs\": \"#29B6F6\",\n  \"Crisis\": \"#F44336\",\n  \"Education (Adult/Children)\": \"#2E7D32\",\n  \"Education - School Districts\": \"#FDD835\",\n  \"Emergency Shelters\": \"#C62828\",\n  \"Employment\": \"#7B1FA2\",\n  \"Grief and Loss\": \"#3F51B5\",\n  \"Infant Resources\": \"#F8BBD0\",\n  \"Legal Assistance\": \"#1976D2\",\n  \"Libraries (Books/Libros, Public Internet Access/ Acceso Publico a La Interenet)\": \"#388E3C\",\n  \"Playgroups\": \"#EF5350\",\n  \"Seniors\": \"#9E9E9E\",\n  \"Substance use support/treatment/services\": \"#673AB7\",\n  \"Veterans\": \"#FF5722\"\n      };\n      \n      if (document.readyState === 'complete' || document.readyState === 'interactive') {\n        setTimeout(function() { initializeInterface(); }, 100);\n      } else {\n        document.addEventListener('DOMContentLoaded', function() {\n          setTimeout(function() { initializeInterface(); }, 100);\n        });\n      }\n    }\n  ).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
 <div class="results-container">
 <h4>
 Results
@@ -7547,10 +7601,10 @@ function initializeInterface() {
     updateMapMarkers();
     updateLegend();
     
-    // Initialize DataTable reference with better timing
-    setTimeout(() => {
-      initializeDataTableReference();
-    }, 500); 
+    // Initialize DataTable reference (this will also update the table when ready)
+   setTimeout(() => {
+  initializeDataTableReference();
+}, 500); 
 
     console.log('Interface initialized successfully');
     
@@ -7578,15 +7632,20 @@ function initializeDataTableReference() {
 
     // Check if DataTable is initialized
     if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
-      assetsDataTable = $('#assetsDataTable').DataTable();
-      
-      // Add event listener for when DataTable is fully drawn
-      assetsDataTable.on('draw.dt', function() {
-        console.log('DataTable drawn with', assetsDataTable.rows().count(), 'rows');
+      window.assetsDataTable = $('#assetsDataTable').DataTable();
+      // Add event listener for when DataTable is fully drawn (optional for debugging)
+      window.assetsDataTable.on('draw.dt', function() {
+        // Table redraw handler, if needed
       });
 
-      console.log('DataTable reference established successfully');
-      
+      // Attach filter event listener ONLY after DataTable is ready
+      const categoryFilter = document.getElementById('categoryFilter');
+      if (categoryFilter) {
+        // Remove previous listeners to avoid duplicates
+        categoryFilter.removeEventListener('change', applyFilters);
+        categoryFilter.addEventListener('change', applyFilters);
+      }
+
       // Now safe to update the table (the first time)
       updateResultsTable();
       return;
@@ -7603,6 +7662,46 @@ function initializeDataTableReference() {
   checkForDataTable();
 }
 
+function debugDataTable() {
+  console.log('=== ENHANCED DATATABLE DEBUG ===');
+  console.log('Table element exists:', document.getElementById('assetsDataTable') !== null);
+  console.log('jQuery available:', typeof $ !== 'undefined');
+  console.log('DataTable plugin available:', typeof $.fn.DataTable !== 'undefined');
+  console.log('Is DataTable initialized:', $.fn.DataTable.isDataTable('#assetsDataTable'));
+  console.log('assetsDataTable reference:', assetsDataTable);
+  console.log('allAssets length:', allAssets ? allAssets.length : 'undefined');
+  console.log('filteredAssets length:', filteredAssets ? filteredAssets.length : 'undefined');
+  
+  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    const dt = $('#assetsDataTable').DataTable();
+    console.log('DataTable instance:', dt);
+    console.log('Current row count:', dt.rows().count());
+    console.log('DataTable data:', dt.rows().data().toArray());
+  }
+  
+  // Test if we can manually trigger an update
+  console.log('Testing manual update...');
+  updateResultsTable();
+  
+  console.log('=== END ENHANCED DEBUG ===');
+}
+
+function waitForDataTable(selector, maxTries = 20) {
+  return new Promise((resolve, reject) => {
+    let tries = 0;
+    function check() {
+      if ($.fn.DataTable.isDataTable(selector)) {
+        resolve($(selector).DataTable());
+      } else if (++tries < maxTries) {
+        setTimeout(check, 200);
+      } else {
+        reject('DataTable did not initialize in time.');
+      }
+    }
+    check();
+  });
+}
+
 function populateCategoryFilter() {
   const container = document.getElementById('categoryCheckboxes');
   if (!container) {
@@ -7616,7 +7715,6 @@ function populateCategoryFilter() {
   categories.forEach((category, index) => {
     const div = document.createElement('div');
     div.style.marginBottom = '5px';
-    div.className = 'legend-item';
     
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -7627,29 +7725,9 @@ function populateCategoryFilter() {
     
     const label = document.createElement('label');
     label.htmlFor = `category_${index}`;
+    label.textContent = category;
     label.style.marginLeft = '5px';
     label.style.fontSize = '14px';
-    label.style.display = 'flex';
-    label.style.alignItems = 'center';
-    
-    // Add color indicator
-    const colorDiv = document.createElement('div');
-    colorDiv.className = 'legend-color';
-    colorDiv.style.cssText = `
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      background-color: ${getAssetColor(category)};
-      margin-right: 8px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    `;
-    
-    const textSpan = document.createElement('span');
-    textSpan.textContent = category;
-    
-    label.appendChild(colorDiv);
-    label.appendChild(textSpan);
     
     div.appendChild(checkbox);
     div.appendChild(label);
@@ -7689,50 +7767,36 @@ function applyFilters() {
 
   console.log('Filtered assets count:', filteredAssets.length);
 
-  // Apply distance filter if location is set
   if (searchCoords) {
     applyDistanceFilter();
   } else {
     filteredAssets.sort((a, b) => a.Asset_Name.localeCompare(b.Asset_Name));
   }
 
-  // Update all UI components
   updateMapMarkers();
   updateLegend();
-  updateResultsTableWithRetry();
+  
+  // Enhanced table update with better error handling
+  console.log('About to update table...');
+  
+  // Use a more robust approach to update the table
+  const attemptTableUpdate = (attempts = 0) => {
+    if (attempts > 10) {
+      console.error('Failed to update table after 10 attempts');
+      return;
+    }
+    
+    if (assetsDataTable || $.fn.DataTable.isDataTable('#assetsDataTable')) {
+      updateResultsTable();
+    } else {
+      console.log(`Table not ready, attempt ${attempts + 1}`);
+      setTimeout(() => attemptTableUpdate(attempts + 1), 100);
+    }
+  };
+  
+  attemptTableUpdate();
   
   console.log('=== APPLY FILTERS COMPLETE ===');
-}
-
-function updateResultsTableWithRetry(maxRetries = 5, currentRetry = 0) {
-  console.log(`Attempting to update table (attempt ${currentRetry + 1}/${maxRetries})`);
-  
-  if (currentRetry >= maxRetries) {
-    console.error('Failed to update table after maximum retries');
-    return;
-  }
-  
-  // Check if DataTable is ready
-  if (!assetsDataTable && $.fn.DataTable.isDataTable('#assetsDataTable')) {
-    assetsDataTable = $('#assetsDataTable').DataTable();
-  }
-  
-  if (assetsDataTable) {
-    try {
-      updateResultsTable();
-      console.log('Table updated successfully');
-      return;
-    } catch (error) {
-      console.error('Error updating table on attempt', currentRetry + 1, ':', error);
-    }
-  } else {
-    console.log('DataTable not ready, retrying...');
-  }
-  
-  // Retry after a short delay
-  setTimeout(() => {
-    updateResultsTableWithRetry(maxRetries, currentRetry + 1);
-  }, 200);
 }
 
 function applyDistanceFilter() {
@@ -7890,37 +7954,37 @@ function updateMapMarkers() {
   }
 
   // Add new markers for filteredAssets
-  filteredAssets.forEach((asset) => {
-    const lat = Number(asset.Latitude);
-    const lng = Number(asset.Longitude);
+filteredAssets.forEach((asset) => {
+  const lat = Number(asset.Latitude);
+  const lng = Number(asset.Longitude);
 
-    if (isFinite(lat) && isFinite(lng)) {
-      let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
-        `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
-        `Address: ${asset.address || 'N/A'}<br>`;
-      if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
-      if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
-      if (asset.Website) popupContent += `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">Website</a><br>`;
+  if (isFinite(lat) && isFinite(lng)) {
+    let popupContent = `<strong>${asset.Asset_Name || 'N/A'}</strong><br>` +
+      `<em>${asset.Asset_Category || 'N/A'}</em><br>` +
+      `Address: ${asset.address || 'N/A'}<br>`;
+    if (asset.Phone) popupContent += `Phone: ${asset.Phone}<br>`;
+    if (asset.Email) popupContent += `Email: ${asset.Email}<br>`;
+    if (asset.Website) popupContent += `<a href="http://${asset.Website.startsWith('http') ? asset.Website : '//' + asset.Website}" target="_blank">Website</a><br>`;
 
-      if (searchCoords) {
-        const distance = calculateDistance(searchCoords.lat, searchCoords.lng, lat, lng);
-        if (isFinite(distance)) {
-          popupContent += `Distance: ${distance.toFixed(2)} miles`;
-        }
+    if (searchCoords) {
+      const distance = calculateDistance(searchCoords.lat, searchCoords.lng, lat, lng);
+      if (isFinite(distance)) {
+        popupContent += `Distance: ${distance.toFixed(2)} miles`;
       }
-
-      const marker = L.circleMarker([lat, lng], {
-        radius: 8,
-        fillColor: asset.color || getAssetColor(asset.Asset_Category),
-        color: 'white',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 0.8
-      }).bindPopup(popupContent).addTo(window.assetMap);
-
-      window.assetMarkers.push(marker);
     }
-  });
+
+    const marker = L.circleMarker([lat, lng], {
+      radius: 8,
+      fillColor: asset.color || getAssetColor(asset.Asset_Category),
+      color: 'white',
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }).bindPopup(popupContent).addTo(window.assetMap);
+
+    window.assetMarkers.push(marker);
+  }
+});
 }
 
 function getAssetColor(category) {
@@ -7944,7 +8008,7 @@ function updateLegend() {
     const color = getAssetColor(category);
     const item = document.createElement('div');
     item.className = 'legend-item';
-    item.innerHTML = `<div class="legend-color" style="display:inline-block; width:15px; height:15px; background-color: ${color}; margin-right:8px; vertical-align:middle; border-radius:2px;"></div><span>${category}</span>`;
+    item.innerHTML = `<div class="legend-color" style="display:inline-block; width:15px; height:15px; background-color: ${color}; margin-right:8px; vertical-align:middle;"></div><span>${category}</span>`;
     legendDiv.appendChild(item);
   });
 }
@@ -7962,7 +8026,9 @@ function updateResultsTable() {
       console.log('Got DataTable reference:', assetsDataTable);
     } else {
       console.error('DataTable not available for updating');
-      throw new Error('DataTable not initialized');
+      // Try again after a delay
+      setTimeout(updateResultsTable, 200);
+      return;
     }
   }
   
@@ -8004,32 +8070,9 @@ function updateResultsTable() {
     
   } catch (error) {
     console.error('Error updating DataTable:', error);
-    throw error; // Re-throw to be caught by retry mechanism
+    // Try again after a delay
+    setTimeout(updateResultsTable, 200);
   }
-}
-
-function debugDataTable() {
-  console.log('=== ENHANCED DATATABLE DEBUG ===');
-  console.log('Table element exists:', document.getElementById('assetsDataTable') !== null);
-  console.log('jQuery available:', typeof $ !== 'undefined');
-  console.log('DataTable plugin available:', typeof $.fn.DataTable !== 'undefined');
-  console.log('Is DataTable initialized:', $.fn.DataTable.isDataTable('#assetsDataTable'));
-  console.log('assetsDataTable reference:', assetsDataTable);
-  console.log('allAssets length:', allAssets ? allAssets.length : 'undefined');
-  console.log('filteredAssets length:', filteredAssets ? filteredAssets.length : 'undefined');
-  
-  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
-    const dt = $('#assetsDataTable').DataTable();
-    console.log('DataTable instance:', dt);
-    console.log('Current row count:', dt.rows().count());
-    console.log('DataTable data:', dt.rows().data().toArray());
-  }
-  
-  // Test if we can manually trigger an update
-  console.log('Testing manual update...');
-  updateResultsTableWithRetry();
-  
-  console.log('=== END ENHANCED DEBUG ===');
 }
 
 function debugTableState() {
@@ -8101,6 +8144,30 @@ function showNotification(message, type = 'info', duration = 4000) {
     }, 500);
   }, duration);
 }
+function ensureDataTableReady(callback, attempts = 0) {
+  if (attempts > 50) {
+    console.error('DataTable failed to initialize after 50 attempts');
+    return;
+  }
+  
+  if ($.fn.DataTable.isDataTable('#assetsDataTable')) {
+    if (!assetsDataTable) {
+      assetsDataTable = $('#assetsDataTable').DataTable();
+    }
+    callback();
+  } else {
+    setTimeout(() => ensureDataTableReady(callback, attempts + 1), 100);
+  }
+}
+
+window.addEventListener('resize', function() {
+  if (window.assetMap) {
+    setTimeout(function() {
+      window.assetMap.invalidateSize();
+    }, 100);
+  }
+});
+
 
 // Make functions globally accessible if called from HTML onclick
 window.selectAllCategories = selectAllCategories;
@@ -8111,7 +8178,6 @@ window.updateDistanceFilter = updateDistanceFilter;
 window.resetMap = resetMap;
 window.debugDataTable = debugDataTable;
 window.debugTableState = debugTableState;
-window.initializeInterface = initializeInterface;
 
 // Handle window resize to invalidate map size
 window.addEventListener('resize', function() {
