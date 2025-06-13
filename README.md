@@ -4,11 +4,12 @@ Shared space to store data for asset mapping and projects relating to asset mapp
 
 ## Project code
 https://github.com/carlos-vera-30/Monterey-County-Asset-Mapping/blob/main/F5MC_Asset_Map.Rmd 
-## Project dashboard
+## Project Asset Map
 [Monterey County Asset Map](https://idyllic-lolly-0f93e1.netlify.app/)
 
 ## Data used to create Monterey County Dashboard
 [F5MC Resource List Google Spreadsheet](https://docs.google.com/spreadsheets/d/1FekJ3_fj5DZOy9XSgvnnW3dAmqPCNE6SNXEN0qN6Tbs/edit#gid=0)
+
 [Test Google Spreadsheet](https://docs.google.com/spreadsheets/d/1uCG9b9D4YtGuN6c_aW9gbM-RkQ9pSjbjipuU306T4xo/edit#gid=0)
 
 ## Resources used to create database
