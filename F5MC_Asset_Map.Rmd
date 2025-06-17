@@ -94,12 +94,12 @@ if (!is.null(asset_data)) {
     filter(!is.na(`Address/ Domicilio`) & !tolower(`Address/ Domicilio`) %in% c("online")) %>%
     filter(grepl("^[0-9]", `Address/ Domicilio`))
 
-  #sampled_data <- cleaned_data %>%
-    #group_by(Category) %>%
-    #slice(1) %>%
-    #ungroup()
+  sampled_data <- cleaned_data %>%
+    group_by(Category) %>%
+    slice(1) %>%
+    ungroup()
 
-  Monterey_County_Assets <- cleaned_data %>%
+  Monterey_County_Assets <- sampled_data %>%
     rename(address = `Address/ Domicilio`) %>%
     geocode(address = address, method = 'osm', lat = Latitude, long = Longitude) %>%
     rename(
@@ -197,8 +197,8 @@ window.categoryColors = %s;
 }
 
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: #5CAA3F;
+  color: #f8f9fa;
   padding: 20px;
   margin-bottom: 20px;
   text-align: center;
@@ -309,7 +309,8 @@ window.categoryColors = %s;
 #map {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  height: 600px; 
+  height: calc(100vh - 200px);
+  min-height: 600px; 
 }
 
 .address-search {
@@ -405,6 +406,75 @@ window.categoryColors = %s;
     font-size: 12px;
     padding: 5px 10px;
   }
+}
+
+/* Updated fullscreen button positioning - centered at top */
+.fullscreen-btn {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%); /* This centers the button horizontally */
+  z-index: 1000;
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.fullscreen-btn:hover {
+  background: #f0f0f0;
+}
+
+/* Fullscreen mode styles */
+.fullscreen-mode {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+/* Ensure the map takes full space when in fullscreen */
+.fullscreen-mode #map,
+.fullscreen-mode .leaflet-container {
+  height: 100vh !important;
+  width: 100vw !important;
+  border-radius: 0 !important;
+}
+
+/* Hide specific elements when in fullscreen mode - more targeted approach */
+body.map-fullscreen .header,
+body.map-fullscreen .sidebar,
+body.map-fullscreen .results-container,
+body.map-fullscreen .navbar,
+body.map-fullscreen .col-md-4,
+body.map-fullscreen .container-fluid > .row > .col-md-4 {
+  display: none !important;
+}
+
+/* Keep only the map column visible and make it full width */
+body.map-fullscreen .col-md-8 {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  flex: 0 0 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Alternative approach - if the above doesn't work, try this instead */
+body.map-fullscreen > *:not(:has(.fullscreen-mode)) {
+  display: none !important;
+}
+
+/* Ensure fullscreen container is visible */
+body.map-fullscreen .fullscreen-mode {
+  display: block !important;
 }
 
 @media print {
@@ -1014,7 +1084,7 @@ function drawDistanceCircle(center, miles) {
   window.radiusCircle = L.circle([center.lat, center.lng], {
     color: "#4285F4",
     fillColor: "#4285F4",
-    fillOpacity: 0.18,
+    fillOpacity: 0.075,
     weight: 2,
     radius: meters,
     interactive: false
@@ -1254,6 +1324,76 @@ function updateResultsTable() {
     setTimeout(updateResultsTable, 200);
   }
 }
+
+setTimeout(() => {
+  const mapContainer = document.querySelector('.leaflet-container').parentElement;
+  if (mapContainer && !document.querySelector('.fullscreen-btn')) {
+    mapContainer.style.position = 'relative';
+    const button = document.createElement('button');
+    button.className = 'fullscreen-btn';
+    button.innerHTML = '⛶ Fullscreen';
+    button.onclick = toggleFullscreen;
+    mapContainer.appendChild(button);
+  }
+}, 1000);
+
+// Simple fix - go back to your original working approach
+function toggleFullscreen() {
+  // Use your original working selector
+  const mapContainer = document.querySelector('.leaflet-container');
+  if (!mapContainer) {
+    console.error('Leaflet container not found!');
+    return;
+  }
+  
+  // Get the parent container (this is what we want to make fullscreen)
+  const parentContainer = mapContainer.parentElement;
+  const button = document.querySelector('.fullscreen-btn');
+  
+  if (parentContainer.classList.contains('fullscreen-mode')) {
+    // Exit fullscreen
+    parentContainer.classList.remove('fullscreen-mode');
+    document.body.classList.remove('map-fullscreen');
+    if (button) button.innerHTML = '⛶ Fullscreen';
+    document.body.style.overflow = '';
+    
+    setTimeout(() => {
+      if (window.assetMap) {
+        window.assetMap.invalidateSize();
+      }
+    }, 350);
+  } else {
+    // Enter fullscreen
+    parentContainer.classList.add('fullscreen-mode');
+    document.body.classList.add('map-fullscreen');
+    if (button) button.innerHTML = '⛉ Exit Fullscreen';
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => {
+      if (window.assetMap) {
+        window.assetMap.invalidateSize();
+      }
+    }, 350);
+  }
+}
+
+// Keep your original button creation code
+setTimeout(() => {
+  const mapContainer = document.querySelector('.leaflet-container');
+  if (mapContainer && mapContainer.parentElement && !document.querySelector('.fullscreen-btn')) {
+    const parentContainer = mapContainer.parentElement;
+    parentContainer.style.position = 'relative';
+    
+    const button = document.createElement('button');
+    button.className = 'fullscreen-btn';
+    button.innerHTML = '⛶ Fullscreen';
+    button.onclick = toggleFullscreen;
+    button.title = 'Toggle Fullscreen (ESC to exit)';
+    parentContainer.appendChild(button);
+  }
+}, 1000);
+
+window.toggleFullscreen = toggleFullscreen;
 
 function debugTableState() {
   console.log('=== COMPLETE TABLE DEBUG ===');
