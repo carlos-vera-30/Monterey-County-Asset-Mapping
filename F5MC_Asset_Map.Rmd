@@ -544,9 +544,9 @@ body.map-fullscreen .fullscreen-mode {
 ```
 
 <div class="header">
-<img src="https://www.co.monterey.ca.us/Home/ShowPublishedImage/2263/637165318035470000" alt="Monterey County Logo"/>
-<h1>Monterey County Asset Map</h1>
-<h3>Community Resources</h3>
+  <img src="https://raw.githubusercontent.com/carlos-vera-30/Monterey-County-Asset-Mapping/main/F5MC%20Logo/F5MC%20WHITE%20Eng%20Logo.png" alt="F5MC Logo" style="height: 60px;" />
+  <h1>Monterey County Asset Map</h1>
+  <h3>Community Resources</h3>
 </div>
 
 <div class="container-fluid">
@@ -1173,19 +1173,19 @@ function setSearchLocation(coords) {
       window.assetMap.removeLayer(userMarker);
     }
     
-    userMarker = L.marker([coords.lat, coords.lng], {
-      icon: L.icon({
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
-        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-        iconSize: [25, 41], 
-        iconAnchor: [12, 41], 
-        popupAnchor: [1, -34], 
-        shadowSize: [41, 41]
-      })
-    }).addTo(window.assetMap);
+   /// userMarker = L.marker([coords.lat, coords.lng], {
+     /// icon: L.icon({
+      ///  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
+       /// iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
+       /// shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+       /// iconSize: [25, 41], 
+       /// iconAnchor: [12, 41], 
+       /// popupAnchor: [1, -34], 
+      ///  shadowSize: [41, 41]
+    ///  })
+   /// }).addTo(window.assetMap);
     
-    userMarker.bindPopup('Your Searched Location').openPopup();
+    ///userMarker.bindPopup('Your Searched Location').openPopup();
     updateDistanceFilter();
   } else {
     applyFilters();
