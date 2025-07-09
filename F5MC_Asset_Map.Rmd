@@ -94,12 +94,12 @@ if (!is.null(asset_data)) {
     filter(!is.na(`Address/ Domicilio`) & !tolower(`Address/ Domicilio`) %in% c("online")) %>%
     filter(grepl("^[0-9]", `Address/ Domicilio`))
 
-  sampled_data <- cleaned_data %>%
-    group_by(Category) %>%
-    slice(1) %>%
-    ungroup()
+  #sampled_data <- cleaned_data %>%
+   # group_by(Category) %>%
+    #slice(1) %>%
+    #ungroup()
 
-  Monterey_County_Assets <- sampled_data %>%
+  Monterey_County_Assets <- cleaned_data %>%
     rename(address = `Address/ Domicilio`) %>%
     geocode(address = address, method = 'osm', lat = Latitude, long = Longitude) %>%
     rename(
